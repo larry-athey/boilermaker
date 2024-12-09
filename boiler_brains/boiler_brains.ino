@@ -47,6 +47,16 @@
 #define ONE_WIRE 15              // 1-Wire network pin for the DS18B20 temperature sensor
 #endif
 //------------------------------------------------------------------------------------------------
+#ifndef SCR_OUT
+#include "esp_timer.h"           // High resolution timer library for use with interrupt driven code
+#include "driver/gpio.h"         // ESP-IDF GPIO library
+  #ifdef LOCAL_DISPLAY
+    #define SSR_OUT GPIO_NUM_1     // Same pin as used with an SCR controller
+  #else
+  #define SSR_OUT 23             // Same pin as used with an SCR controller
+#  endif
+#endif
+//------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
 Arduino_DataBus *bus = new Arduino_ESP32PAR8Q(7 /* DC */, 6 /* CS */, 8 /* WR */, 9 /* RD */,39 /* D0 */, 40 /* D1 */, 41 /* D2 */, 42 /* D3 */, 45 /* D4 */, 46 /* D5 */, 47 /* D6 */, 48 /* D7 */);
 Arduino_GFX *gfx = new Arduino_ST7789(bus, 5 /* RST */, 0 /* rotation */, true /* IPS */, 170 /* width */, 320 /* height */, 35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */);
