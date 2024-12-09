@@ -3,8 +3,8 @@
 //
 // Derived from the boiler management routines in my Airhead upgrade for Air Stills (and clones).
 // WiFi enabled with a built-in web interface that you can access from your phone's web browser to
-// control the unit. Initial configuration to configure the WiFi connection is performed using a
-// USB cable and serial terminal program such as PuTTY for Windows or CoolTerm for Mac OS.
+// control the unit. Initial configuration to set up the WiFi connection is performed using a USB
+// cable and serial terminal program such as PuTTY for Windows or CoolTerm for Mac OS.
 //
 // Each unit on the same WiFi network can either be a master or the default of stand-alone/slave.
 // During the serial configuration, you just provide the IP addresses of all slave units and your
