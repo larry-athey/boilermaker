@@ -51,10 +51,10 @@
 #include "esp_timer.h"           // High resolution timer library for use with interrupt driven code
 #include "driver/gpio.h"         // ESP-IDF GPIO library
   #ifdef LOCAL_DISPLAY
-    #define SSR_OUT GPIO_NUM_1     // Same pin as used with an SCR controller
+    #define SSR_OUT GPIO_NUM_1   // Same pin as used with an SCR board
   #else
-  #define SSR_OUT 23             // Same pin as used with an SCR controller
-#  endif
+    #define SSR_OUT 23           // Same pin as used with an SCR board
+  #endif
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
