@@ -69,7 +69,10 @@ Preferences preferences;
 float CorrectionFactor = 0;      // How much to reduce DS18B20 readings to reflect internal temperatue
 //------------------------------------------------------------------------------------------------
 void setup() {
-
+  // Enable serial communications for WiFi setup and slave IP address management
+  Serial.begin(9600);
+  delay(1000);
+  Serial.println("");
 
 }
 //------------------------------------------------------------------------------------------------
