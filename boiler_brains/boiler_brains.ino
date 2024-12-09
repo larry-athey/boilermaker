@@ -10,7 +10,7 @@
 // During the serial configuration, you just provide the IP addresses of all slave units and your
 // unit instantly sees itself as the master. It will then run the slave units in sync with itself.
 // This would be used in large boilers where you have multiple high wattage heating elements that
-// need to run on separate circuits/phases.
+// need to run on separate circuits/phases. You may add up to 4 slave unit IP addresses.
 //
 // All configuration of the temperature and power management is performed using HTTP GET requests
 // to the unit's web API. This is how a master unit controls slaves on the network. This can also
