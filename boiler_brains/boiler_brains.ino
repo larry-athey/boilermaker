@@ -43,7 +43,7 @@
 //#define SCR_OUT 1              // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
 #define ONE_WIRE 13              // 1-Wire network pin for the DS18B20 temperature sensor
 #else
-//#define SCR_OUT 23             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
+//#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
 #define ONE_WIRE 15              // 1-Wire network pin for the DS18B20 temperature sensor
 #endif
 //------------------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@
   #ifdef LOCAL_DISPLAY
     #define SSR_OUT GPIO_NUM_1   // Same pin as used with an SCR board
   #else
-    #define SSR_OUT GPIO_NUM_23  // Same pin as used with an SCR board
+    #define SSR_OUT GPIO_NUM_17  // Same pin as used with an SCR board
   #endif
 int dutyCyclePercentage = 0;
 hw_timer_t *timer = NULL;
