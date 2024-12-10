@@ -75,6 +75,7 @@ float TempF = 0;                 // Current temperature reading F
 float CorrectionFactor = 0;      // How much to reduce DS18B20 readings to reflect internal temperatue
 char Runtime[10];                // HH:MM:SS formatted time of the current boiler run
 //------------------------------------------------------------------------------------------------
+#ifndef SCR_OUT
 void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see in a PID controller
   static uint32_t cycleCounter = 0;
   cycleCounter ++;
