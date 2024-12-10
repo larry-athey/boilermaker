@@ -68,7 +68,12 @@ OneWire oneWire(ONE_WIRE);
 DallasTemperature DT(&oneWire);
 Preferences preferences;
 //------------------------------------------------------------------------------------------------
+long LoopCounter = 0;            // Timekeeper for the loop to eliminate the need to delay it
+long LastAdjustment = 0;         // Time of the last power adjustment
+float TempC = 0;                 // Current temperature reading C
+float TempF = 0;                 // Current temperature reading F
 float CorrectionFactor = 0;      // How much to reduce DS18B20 readings to reflect internal temperatue
+char Runtime[10];                // HH:MM:SS formatted time of the current boiler run
 //------------------------------------------------------------------------------------------------
 void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see in a PID controller
   static uint32_t cycleCounter = 0;
