@@ -72,7 +72,7 @@ long LoopCounter = 0;            // Timekeeper for the loop to eliminate the nee
 long LastAdjustment = 0;         // Time of the last power adjustment
 float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
-float CorrectionFactor = 0;      // How much to reduce DS18B20 readings to reflect internal temperatue
+float CorrectionFactor = 0;      // How much to correct DS18B20 readings (positive or negatiive)
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
 char Runtime[10];                // HH:MM:SS formatted time of the current controller run
 //------------------------------------------------------------------------------------------------
@@ -98,7 +98,20 @@ void setup() {
   Serial.begin(9600);
   delay(1000);
   Serial.println("");
-
+/*
+  // Get the last user settings from flash memory
+  GetMemory();
+  if (UserTemp1 == 0) {
+    // New chip, flash memory not initialized
+    UserTemp1 = 80;
+    UserTemp2 = 86;
+    UserTime  = 2;
+    UserPower = 80;
+    UserMode  = 1;
+    SetMemory();
+  }
+  CurrentMode = UserMode;
+*/
   #ifdef LOCAL_DISPLAY
   // Power up the screen and backlight
   pinMode(SCREEN_POWER_ON,OUTPUT);
@@ -137,10 +150,30 @@ void setup() {
   LastAdjustment = LoopCounter;
 }
 //------------------------------------------------------------------------------------------------
+void GetMemory() { // Get the last user settings from flash memory on startup
+  preferences.begin("prefs",true);
+  //UserTemp1 = preferences.getUInt("usertemp1",0);
+  //UserTemp2 = preferences.getUInt("usertemp2",0);
+  //UserTime  = preferences.getUInt("usertime",0);
+  //UserPower = preferences.getUInt("userpower",0);
+  //UserMode  = preferences.getUInt("usermode",0);
+  preferences.end();
+}
+//------------------------------------------------------------------------------------------------
+void SetMemory() { // Update flash memory with the current user settings
+  preferences.begin("prefs",false);
+  //preferences.putUInt("usertemp1",UserTemp1);
+  //preferences.putUInt("usertemp2",UserTemp2);
+  //preferences.putUInt("usertime",UserTime);
+  //preferences.putUInt("userpower",UserPower);
+  //preferences.putUInt("usermode",UserMode);
+  preferences.end();
+}
+//------------------------------------------------------------------------------------------------
 void TempUpdate() { // Update the temperature sensor values
   DT.requestTemperatures();
   TempC = DT.getTempCByIndex(0);
-  TempC -= CorrectionFactor; // Adjust if DS18B20 is reflecting too much heating element temperature
+  TempC += CorrectionFactor; // CorrectionFactor can be a positive or negative value to calibrate
   TempF = TempC * 9 / 5 + 32;
 }
 //-----------------------------------------------------------------------------------------------
