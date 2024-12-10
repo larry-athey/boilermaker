@@ -87,6 +87,7 @@ String slaveIP1;                 // Slave unit 1 IPV4 address
 String slaveIP2;                 // Slave unit 2 IPV4 address
 String slaveIP3;                 // Slave unit 3 IPV4 address
 String slaveIP4;                 // Slave unit 4 IPV4 address
+String DeviceName;               // Device name to be displayed in the web UI
 char Runtime[10];                // HH:MM:SS formatted time of the current controller run
 //------------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
@@ -111,20 +112,19 @@ void setup() {
   Serial.begin(9600);
   delay(1000);
   Serial.println("");
-/*
+
   // Get the last user settings from flash memory
   GetMemory();
-  if (UserTemp1 == 0) {
+  if (wifiSSID == "none") {
     // New chip, flash memory not initialized
-    UserTemp1 = 80;
-    UserTemp2 = 86;
-    UserTime  = 2;
-    UserPower = 80;
-    UserMode  = 1;
+    //UserTemp1 = 80;
+    //UserTemp2 = 86;
+    //UserTime  = 2;
+    //UserPower = 80;
+    //UserMode  = 1;
     SetMemory();
   }
-  CurrentMode = UserMode;
-*/
+
   #ifdef LOCAL_DISPLAY
   // Power up the screen and backlight
   pinMode(SCREEN_POWER_ON,OUTPUT);
@@ -163,7 +163,7 @@ void setup() {
   LastAdjustment = LoopCounter;
 }
 //------------------------------------------------------------------------------------------------
-void GetMemory() { // Get the last user settings from flash memory on startup
+void GetMemory() { // Get the configuration settings from flash memory on startup
   preferences.begin("prefs",true);
   //UserTemp1 = preferences.getUInt("usertemp1",0);
   //UserTemp2 = preferences.getUInt("usertemp2",0);
@@ -173,7 +173,7 @@ void GetMemory() { // Get the last user settings from flash memory on startup
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
-void SetMemory() { // Update flash memory with the current user settings
+void SetMemory() { // Update flash memory with the current configuration settings
   preferences.begin("prefs",false);
   //preferences.putUInt("usertemp1",UserTemp1);
   //preferences.putUInt("usertemp2",UserTemp2);
