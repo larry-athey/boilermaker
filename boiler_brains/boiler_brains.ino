@@ -86,7 +86,7 @@ long LoopCounter = 0;            // Timekeeper for the loop to eliminate the nee
 long LastAdjustment = 0;         // Time of the last power adjustment
 float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
-float CorrectionFactor = 0;      // How much to correct DS18B20 readings (positive or negative)
+float CorrectionFactor = 0;      // How much to correct temp sensor C readings (positive or negative)
 float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is selected
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
