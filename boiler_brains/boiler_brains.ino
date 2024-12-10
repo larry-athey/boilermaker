@@ -210,6 +210,12 @@ void loop() {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime
     ESP.restart();
   }
+  if (CurrentTime - LoopCounter >= 1000) {
 
+    #ifdef LOCAL_DISPLAY
+    //ScreenUpdate();
+    #endif
+    LoopCounter = CurrentTime;
+  }
 }
 //------------------------------------------------------------------------------------------------
