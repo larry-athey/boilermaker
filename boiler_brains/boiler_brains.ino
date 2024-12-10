@@ -72,8 +72,19 @@ long LoopCounter = 0;            // Timekeeper for the loop to eliminate the nee
 long LastAdjustment = 0;         // Time of the last power adjustment
 float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
-float CorrectionFactor = 0;      // How much to correct DS18B20 readings (positive or negatiive)
+float CorrectionFactor = 0;      // How much to correct DS18B20 readings (positive or negative)
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
+byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
+String wifiSSID;                 // WiFi network SSID
+String wifiPassword;             // WiFi network password
+String wifiIP;                   // WiFi network IPV4 address
+String wifiMask;                 // WiFi network subnet mask
+String wifiGateway;              // WiFi network default gateway address
+String wifiDNS;                  // WiFi network DNS resolver address
+String slaveIP1;                 // Slave unit 1 IPV4 address
+String slaveIP2;                 // Slave unit 2 IPV4 address
+String slaveIP3;                 // Slave unit 3 IPV4 address
+String slaveIP4;                 // Slave unit 4 IPV4 address
 char Runtime[10];                // HH:MM:SS formatted time of the current controller run
 //------------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
