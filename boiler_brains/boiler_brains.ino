@@ -73,6 +73,7 @@ long LastAdjustment = 0;         // Time of the last power adjustment
 float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
 float CorrectionFactor = 0;      // How much to reduce DS18B20 readings to reflect internal temperatue
+byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
 char Runtime[10];                // HH:MM:SS formatted time of the current controller run
 //------------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
@@ -98,6 +99,22 @@ void setup() {
   delay(1000);
   Serial.println("");
 
+  #ifdef LOCAL_DISPLAY
+  // Power up the screen and backlight
+  pinMode(SCREEN_POWER_ON,OUTPUT);
+  digitalWrite(SCREEN_POWER_ON,HIGH);
+  ledcSetup(0,2000,8);
+  ledcAttachPin(SCREEN_BACKLIGHT,0);
+  ledcWrite(0,255); // Screen brightness (0-255)
+  // Initialize the graphics library and blank the screen
+  gfx->begin();
+  gfx->setRotation(3);
+  gfx->fillScreen(BLACK);
+  // In order to eliminate screen flicker, everything is plotted to an off-screen buffer and popped onto the screen when done
+  canvas->begin();
+  //ScreenUpdate();
+  #endif
+
   #ifndef SCR_OUT
   gpio_set_direction(SSR_OUT,GPIO_MODE_OUTPUT);
   gpio_set_level(SSR_OUT,0);
@@ -115,10 +132,51 @@ void setup() {
   ledcWrite(1,0);
   #endif
 
+  DT.begin();
+  LoopCounter = millis();
+  LastAdjustment = LoopCounter;
 }
 //------------------------------------------------------------------------------------------------
+void TempUpdate() { // Update the temperature sensor values
+  DT.requestTemperatures();
+  TempC = DT.getTempCByIndex(0);
+  TempC -= CorrectionFactor; // Adjust if DS18B20 is reflecting too much heating element temperature
+  TempF = TempC * 9 / 5 + 32;
+}
+//-----------------------------------------------------------------------------------------------
+void PowerAdjust(byte Percent) { // Set the SCR board or SSR timing to a target power percentage
+  LastAdjustment = millis();
+  #ifndef SCR_OUT
+  // This is a digital power controller, there are only on and off states
+  dutyCyclePercentage = Percent;
+  PowerLevel = round(Percent * 2.55);
+  #else
+  // This is an analog power controller, first set the power level to zero
+  // and rest 1 second so all of the capacitors can fully discharge
+  ledcWrite(1,0);
+  delay(1000);
+  // Then progressively adjust the power level up to the requested percentage
+  if (Percent > 0) {
+    PowerLevel = round(Percent * 2.55);
+    float x = 2.55;
+    while (x <= PowerLevel) {
+      ledcWrite(1,x); // Function appears to round x on its own, no errors thrown
+      delay(10);
+      x += 2.55;
+    }
+  } else {
+    PowerLevel = 0;
+  }
+  #endif
+}
+//-----------------------------------------------------------------------------------------------
 void loop() {
-
+  int CurrentPercent = round(0.392156863 * PowerLevel);
+  long CurrentTime = millis();
+  if (CurrentTime > 4200000000) {
+    // Reboot the system if we're reaching the maximum long integer value of CurrentTime
+    ESP.restart();
+  }
 
 }
 //------------------------------------------------------------------------------------------------
