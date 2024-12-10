@@ -55,6 +55,8 @@
   #else
     #define SSR_OUT GPIO_NUM_23  // Same pin as used with an SCR board
   #endif
+int dutyCyclePercentage = 0;
+hw_timer_t *timer = NULL;
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
@@ -68,11 +70,44 @@ Preferences preferences;
 //------------------------------------------------------------------------------------------------
 float CorrectionFactor = 0;      // How much to reduce DS18B20 readings to reflect internal temperatue
 //------------------------------------------------------------------------------------------------
+void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see in a PID controller
+  static uint32_t cycleCounter = 0;
+  cycleCounter ++;
+    
+  if (cycleCounter == 10) { // Reset counter every 10 interrupts (equivalent to 2.5 seconds if interrupt every 250ms)
+    cycleCounter = 0;
+  }
+
+  if (cycleCounter < (dutyCyclePercentage / 10)) { // Turn on if within duty cycle, power level can never be < 10%
+    gpio_set_level(SSR_OUT,1);
+  } else {
+    gpio_set_level(SSR_OUT,0);
+  }
+}
+#endif
+//------------------------------------------------------------------------------------------------
 void setup() {
   // Enable serial communications for WiFi setup and slave IP address management
   Serial.begin(9600);
   delay(1000);
   Serial.println("");
+
+  #ifndef SCR_OUT
+  gpio_set_direction(SSR_OUT,GPIO_MODE_OUTPUT);
+  gpio_set_level(SSR_OUT,0);
+  // Timer setup for 2.5 second period (100% duty cycle would be on for 2.5 seconds, off for none)
+  // All heating elements have a slow reaction time, so an SCR's switching frequency is wasteful
+  timer = timerBegin(0,80,true); // Timer at 1 MHz, count up
+  timerAttachInterrupt(timer,&onTimer,true); // Attach the PWM toggle function
+  timerAlarmWrite(timer,250000,true); // Timer trigger set to 250ms (250,000 microseconds)
+  timerAlarmEnable(timer); // Now enable the .20 Hz pulse width modulator
+  #else
+  // Assign the SCR controller output pin to a PWM channel
+  // For heating elements, 1 KHz to 3 KHz is used, adjust as necessary
+  ledcSetup(1,2000,8);
+  ledcAttachPin(SCR_OUT,1);
+  ledcWrite(1,0);
+  #endif
 
 }
 //------------------------------------------------------------------------------------------------
