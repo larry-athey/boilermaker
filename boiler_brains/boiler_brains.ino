@@ -22,7 +22,7 @@
 // chosen a 38 pin unit as the alternative, but you can just change the GPIO pin assignments for
 // the PWM output and temperature sensor input to work with whatever ESP32 board that you have.
 //------------------------------------------------------------------------------------------------
-#define LOCAL_DISPLAY 1          // Include libraries and code for the LilyGo T-Display-S3 board
+#define LOCAL_DISPLAY            // Include libraries and code for the LilyGo T-Display-S3 board
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
 #include "Arduino_GFX_Library.h" // Standard GFX library for Arduino, built with version 1.4.9
@@ -73,7 +73,9 @@ long LastAdjustment = 0;         // Time of the last power adjustment
 float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
 float CorrectionFactor = 0;      // How much to correct DS18B20 readings (positive or negative)
+float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is selected
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
+byte OpMode = 0;                 // Operation mode, 0 = Power, 1 = Temperature
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
 String wifiSSID;                 // WiFi network SSID
 String wifiPassword;             // WiFi network password
