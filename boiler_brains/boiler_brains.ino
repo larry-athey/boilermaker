@@ -21,8 +21,14 @@
 // Comment out the LOCAL_DISPLAY constant below to use this code with any other ESP32 board. I've
 // chosen a 38 pin unit as the alternative, but you can just change the GPIO pin assignments for
 // the PWM output and temperature sensor input to work with whatever ESP32 board that you have.
+//
+// By default, this controller uses a DS18B20 temperature sensor which has the necessary range for
+// use with a boiler (maximum of 125C/257F). If you intend to use this controller with an electric
+// smoker, oven, or slow cooker where a hgher temperature needs to be monitored, you will need to
+// use a Type-K thermocouple and a MAX-6675 amplifier. Comment out the DS18B20 constant for this.
 //------------------------------------------------------------------------------------------------
 #define LOCAL_DISPLAY            // Include libraries and code for the LilyGo T-Display-S3 board
+#define DS18B20                  // Use DS18B20 temperature sensor instead of Type-K thermocouple
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
 #include "Arduino_GFX_Library.h" // Standard GFX library for Arduino, built with version 1.4.9
@@ -31,9 +37,13 @@
 //------------------------------------------------------------------------------------------------
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "ESP32Ping.h"           // ICMP (ping) library used for keep-alive functions and slave testing
-#include "OneWire.h"             // OneWire Network communications library
-#include "DallasTemperature.h"   // Dallas Temperature DS18B20 temperature sensor library
 #include "Preferences.h"         // ESP32 Flash memory read/write library
+#ifdef DS18B20
+#include "OneWire.h"             // OneWire Network communications library
+#include "DallasTemperature.h"   // Dallas Semiconductor DS18B20 temperature sensor library
+#else
+#include "max6675.h"             // Adafruit MAX-6675 amplifier library for Type-K thermocouples
+#endif
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
 #define SCREEN_BACKLIGHT 38      // Screen backlight LED pin
@@ -64,8 +74,12 @@ Arduino_DataBus *bus = new Arduino_ESP32PAR8Q(7 /* DC */, 6 /* CS */, 8 /* WR */
 Arduino_GFX *gfx = new Arduino_ST7789(bus, 5 /* RST */, 0 /* rotation */, true /* IPS */, 170 /* width */, 320 /* height */, 35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */);
 Arduino_Canvas_Indexed *canvas = new Arduino_Canvas_Indexed(320 /* width */, 170 /* height */, gfx);
 #endif
+#ifdef DS18B20
 OneWire oneWire(ONE_WIRE);
 DallasTemperature DT(&oneWire);
+#else
+
+#endif
 Preferences preferences;
 //------------------------------------------------------------------------------------------------
 long LoopCounter = 0;            // Timekeeper for the loop to eliminate the need to delay it
@@ -158,7 +172,11 @@ void setup() {
   ledcWrite(1,0);
   #endif
 
+  #ifdef DS18B20
   DT.begin();
+  #else
+
+  #endif
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
 }
@@ -184,8 +202,12 @@ void SetMemory() { // Update flash memory with the current configuration setting
 }
 //------------------------------------------------------------------------------------------------
 void TempUpdate() { // Update the temperature sensor values
+  #ifdef DS18B20
   DT.requestTemperatures();
   TempC = DT.getTempCByIndex(0);
+  #else
+
+  #endif
   TempC += CorrectionFactor; // CorrectionFactor can be a positive or negative value to calibrate
   TempF = TempC * 9 / 5 + 32;
 }
