@@ -46,7 +46,7 @@
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
-#define FAN_OUT 2                // Cooling fan on/off pin
+#define FAN_OUT 2                // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor)
 #define SCREEN_BACKLIGHT 38      // Screen backlight LED pin
 #define SCREEN_POWER_ON 15       // Screen power on/off pin
 #define INC_BTN 0                // Value + button
@@ -60,7 +60,7 @@
     #define thermoCLK 12         // "                   "
   #endif
 #else
-#define FAN_OUT 16               // Cooling fan on/off pin
+#define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor)
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
   #ifdef DS18B20
     #define ONE_WIRE 15          // 1-Wire network pin for the DS18B20 temperature sensor
