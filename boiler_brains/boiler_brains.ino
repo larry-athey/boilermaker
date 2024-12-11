@@ -90,7 +90,7 @@ Arduino_Canvas_Indexed *canvas = new Arduino_Canvas_Indexed(320 /* width */, 170
 OneWire oneWire(ONE_WIRE);
 DallasTemperature DT(&oneWire);
 #else
-
+MAX6675 thermocouple(thermoCLK,thermoCS,thermoDO);
 #endif
 Preferences preferences;
 //------------------------------------------------------------------------------------------------
