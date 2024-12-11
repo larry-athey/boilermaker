@@ -221,7 +221,7 @@ void TempUpdate() { // Update the temperature sensor values
   DT.requestTemperatures();
   TempC = DT.getTempCByIndex(0);
   #else
-
+  TempC = thermocouple.readCelsius();
   #endif
   TempC += CorrectionFactor; // CorrectionFactor can be a positive or negative value to calibrate
   TempF = TempC * 9 / 5 + 32;
