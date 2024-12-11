@@ -282,6 +282,9 @@ void loop() {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime
     ESP.restart();
   }
+
+
+
   if (CurrentTime - LoopCounter >= 1000) {
     if (ActiveRun) {
       unsigned long allSeconds = (CurrentTime - StartTime) / 1000;
@@ -291,7 +294,34 @@ void loop() {
       int runSeconds = secsRemaining % 60;
       sprintf(Runtime,"%02u:%02u:%02u",runHours,runMinutes,runSeconds);
       if (OpMode == 1) { // OpMode 1 is constant temperature management
-
+        if (! UpToTemp) {
+          if (TempC >= TargetTemp) { // Target temperature has been reached
+            UpToTemp = true;
+            FallBackTime = millis();
+            CurrentPercent = FallBackPercent;
+            PowerAdjust(CurrentPercent);
+          } else { // Progrssively increase power until target temperature has been reached
+            if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
+              CurrentPercent += ChangePercent;
+              if (CurrentPercent > 100) CurrentPercent = 100;
+              PowerAdjust(CurrentPercent);
+            }
+          }
+        } else {
+          if (CurrentTime - FallBackTime >= (RestPeriod * 1000)) {
+            if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
+              if (TempC >= (TargetTemp + Deviation)) { // Over temperature
+                CurrentPercent -= ChangePercent;
+                if (CurrentPercent < 10) CurrentPercent = 10;
+                PowerAdjust(CurrentPercent); // Decrease power
+              } else if (TempC <= (TargetTemp - Deviation)) { // Under temperature
+                CurrentPercent += ChangePercent;
+                if (CurrentPercent > 100) CurrentPercent = 100;
+                PowerAdjust(CurrentPercent); // Increase power
+              }
+            }
+          }
+        }
       } else { // OpMode 0 is constant power, no temperature management
 
       }
