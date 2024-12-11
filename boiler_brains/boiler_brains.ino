@@ -20,7 +20,7 @@
 // This code can be used with a LilyGo T-Display-S3, or can be headless without any local display.
 // Comment out the LOCAL_DISPLAY constant below to use this code with any other ESP32 board. I've
 // chosen a 38 pin unit as the alternative, but you can just change the GPIO pin assignments for
-// the PWM output and temperature sensor input to work with whatever ESP32 board that you have.
+// the PWM output and temperature sensor inputs to work with whatever ESP32 board that you have.
 //
 // By default, this controller uses a DS18B20 temperature sensor which has the necessary range for
 // use with a boiler (maximum of 125C/257F). If you intend to use this controller with an electric
