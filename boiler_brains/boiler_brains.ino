@@ -22,13 +22,13 @@
 // chosen a 38 pin unit as the alternative, but you can just change the GPIO pin assignments for
 // the PWM output and temperature sensor inputs to work with whatever ESP32 board that you have.
 //
-// By default, this controller uses a DS18B20 temperature sensor which has the necessary range for
-// use with a boiler (maximum of 125C/257F). If you intend to use this controller with an electric
-// smoker, oven, or slow cooker where a hgher temperature needs to be monitored, you will need to
-// use a Type-K thermocouple and a MAX-6675 amplifier. Comment out the DS18B20 constant for this.
+// This controller uses either a DS18B20 temperature sensor or a Type-K thermocouple which depends
+// on a MAX-6675 amplifier module. The DS18B20 is my normal go-to due to their low price and they
+// ore perfectly fine for use in distillation projects since they have an upper temperature limit
+// of 125C/257F. Uncomment the DS18B20 constant to use that instead of the thermocouple setup.
 //------------------------------------------------------------------------------------------------
 #define LOCAL_DISPLAY            // Include libraries and code for the LilyGo T-Display-S3 board
-#define DS18B20                  // Use DS18B20 temperature sensor instead of Type-K thermocouple
+//#define DS18B20                // Use DS18B20 temperature sensor instead of Type-K thermocouple
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
 #include "Arduino_GFX_Library.h" // Standard GFX library for Arduino, built with version 1.4.9
@@ -261,6 +261,20 @@ void PowerAdjust(byte Percent) { // Set the SCR board or SSR timing to a target 
   #endif
 }
 //-----------------------------------------------------------------------------------------------
+void RunState(byte State) { // Toggle the active heating run state
+  if (State == 1) {
+    StartTime = millis();
+    ActiveRun = true;
+    UpToTemp  = false;
+    digitalWrite(FAN_OUT,HIGH);
+    PowerAdjust(StartupPercent);
+  } else {
+    ActiveRun = false;
+    digitalWrite(FAN_OUT,LOW);
+    PowerAdjust(0);
+  }
+}
+//-----------------------------------------------------------------------------------------------
 void loop() {
   int CurrentPercent = round(0.392156863 * PowerLevel);
   long CurrentTime = millis();
@@ -269,7 +283,19 @@ void loop() {
     ESP.restart();
   }
   if (CurrentTime - LoopCounter >= 1000) {
+    if (ActiveRun) {
+      unsigned long allSeconds = (CurrentTime - StartTime) / 1000;
+      int runHours = allSeconds / 3600;
+      int secsRemaining = allSeconds % 3600;
+      int runMinutes = secsRemaining / 60;
+      int runSeconds = secsRemaining % 60;
+      sprintf(Runtime,"%02u:%02u:%02u",runHours,runMinutes,runSeconds);
+      if (OpMode == 1) { // OpMode 1 is constant temperature management
 
+      } else { // OpMode 0 is constant power, no temperature management
+
+      }
+    }
     #ifdef LOCAL_DISPLAY
     //ScreenUpdate();
     #endif
