@@ -79,8 +79,8 @@
   #else
     #define SSR_OUT GPIO_NUM_17  // Same pin as used with an SCR board
   #endif
-int dutyCyclePercentage = 0;
-hw_timer_t *timer = NULL;
+int dutyCyclePercentage = 0;     // Low frequency PWM duty cycle percentage
+hw_timer_t *timer = NULL;        // High resolution timer library
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
@@ -115,7 +115,7 @@ byte StartupPercent = 50;        // Power % to start at when running in OpMode 1
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
 byte OpMode = 0;                 // Operation mode, 0 = Constant Power, 1 = Constant Temperature
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
-String wifiSSID;                 // WiFi network SSID
+String wifiSSID = "none";        // WiFi network SSID
 String wifiPassword;             // WiFi network password
 String wifiIP;                   // WiFi network IPV4 address
 String wifiMask;                 // WiFi network subnet mask
@@ -282,10 +282,15 @@ void loop() {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
     ESP.restart();
   }
+  #ifdef LOCAL_DISPLAY
+  // Check for inc/dec button presses
+  #endif
+  // Check for HTTP API calls
 
-
+  // Check for serial console input
 
   if (CurrentTime - LoopCounter >= 1000) {
+    TempUpdate();
     if (ActiveRun) {
       unsigned long allSeconds = (CurrentTime - StartTime) / 1000;
       int runHours = allSeconds / 3600;
