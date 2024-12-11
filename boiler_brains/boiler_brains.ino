@@ -46,6 +46,7 @@
 #endif
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
+#define FAN_OUT 2                // Cooling fan on/off pin
 #define SCREEN_BACKLIGHT 38      // Screen backlight LED pin
 #define SCREEN_POWER_ON 15       // Screen power on/off pin
 #define INC_BTN 0                // Value + button
@@ -59,6 +60,7 @@
     #define thermoCLK 12         // "                   "
   #endif
 #else
+#define FAN_OUT 16               // Cooling fan on/off pin
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
   #ifdef DS18B20
     #define ONE_WIRE 15          // 1-Wire network pin for the DS18B20 temperature sensor
@@ -111,7 +113,7 @@ byte ChangePercent = 1;          // How much power % change to make when tempera
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
 byte StartupPercent = 50;        // Power % to start at when running in OpMode 1
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
-byte OpMode = 0;                 // Operation mode, 0 = Power, 1 = Temperature
+byte OpMode = 0;                 // Operation mode, 0 = Constant Power, 1 = Constant Temperature
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
 String wifiSSID;                 // WiFi network SSID
 String wifiPassword;             // WiFi network password
@@ -196,9 +198,8 @@ void setup() {
 
   #ifdef DS18B20
   DT.begin();
-  #else
-
   #endif
+  digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
 }
