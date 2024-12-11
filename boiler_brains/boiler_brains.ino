@@ -27,7 +27,7 @@
 // ore perfectly fine for use in distillation projects since they have an upper temperature limit
 // of 125C/257F. Uncomment the DS18B20 constant to use that instead of the thermocouple setup.
 //------------------------------------------------------------------------------------------------
-#define LOCAL_DISPLAY            // Include libraries and code for the LilyGo T-Display-S3 board
+//#define LOCAL_DISPLAY          // Include libraries and code for the LilyGo T-Display-S3 board
 //#define DS18B20                // Use DS18B20 temperature sensor instead of Type-K thermocouple
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
@@ -38,6 +38,8 @@
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "ESP32Ping.h"           // ICMP (ping) library used for keep-alive functions and slave testing
 #include "Preferences.h"         // ESP32 Flash memory read/write library
+#include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
+#include "web_ui.h"              // Library for the web user interface and HTTP API implementation
 #ifdef DS18B20
 #include "OneWire.h"             // OneWire Network communications library
 #include "DallasTemperature.h"   // Dallas Semiconductor DS18B20 temperature sensor library
@@ -202,6 +204,7 @@ void setup() {
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
+  displayMenu();
 }
 //------------------------------------------------------------------------------------------------
 void GetMemory() { // Get the configuration settings from flash memory on startup
@@ -288,7 +291,9 @@ void loop() {
   // Check for HTTP API calls
 
   // Check for serial console input
+  if (Serial.available()) {
 
+  }
   if (CurrentTime - LoopCounter >= 1000) {
     TempUpdate();
     if (ActiveRun) {
