@@ -61,7 +61,9 @@
   #ifdef DS18B20
     #define ONE_WIRE 15          // 1-Wire network pin for the DS18B20 temperature sensor
   #else
-
+    #define thermoDO 19
+    #define thermoCS 23
+    #define thermoCLK 5
   #endif
 #endif
 //------------------------------------------------------------------------------------------------
