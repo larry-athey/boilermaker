@@ -54,7 +54,9 @@
   #ifdef DS18B20
     #define ONE_WIRE 13          // 1-Wire network pin for the DS18B20 temperature sensor
   #else
-
+    #define thermoDO 11
+    #define thermoCS 10
+    #define thermoCLK 12
   #endif
 #else
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
