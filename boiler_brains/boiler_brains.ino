@@ -94,15 +94,22 @@ MAX6675 thermocouple(thermoCLK,thermoCS,thermoDO);
 #endif
 Preferences preferences;
 //------------------------------------------------------------------------------------------------
+bool ActiveRun = false;          // True if there's an active heating run
+bool UpToTemp = false;           // True if the run startup has reached operating temperature
 long LoopCounter = 0;            // Timekeeper for the loop to eliminate the need to delay it
+long StartTime = 0;              // Start time of the current heating run
 long LastAdjustment = 0;         // Time of the last power adjustment
+long FallBackTime = 0;           // Time that TargetTemp was reached
 float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
 float CorrectionFactor = 0;      // How much to correct temp sensor C readings (positive or negative)
 float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is selected
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
+int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
 byte ChangePercent = 1;          // How much power % change to make when temperature is out of range
+byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
+byte StartupPercent = 50;        // Power % to start at when running in OpMode 1
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
 byte OpMode = 0;                 // Operation mode, 0 = Power, 1 = Temperature
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
