@@ -126,7 +126,7 @@ String slaveIP2;                 // Slave unit 2 IPV4 address
 String slaveIP3;                 // Slave unit 3 IPV4 address
 String slaveIP4;                 // Slave unit 4 IPV4 address
 String DeviceName;               // Device name to be displayed in the web UI
-char Runtime[10];                // HH:MM:SS formatted time of the current controller run
+char Runtime[10];                // HH:MM:SS formatted time of the current heating run
 //------------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
 void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see in a PID controller
