@@ -157,13 +157,9 @@ void setup() {
   // Get the last user settings from flash memory
   GetMemory();
   if (wifiSSID == "none") {
-    // New chip, flash memory not initialized
-    //UserTemp1 = 80;
-    //UserTemp2 = 86;
-    //UserTime  = 2;
-    //UserPower = 80;
-    //UserMode  = 1;
     SetMemory();
+  } else {
+    ConnectWiFi();
   }
 
   #ifdef LOCAL_DISPLAY
@@ -209,23 +205,102 @@ void setup() {
   ConfigMenu();
 }
 //------------------------------------------------------------------------------------------------
+void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
+  byte x = 0;
+  WiFi.mode(WIFI_STA);
+  if (wifiMode == 1) {
+    bool Passed = true;
+    int segCount = 0;
+    int ipSegments[4];
+    int maskSegments[4];
+    int gwSegments[4];
+    int dnsSegments[4];
+    segCount = sscanf(wifiIP.c_str(),"%d.%d.%d.%d",&ipSegments[0],&ipSegments[1],&ipSegments[2],&ipSegments[3]);
+    if (segCount != 4) {
+      Serial.println("\nCannot parse static IP address!");
+      Passed = false;
+    }
+    segCount = sscanf(wifiMask.c_str(),"%d.%d.%d.%d",&maskSegments[0],&maskSegments[1],&maskSegments[2],&maskSegments[3]);
+    if (segCount != 4) {
+      Serial.println("\nCannot parse subnet mask!");
+      Passed = false;
+    }
+    segCount = sscanf(wifiGateway.c_str(),"%d.%d.%d.%d",&gwSegments[0],&gwSegments[1],&gwSegments[2],&gwSegments[3]);
+    if (segCount != 4) {
+      Serial.println("\nCannot parse gateway address!");
+      Passed = false;
+    }
+    segCount = sscanf(wifiDNS.c_str(),"%d.%d.%d.%d",&dnsSegments[0],&dnsSegments[1],&dnsSegments[2],&dnsSegments[3]);
+    if (segCount != 4) {
+      Serial.println("\nCannot parse DNS resolver address!");
+      Passed = false;
+    }
+    if (Passed) {
+      IPAddress staticIP(ipSegments[0],ipSegments[1],ipSegments[2],ipSegments[3]);
+      IPAddress subnet(maskSegments[0],maskSegments[1],maskSegments[2],maskSegments[3]);
+      IPAddress gateway(gwSegments[0],gwSegments[1],gwSegments[2],gwSegments[3]);
+      IPAddress dns(dnsSegments[0],dnsSegments[1],dnsSegments[2],dnsSegments[3]);
+      if (! WiFi.config(staticIP,gateway,subnet,dns,dns)) {
+        Serial.println("\nWiFi static IP configuration failed!");
+        delay(2000);
+      }
+    } else {
+      delay(2000);
+    }
+  }
+  WiFi.begin(wifiSSID,wifiPassword);
+  Serial.print("\nConnecting to WiFi ..");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print('.');
+    delay(1000);
+    x ++;
+    if (x == 30) break;
+  }
+  if (WiFi.status() == WL_CONNECTED) {
+    wifiIP = WiFi.localIP().toString();
+    wifiMask = WiFi.subnetMask().toString();
+    wifiGateway = WiFi.gatewayIP().toString();
+    wifiDNS = WiFi.dnsIP(0).toString();
+    WiFiServer Server(80);
+  } else {
+    wifiIP = "";
+    wifiMask = "";
+    wifiGateway = "";
+    wifiDNS = "";
+    Serial.println("\nConnection Failed!");
+    delay(2000);
+  }
+}
+//------------------------------------------------------------------------------------------------
 void GetMemory() { // Get the configuration settings from flash memory on startup
   preferences.begin("prefs",true);
-  //UserTemp1 = preferences.getUInt("usertemp1",0);
-  //UserTemp2 = preferences.getUInt("usertemp2",0);
-  //UserTime  = preferences.getUInt("usertime",0);
-  //UserPower = preferences.getUInt("userpower",0);
-  //UserMode  = preferences.getUInt("usermode",0);
+  wifiMode     = preferences.getUInt("wifi_mode",0);
+  wifiSSID     = preferences.getString("wifi_ssid","none");
+  wifiPassword = preferences.getString("wifi_password","");
+  wifiIP       = preferences.getString("wifi_ip","");
+  wifiMask     = preferences.getString("wifi_mask","");
+  wifiGateway  = preferences.getString("wifi_gateway","");
+  wifiDNS      = preferences.getString("wifi_dns","");
+  slaveIP1     = preferences.getString("slave1","");
+  slaveIP2     = preferences.getString("slave2","");
+  slaveIP3     = preferences.getString("slave3","");
+  slaveIP4     = preferences.getString("slave4","");
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
 void SetMemory() { // Update flash memory with the current configuration settings
   preferences.begin("prefs",false);
-  //preferences.putUInt("usertemp1",UserTemp1);
-  //preferences.putUInt("usertemp2",UserTemp2);
-  //preferences.putUInt("usertime",UserTime);
-  //preferences.putUInt("userpower",UserPower);
-  //preferences.putUInt("usermode",UserMode);
+  preferences.putUInt("wifi_mode",wifiMode);
+  preferences.putString("wifi_ssid",wifiSSID);
+  preferences.putString("wifi_password",wifiPassword);
+  preferences.putString("wifi_ip",wifiIP);
+  preferences.putString("wifi_mask",wifiMask);
+  preferences.putString("wifi_gateway",wifiGateway);
+  preferences.putString("wifi_dns",wifiDNS);
+  preferences.putString("slave1",slaveIP1);
+  preferences.putString("slave2",slaveIP2);
+  preferences.putString("slave3",slaveIP3);
+  preferences.putString("slave4",slaveIP4);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -291,7 +366,9 @@ void ProcessSerialMenu() {
   } else if (Option == "3" ) {
     get_wifiMode();
   } else if (Option == "4" ) {
-    //ConnectWiFi();
+    WiFi.disconnect();
+    delay(500);
+    ConnectWiFi();
   } else if (Option == "5" ) {
     get_SlaveIP1();
   } else if (Option == "6" ) {
