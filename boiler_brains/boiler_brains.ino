@@ -417,7 +417,7 @@ void loop() {
   // Check for HTTP API calls and handle as necessary
   WiFiClient Client = Server.available();
   if (Client) {
-    CurrentTime = millis();
+    CurrentTime = millis(); // Grab this again in case we just processed button presses
     long PreviousTime = CurrentTime;
     String Header = "";
     while (Client.connected() && CurrentTime - PreviousTime <= 2000) { // 2 second connection timeout
