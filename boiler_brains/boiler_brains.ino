@@ -372,7 +372,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   Header.remove(0,4); // Delete the "GET " from the beginning
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
   if (Header == "/") {
-    return "Home Page";
+    return HomePage();
   } else if (Header == "/reboot") {
     return "Rebooting...";
   } else {
