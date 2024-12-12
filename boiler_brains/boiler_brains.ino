@@ -208,7 +208,6 @@ void setup() {
   #endif
   Server.begin();
   digitalWrite(FAN_OUT,LOW);
-  SynchronizeAllSlaves();
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
   ShowConfig();
@@ -271,7 +270,8 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     wifiIP = WiFi.localIP().toString();
     wifiMask = WiFi.subnetMask().toString();
     wifiGateway = WiFi.gatewayIP().toString();
-    wifiDNS = WiFi.dnsIP(0).toString();    
+    wifiDNS = WiFi.dnsIP(0).toString();
+    SynchronizeAllSlaves();
   } else {
     wifiIP = "";
     wifiMask = "";
