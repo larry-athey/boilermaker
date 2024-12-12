@@ -429,7 +429,7 @@ void loop() {
           if (Header.indexOf("GET ") == 0) {
             String Content = HandleAPI(Header);
             Client.println(Content);
-            if (Content == "Rebooting...") {
+            if (Content == "Rebooting...") { // Need to wait to reboot until after the response is sent
               Client.stop();
               delay(1000);
               ESP.restart();
