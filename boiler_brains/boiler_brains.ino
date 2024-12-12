@@ -114,6 +114,7 @@ byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has 
 byte StartupPercent = 50;        // Power % to start at when running in OpMode 1
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
 byte OpMode = 0;                 // Operation mode, 0 = Constant Power, 1 = Constant Temperature
+byte wifiCheckCounter = 0;       // Used to check the WiFi connection once per minute
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
 String wifiSSID = "none";        // WiFi network SSID
 String wifiPassword;             // WiFi network password
@@ -386,6 +387,7 @@ void ProcessSerialMenu() {
 void loop() {
   int CurrentPercent = round(0.392156863 * PowerLevel);
   long CurrentTime = millis();
+  wifiCheckCounter ++;
   if (CurrentTime > 4200000000) {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
     ESP.restart();
@@ -438,6 +440,14 @@ void loop() {
       } else { // OpMode 0 is constant power, no temperature management
 
       }
+    }
+    if (wifiCheckCounter >= 60) {
+      if (WiFi.status() != WL_CONNECTED) {
+        WiFi.disconnect();
+        delay(500);
+        ConnectWiFi();
+      }
+      wifiCheckCounter = 0;
     }
     #ifdef LOCAL_DISPLAY
     //ScreenUpdate();
