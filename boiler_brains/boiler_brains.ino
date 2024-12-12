@@ -38,8 +38,6 @@
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "ESP32Ping.h"           // ICMP (ping) library used for keep-alive functions and slave testing
 #include "Preferences.h"         // ESP32 Flash memory read/write library
-#include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
-#include "web_ui.h"              // Library for the web user interface and HTTP API implementation
 #ifdef DS18B20
 #include "OneWire.h"             // OneWire Network communications library
 #include "DallasTemperature.h"   // Dallas Semiconductor DS18B20 temperature sensor library
@@ -130,6 +128,9 @@ String slaveIP4;                 // Slave unit 4 IPV4 address
 String DeviceName;               // Device name to be displayed in the web UI
 char Runtime[10];                // HH:MM:SS formatted time of the current heating run
 //------------------------------------------------------------------------------------------------
+#include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
+#include "web_ui.h"              // Library for the web user interface and HTTP API implementation
+//-----------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
 void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see in a PID controller
   static uint32_t cycleCounter = 0;
@@ -204,7 +205,8 @@ void setup() {
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
-  displayMenu();
+  ShowConfig();
+  ConfigMenu();
 }
 //------------------------------------------------------------------------------------------------
 void GetMemory() { // Get the configuration settings from flash memory on startup
@@ -278,6 +280,32 @@ void RunState(byte State) { // Toggle the active heating run state
   }
 }
 //-----------------------------------------------------------------------------------------------
+void ProcessSerialMenu() {
+  String Option = ReadInput();
+  PurgeBuffer();
+  Serial.println("\n");
+  if (Option == "1" ) {
+    get_wifiSSID();
+  } else if (Option == "2" ) {
+    get_wifiPassword();
+  } else if (Option == "3" ) {
+    get_wifiMode();
+  } else if (Option == "4" ) {
+    //ConnectWiFi();
+  } else if (Option == "5" ) {
+    get_SlaveIP1();
+  } else if (Option == "6" ) {
+    get_SlaveIP2();
+  } else if (Option == "7" ) {
+    get_SlaveIP3();
+  } else if (Option == "8" ) {
+    get_SlaveIP4();
+  }
+  SetMemory();
+  ShowConfig();
+  ConfigMenu();
+}
+//-----------------------------------------------------------------------------------------------
 void loop() {
   int CurrentPercent = round(0.392156863 * PowerLevel);
   long CurrentTime = millis();
@@ -286,14 +314,12 @@ void loop() {
     ESP.restart();
   }
   #ifdef LOCAL_DISPLAY
-  // Check for inc/dec button presses
+  // Check for inc/dec button presses and handle as necessary
   #endif
-  // Check for HTTP API calls
+  // Check for HTTP API calls and handle as necessary
 
-  // Check for serial console input
-  if (Serial.available()) {
-
-  }
+  // Check for serial console input and handle as necessary
+  if (Serial.available()) ProcessSerialMenu();
   if (CurrentTime - LoopCounter >= 1000) {
     TempUpdate();
     if (ActiveRun) {
@@ -340,6 +366,7 @@ void loop() {
     //ScreenUpdate();
     #endif
     LoopCounter = CurrentTime;
+    //Serial.print(".");
   }
 }
 //------------------------------------------------------------------------------------------------
