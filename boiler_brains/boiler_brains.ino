@@ -135,6 +135,7 @@ String slaveIP4;                 // Slave unit 4 IPV4 address
 String DeviceName;               // Device name to be displayed in the web UI
 char Runtime[10];                // HH:MM:SS formatted time of the current heating run
 //------------------------------------------------------------------------------------------------
+#include "slave_sync.h"          // Library for configuring and synchronizing slave units
 #include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
 #include "web_ui.h"              // Library for the web user interface and HTTP API implementation
 //-----------------------------------------------------------------------------------------------
@@ -207,6 +208,7 @@ void setup() {
   #endif
   Server.begin();
   digitalWrite(FAN_OUT,LOW);
+  SynchronizeAllSlaves();
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
   ShowConfig();
