@@ -265,7 +265,7 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     Serial.print('.');
     delay(1000);
     x ++;
-    if (x == 30) break;
+    if (x == 15) break;
   }
   if (WiFi.status() == WL_CONNECTED) {
     wifiIP = WiFi.localIP().toString();
