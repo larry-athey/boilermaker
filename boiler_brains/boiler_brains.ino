@@ -369,7 +369,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   } else if (Header == "/reboot") {
     return "Rebooting...";
   } else {
-    return Header;
+    return "Unrecognized: " + Header;
   }
 }
 //-----------------------------------------------------------------------------------------------
@@ -486,7 +486,7 @@ void loop() {
       }
     }
     if (wifiCheckCounter >= 60) {
-      if (WiFi.status() != WL_CONNECTED) {
+      if (WiFi.status() != WL_CONNECTED) { // Reconnect WiFi if we got dropped
         WiFi.disconnect();
         delay(500);
         ConnectWiFi();
