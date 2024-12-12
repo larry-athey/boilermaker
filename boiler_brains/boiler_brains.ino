@@ -249,6 +249,7 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
       delay(2000);
     }
   }
+  WiFi.setHostname(DeviceName.c_str());
   WiFi.begin(wifiSSID,wifiPassword);
   Serial.print("\nConnecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
@@ -282,6 +283,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   wifiMask     = preferences.getString("wifi_mask","");
   wifiGateway  = preferences.getString("wifi_gateway","");
   wifiDNS      = preferences.getString("wifi_dns","");
+  DeviceName   = preferences.getString("device_name","Boilermaker-" + WiFi.macAddress());
   slaveIP1     = preferences.getString("slave1","");
   slaveIP2     = preferences.getString("slave2","");
   slaveIP3     = preferences.getString("slave3","");
@@ -298,6 +300,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putString("wifi_mask",wifiMask);
   preferences.putString("wifi_gateway",wifiGateway);
   preferences.putString("wifi_dns",wifiDNS);
+  preferences.putString("device_name",DeviceName);
   preferences.putString("slave1",slaveIP1);
   preferences.putString("slave2",slaveIP2);
   preferences.putString("slave3",slaveIP3);
@@ -356,27 +359,29 @@ void RunState(byte State) { // Toggle the active heating run state
   }
 }
 //-----------------------------------------------------------------------------------------------
-void ProcessSerialMenu() {
+void HandleSerialInput() {
   String Option = ReadInput();
   PurgeBuffer();
   Serial.println("\n");
   if (Option == "1" ) {
-    get_wifiSSID();
+    get_DeviceName();
   } else if (Option == "2" ) {
-    get_wifiPassword();
+    get_wifiSSID();
   } else if (Option == "3" ) {
-    get_wifiMode();
+    get_wifiPassword();
   } else if (Option == "4" ) {
+    get_wifiMode();
+  } else if (Option == "5" ) {
     WiFi.disconnect();
     delay(500);
     ConnectWiFi();
-  } else if (Option == "5" ) {
-    get_SlaveIP1();
   } else if (Option == "6" ) {
-    get_SlaveIP2();
+    get_SlaveIP1();
   } else if (Option == "7" ) {
-    get_SlaveIP3();
+    get_SlaveIP2();
   } else if (Option == "8" ) {
+    get_SlaveIP3();
+  } else if (Option == "9" ) {
     get_SlaveIP4();
   }
   SetMemory();
@@ -398,7 +403,7 @@ void loop() {
   // Check for HTTP API calls and handle as necessary
 
   // Check for serial console input and handle as necessary
-  if (Serial.available()) ProcessSerialMenu();
+  if (Serial.available()) HandleSerialInput();
   if (CurrentTime - LoopCounter >= 1000) {
     TempUpdate();
     if (ActiveRun) {
