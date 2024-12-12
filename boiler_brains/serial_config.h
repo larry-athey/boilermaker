@@ -3,6 +3,7 @@
 //------------------------------------------------------------------------------------------------
 void ShowConfig() { // Send an ANSI clear screen sequence and display all configuration settings
   Serial.write("\033[2J\033[H\n\n");
+  Serial.println("DeviceName: " + DeviceName);
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("wifiConnected: Yes");
   } else {
@@ -28,14 +29,15 @@ void ShowConfig() { // Send an ANSI clear screen sequence and display all config
 //------------------------------------------------------------------------------------------------
 void ConfigMenu() { // Display the configuration menu
   Serial.println("Boilermaker Configuration Menu:");
-  Serial.println("  1. Set SSID");
-  Serial.println("  2. Set Password");
-  Serial.println("  3. Set DHCP or Static IP");
-  Serial.println("  4. Connect to WiFi");
-  Serial.println("  5. Set Slave 1 IP");
-  Serial.println("  6. Set Slave 2 IP");
-  Serial.println("  7. Set Slave 3 IP");
-  Serial.println("  8. Set Slave 4 IP");
+  Serial.println("  1. Set Device Name");
+  Serial.println("  2. Set SSID");
+  Serial.println("  3. Set Password");
+  Serial.println("  4. Set DHCP or Static IP");
+  Serial.println("  5. Connect to WiFi");
+  Serial.println("  6. Set Slave 1 IP");
+  Serial.println("  7. Set Slave 2 IP");
+  Serial.println("  8. Set Slave 3 IP");
+  Serial.println("  9. Set Slave 4 IP");
   Serial.print("Choose an option: ");
 }
 //------------------------------------------------------------------------------------------------
@@ -91,6 +93,11 @@ void get_wifiMode() { // Get the WiFi IP address mode (DHCP or Static IP)
     Serial.print("\nEnter DNS Resolver: ");
     wifiDNS = ReadInput();
   }
+}
+//------------------------------------------------------------------------------------------------
+void get_DeviceName() {
+  Serial.print("Enter Device Name: ");
+  DeviceName = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
 void get_SlaveIP1() {
