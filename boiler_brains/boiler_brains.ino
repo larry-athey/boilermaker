@@ -95,6 +95,7 @@ DallasTemperature DT(&oneWire);
 MAX6675 thermocouple(thermoCLK,thermoCS,thermoDO);
 #endif
 Preferences preferences;
+WiFiServer Server(80);
 //------------------------------------------------------------------------------------------------
 bool ActiveRun = false;          // True if there's an active heating run
 bool UpToTemp = false;           // True if the run startup has reached operating temperature
@@ -199,6 +200,7 @@ void setup() {
   #ifdef DS18B20
   DT.begin();
   #endif
+  Server.begin();
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
@@ -262,8 +264,7 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     wifiIP = WiFi.localIP().toString();
     wifiMask = WiFi.subnetMask().toString();
     wifiGateway = WiFi.gatewayIP().toString();
-    wifiDNS = WiFi.dnsIP(0).toString();
-    WiFiServer Server(80);
+    wifiDNS = WiFi.dnsIP(0).toString();    
   } else {
     wifiIP = "";
     wifiMask = "";
@@ -359,7 +360,20 @@ void RunState(byte State) { // Toggle the active heating run state
   }
 }
 //-----------------------------------------------------------------------------------------------
-void HandleSerialInput() {
+String HandleAPI(String Header) { // Handle HTTP API calls
+  //Serial.println("\n" + Header);
+  Header.remove(0,4); // Delete the "GET " from the beginning
+  Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
+  if (Header == "/") {
+    return "Home Page";
+  } else if (Header == "/reboot") {
+    return "Rebooting...";
+  } else {
+    return Header;
+  }
+}
+//-----------------------------------------------------------------------------------------------
+void HandleSerialInput() { // Handle user configuration via the serial console
   String Option = ReadInput();
   PurgeBuffer();
   Serial.println("\n");
@@ -401,7 +415,32 @@ void loop() {
   // Check for inc/dec button presses and handle as necessary
   #endif
   // Check for HTTP API calls and handle as necessary
-
+  WiFiClient Client = Server.available();
+  if (Client) {
+    CurrentTime = millis();
+    long PreviousTime = CurrentTime;
+    String Header = "";
+    while (Client.connected() && CurrentTime - PreviousTime <= 2000) { // 2 second connection timeout
+      CurrentTime = millis();
+      if (Client.available()) {
+        char c = Client.read();
+        if ((c != '\r') && (c != '\n')) Header += c;
+        if (c == '\n') {
+          if (Header.indexOf("GET ") == 0) {
+            String Content = HandleAPI(Header);
+            Client.println(Content);
+            if (Content == "Rebooting...") {
+              Client.stop();
+              delay(1000);
+              ESP.restart();
+            }
+            break;
+          }
+        }
+      }
+    }
+    Client.stop();
+  }
   // Check for serial console input and handle as necessary
   if (Serial.available()) HandleSerialInput();
   if (CurrentTime - LoopCounter >= 1000) {
