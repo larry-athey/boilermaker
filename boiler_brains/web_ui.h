@@ -23,3 +23,7 @@ void UpdateSlave(byte WhichOne,String Query) {
   http.end();  // Close connection
 }
 //------------------------------------------------------------------------------------------------
+void UpdateAllSlaves(String Query) {
+  PingSlaves();
+}
+//------------------------------------------------------------------------------------------------
