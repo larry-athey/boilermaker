@@ -3,6 +3,11 @@
 //------------------------------------------------------------------------------------------------
 void ShowConfig() { // Send an ANSI clear screen sequence and display all configuration settings
   Serial.write("\033[2J\033[H\n\n");
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("wifiConnected: Yes");
+  } else {
+    Serial.println("wifiConnected: No");
+  }
   if (wifiMode == 0) {
     Serial.println("wifiMode: DHCP");
   } else {
