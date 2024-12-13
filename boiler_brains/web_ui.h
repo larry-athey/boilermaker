@@ -43,11 +43,11 @@ String PageFooter() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String AjaxRefreshJS(String AjaxID,String Query,String Refresh) {
+String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) {
   String Content = "";
   Content += "\n<script type=\"text/javascript\">\n";
   Content += "  jQuery(document).ready(function() {\n";
-  Content += "    RandomDelay = " + Refresh + " + Math.floor(Math.random() * 1000) + 1;\n";
+  Content += "    RandomDelay = " + RefreshMS + " + Math.floor(Math.random() * 1000) + 1;\n";
   Content += "    function refresh() {\n";
   Content += "      jQuery('#" + AjaxID + "').load('./" + Query + "');\n";
   Content += "    }\n";
