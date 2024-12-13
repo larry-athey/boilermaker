@@ -184,7 +184,7 @@ void setup() {
   gfx->fillScreen(BLACK);
   // In order to eliminate screen flicker, everything is plotted to an off-screen buffer and popped onto the screen when done
   canvas->begin();
-  //ScreenUpdate();
+  ScreenUpdate();
   #endif
 
   #ifndef SCR_OUT
@@ -503,7 +503,7 @@ void loop() {
       wifiCheckCounter = 0;
     }
     #ifdef LOCAL_DISPLAY
-    //ScreenUpdate();
+    ScreenUpdate();
     #endif
     LoopCounter = CurrentTime;
   }
