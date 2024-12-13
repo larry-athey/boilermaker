@@ -10,7 +10,6 @@ String formatMillis(unsigned long millisValue) {
   seconds %= 60;
   minutes %= 60;
 
-  // Format the string. Note: '%02d' means zero-padded two-digit decimal
   char buffer[10]; // Enough space for "HH:MM:SS" + null terminator
   snprintf(buffer, sizeof(buffer), "%02ld:%02ld:%02ld", hours, minutes, seconds);
     
