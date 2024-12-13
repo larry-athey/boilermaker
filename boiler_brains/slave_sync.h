@@ -1,6 +1,15 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
 //------------------------------------------------------------------------------------------------
+byte SlaveTotal() { // Returns the total number of configured slave units
+  byte Total = 0;
+  if (slaveIP1 != "") Total ++;
+  if (slaveIP2 != "") Total ++;
+  if (slaveIP3 != "") Total ++;
+  if (slaveIP4 != "") Total ++;
+  return Total;
+}
+//------------------------------------------------------------------------------------------------
 void PingSlave(byte WhichOne) {
 
 }
