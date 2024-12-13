@@ -133,7 +133,8 @@ String slaveIP2;                 // Slave unit 2 IPV4 address
 String slaveIP3;                 // Slave unit 3 IPV4 address
 String slaveIP4;                 // Slave unit 4 IPV4 address
 String DeviceName;               // Device name to be displayed in the web UI
-char Runtime[10];                // HH:MM:SS formatted time of the current heating run
+String Uptime = "00:00:00";      // Current system uptime
+String Runtime = "00:00:00";     // Current heating runtime
 //------------------------------------------------------------------------------------------------
 #include "slave_sync.h"          // Library for configuring and synchronizing slave units
 #include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
@@ -373,6 +374,10 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
   if (Header == "/") {
     return HomePage();
+  } else if (Header == "/ajax-livedata") {
+    return LiveData();
+  } else if (Header == "/ajax-settings") {
+    return SettingsData();
   } else if (Header == "/reboot") {
     return "Rebooting...";
   } else {
@@ -413,6 +418,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 void loop() {
   int CurrentPercent = round(0.392156863 * PowerLevel);
   long CurrentTime = millis();
+  Uptime = formatMillis(CurrentTime);
   wifiCheckCounter ++;
   if (CurrentTime > 4200000000) {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
@@ -453,12 +459,7 @@ void loop() {
   if (CurrentTime - LoopCounter >= 1000) {
     TempUpdate();
     if (ActiveRun) {
-      unsigned long allSeconds = (CurrentTime - StartTime) / 1000;
-      int runHours = allSeconds / 3600;
-      int secsRemaining = allSeconds % 3600;
-      int runMinutes = secsRemaining / 60;
-      int runSeconds = secsRemaining % 60;
-      sprintf(Runtime,"%02u:%02u:%02u",runHours,runMinutes,runSeconds);
+      Runtime = formatMillis(CurrentTime - StartTime);
       if (OpMode == 1) { // OpMode 1 is constant temperature management
         if (! UpToTemp) {
           if (TempC >= TargetTemp) { // Target temperature has been reached
@@ -493,7 +494,8 @@ void loop() {
       }
     }
     if (wifiCheckCounter >= 60) {
-      if (WiFi.status() != WL_CONNECTED) { // Reconnect WiFi if we got dropped
+      bool PingTest = Ping.ping(wifiGateway.c_str(),1);
+      if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
         WiFi.disconnect();
         delay(500);
         ConnectWiFi();
