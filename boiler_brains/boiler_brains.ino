@@ -480,6 +480,8 @@ void loop() {
           }
         } else {
           if (CurrentTime - FallBackTime >= (RestPeriod * 1000)) {
+            // You can equate this temperature management method to the operation of a car's cruise control
+            // Unlike a PID controller, the heating element is always forcing some amount of heat upward
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               if (TempC >= (TargetTemp + Deviation)) { // Over temperature
                 CurrentPercent -= ChangePercent;
