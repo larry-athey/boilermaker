@@ -48,7 +48,7 @@ void PurgeBuffer() {
 String ReadInput() { // Read from the serial port until the user presses the ENTER key
   String input = "";
   char c;
-
+  // Teminal program should have ANSI emulation enabled, VT100 may not handle backspaces correctly
   while (true) {
     if (Serial.available() > 0) {
       c = Serial.read(); // Read the incoming character
