@@ -139,6 +139,9 @@ String Runtime = "00:00:00";     // Current heating runtime
 #include "slave_sync.h"          // Library for configuring and synchronizing slave units
 #include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
 #include "web_ui.h"              // Library for the web user interface and HTTP API implementation
+#ifdef LOCAL_DISPLAY
+#include "local_display.h"       // Library for the LilyGo T-Display-S3 local display support
+#endif
 //-----------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
 void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see in a PID controller
