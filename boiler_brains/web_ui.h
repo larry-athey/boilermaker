@@ -78,6 +78,14 @@ String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
+String StaticData() {
+  String Content = "";
+  Content += InfoLine("Name",DeviceName) + "<br>";
+  Content += InfoLine("Slave Units",String(SlaveTotal()));
+
+  return Content;
+}
+//------------------------------------------------------------------------------------------------
 String LiveData() {
   String Content = "";
   Content += InfoLine("Uptime",Uptime) + "<br>";
@@ -97,7 +105,7 @@ String HomePage() {
   Content += PageHeader();
   Content += "<div class=\"container-fluid\" style=\"align: left;\">";
   Content +=   "<div class=\"row\">";
-  Content +=    DrawCard(InfoLine("Name",DeviceName),"TopCard","",false);
+  Content +=    DrawCard(StaticData(),"TopCard","",false);
   Content +=   "</div>";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(LiveData(),"LiveData","ajax-livedata",true);
