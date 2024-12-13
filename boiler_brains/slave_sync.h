@@ -10,6 +10,13 @@ byte SlaveTotal() { // Returns the total number of configured slave units
   return Total;
 }
 //------------------------------------------------------------------------------------------------
+String GetSlaveIP(byte WhichOne) {
+  if (WhichOne == 1) return slaveIP1;
+  if (WhichOne == 2) return slaveIP2;
+  if (WhichOne == 3) return slaveIP3;
+  if (WhichOne == 4) return slaveIP4;
+}
+//------------------------------------------------------------------------------------------------
 void PingSlave(byte WhichOne) {
 
 }
