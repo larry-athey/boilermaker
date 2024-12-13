@@ -81,7 +81,7 @@ String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
 String StaticData() {
   String Content = "";
   Content += InfoLine("Name",DeviceName) + "<br>";
-  Content += InfoLine("Slave Units",String(SlaveTotal()));
+  Content += InfoLine("Slave&nbsp;Units",String(SlaveTotal()));
 
   return Content;
 }
