@@ -365,6 +365,7 @@ void RunState(byte State) { // Toggle the active heating run state
     digitalWrite(FAN_OUT,HIGH);
     PowerAdjust(StartupPercent);
   } else {
+    Runtime = "00:00:00";
     ActiveRun = false;
     digitalWrite(FAN_OUT,LOW);
     PowerAdjust(0);
