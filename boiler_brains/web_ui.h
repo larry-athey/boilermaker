@@ -41,6 +41,9 @@ String PageHeader() {
   Content +=   "    -webkit-animation-timing-function:ease-in-out;\n";
   Content +=   "    -webkit-animation-direction: alternate;\n";
   Content +=   "  }\n";
+  Content +=   "  p {\n";
+  Content +=   "    line-height: 0.8;}\n";
+  Content +=   "  }\n";
   Content +=   "</style>\n";
   Content += "</head>";
   Content += "<body data-theme=\"dark\">";
@@ -77,7 +80,7 @@ String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) {
 }
 //------------------------------------------------------------------------------------------------
 String InfoLine(String Title,String Data) {
-  return "<span class=\"fw-bolder text-success\">" + Title + ":&nbsp;&nbsp;</span><span class=\"fw-bolder\">" + Data + "</span>";
+  return "<div class=\"row\"><div class=\"col-5\" style=\"padding: 2px;\"><p class=\"fw-bolder text-success\">" + Title + ":</p></div><div class=\"col-7\" style=\"padding: 2px;\"><p class=\"fw-bolder\" style=\"text-align: right;\">" + Data + "</p></div></div>";
 }
 //------------------------------------------------------------------------------------------------
 String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
@@ -96,22 +99,49 @@ String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
 //------------------------------------------------------------------------------------------------
 String StaticData() {
   String Content = "";
-  Content += InfoLine("Name",DeviceName) + "<br>";
+  Content += InfoLine("Name",DeviceName);
   Content += InfoLine("Slave&nbsp;Units",String(SlaveTotal()));
+  Content += "<button class=\"btn btn-sm btn-outline-success\" type=\"button\" style=\"width: 100%;\">Start / Stop</button>";
 
   return Content;
 }
 //------------------------------------------------------------------------------------------------
 String LiveData() {
   String Content = "";
-  Content += InfoLine("Uptime",Uptime) + "<br>";
+  String Temp = "";
+  if (ActiveRun) {
+    Temp = "<span class=\"text-danger blink\">Active</span>";
+  } else {
+    Temp = "<span class=\"text-warning\">Inactive</span>";
+  }
+  Content += InfoLine("Run&nbsp;State",Temp);
+  Content += InfoLine("Uptime",Uptime);
   Content += InfoLine("Runtime",Runtime);
+  Temp = String(TempC,1) + "C / " + String(TempF,1) + "F";
+  Content += InfoLine("Temperature",Temp);
+  Content += InfoLine("Power&nbsp;Level",String(round(0.392156863 * PowerLevel),0) + "%");
 
   return Content;
 }
 //------------------------------------------------------------------------------------------------
 String SettingsData() {
   String Content = "";
+  String Temp = "";
+  if (OpMode == 0) {
+    Temp = "0. Constant Power";
+  } else {
+    Temp = "1. Constant Temp";
+  }
+  Content += InfoLine("Op&nbsp;Mode",Temp);
+  Temp = String(TargetTemp,1) + "C / " + String(TargetTemp * 9 / 5 + 32,1) + "F";
+  Content += InfoLine("Target&nbsp;Temp",Temp);
+  Content += InfoLine("Startup&nbsp;Power",String(StartupPercent) + "%");
+  Content += InfoLine("Fallback&nbsp;Power",String(FallBackPercent) + "%");
+  Content += InfoLine("Adjustment&nbsp;Rate",String(AdjustRate) + "%");
+  Temp = String(Deviation,1) + "C / " + String(Deviation * 9 / 5,1) + "F";
+  Content += InfoLine("Deviation&nbsp;Rate","+/- " + Temp);
+  Content += InfoLine("Change&nbsp;Wait",String(ChangeWait) + " secs");
+  Content += InfoLine("Rest&nbsp;Period",String(RestPeriod) + " secs");
 
   return Content;
 }
