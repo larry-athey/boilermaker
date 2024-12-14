@@ -83,7 +83,7 @@ String InfoLine(String Title,String Data) {
 String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
   String Content = "";
   if (DoAjax) Content += AjaxRefreshJS(AjaxID,Query,"4000");
-  Content += "<div class=\"card\" style=\"width: 95%;margin-top: 0.5em;margin-bottom: 0.5em;margin-left: 0.5em;margin-right: 0.5em;\">";
+  Content += "<div class=\"card\" style=\"width: 100%;margin-top: 0.5em;margin-bottom: 0.5em;margin-left: 0.5em;margin-right: 0.5em;\">";
   Content +=   "<div class=\"card-body\">";
   Content +=     "<div id=\"" + AjaxID + "\">";
   Content +=      Body;
@@ -120,6 +120,9 @@ String HomePage() {
   String Content = "";
   Content += PageHeader();
   Content += "<div class=\"container-fluid\" style=\"align: left;\">";
+  Content +=   "<div class=\"row\">";
+  Content +=   "<div style=\"display: flex; align-items: center;\"><span class=\"iconify\" style=\"font-size: 3em;\" data-icon=\"token-branded:dzoo\"></span>&nbsp;<span class=\"fw-bolder\" style=\"font-size: 1.5em;\">Boilermaker v1.0.1</span></col>";
+  Content +=   "</div>";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(StaticData(),"TopCard","",false);
   Content +=   "</div>";
