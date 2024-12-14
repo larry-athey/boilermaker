@@ -96,7 +96,7 @@ String PageHeader() {
   Content +=   "<link rel=\"stylesheet\" href=\"https://unpkg.com/bootstrap-darkmode@0.7.0/dist/darktheme.css\">";
   Content +=   "<script src=\"https://code.iconify.design/2/2.0.3/iconify.min.js\"></script>";
   Content +=   "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js\"></script>";
-  Content +=   "<link rel=\"icon\" href=\"https://panhandleponics.com/favicon.ico?v=1.1\">";
+  Content +=   "<link rel=\"icon\" href=\"https://panhandleponics.com/wp-content/uploads/2024/12/boilermaker.png?v=1.1\">";
   Content +=   "\n<style type=\"text/css\">\n";
   Content +=   "  @-webkit-keyframes blinker {\n";
   Content +=   "    from {opacity: 1.0;}\n";
@@ -110,7 +110,7 @@ String PageHeader() {
   Content +=   "    -webkit-animation-timing-function:ease-in-out;\n";
   Content +=   "    -webkit-animation-direction: alternate;\n";
   Content +=   "  }\n";
-  Content +=   "  a,a:hover {text-decoration: none;}";
+  Content +=   "  a,a:hover {text-decoration: none;}\n";
   Content +=   "</style>\n";
   Content += "</head>";
   Content += "<body data-theme=\"dark\">";
