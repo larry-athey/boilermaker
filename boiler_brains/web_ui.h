@@ -28,7 +28,7 @@ String PageHeader() {
   Content +=   "<script src=\"https://code.iconify.design/2/2.0.3/iconify.min.js\"></script>";
   Content +=   "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js\"></script>";
   Content +=   "<link rel=\"icon\" href=\"https://panhandleponics.com/favicon.ico?v=1.1\">";
-  Content +=   "\n<style type="text/css">\n";
+  Content +=   "\n<style type=\"text/css\">\n";
   Content +=   "  @-webkit-keyframes blinker {\n";
   Content +=   "    from {opacity: 1.0;}\n";
   Content +=   "    to {opacity: 0.0;}\n";
