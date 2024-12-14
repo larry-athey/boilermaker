@@ -1,6 +1,65 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
 //------------------------------------------------------------------------------------------------
+// Utility functions
+//------------------------------------------------------------------------------------------------
+String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) {
+  String Content = "";
+  Content += "\n<script type=\"text/javascript\">\n";
+  Content += "  jQuery(document).ready(function() {\n";
+  Content += "    RandomDelay = " + RefreshMS + " + Math.floor(Math.random() * 1000) + 1;\n";
+  Content += "    function refresh() {\n";
+  Content += "      jQuery('#" + AjaxID + "').load('./" + Query + "');\n";
+  Content += "    }\n";
+  Content += "    setInterval(function() {\n";
+  Content += "      refresh()\n";
+  Content += "    },RandomDelay);\n";
+  Content += "  });\n";
+  Content += "</script>\n";
+
+  return Content;
+}
+//------------------------------------------------------------------------------------------------
+String CreateLink(String LinkText,String FormTitle,String FormID) {
+  return "<a href=\"javascript:void(0);\" onClick=\"LoadForm('" + FormTitle + "','" + FormID + "')\"><span class=\"text-info\">" + LinkText + "</span></a>";
+}
+//------------------------------------------------------------------------------------------------
+String CreateModal() {
+  String Content = "";
+  Content += "<div class=\"modal fade\" id=\"dynamicModal\" tabindex=\"-1\" aria-labelledby=\"dynamicModalLabel\" aria-hidden=\"true\">";
+  Content +=   "<div class=\"modal-dialog\">";
+  Content +=     "<div class=\"modal-content\">";
+  Content +=       "<div class=\"modal-header\">";
+  Content +=         "<h5 class=\"modal-title\" id=\"dynamicModalLabel\">Form Title</h5>";
+  Content +=         "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>";
+  Content +=       "</div>";
+  Content +=       "<div id=\"modalContent\" class=\"modal-body\">";
+  Content +=         "<div id=\"form-content\">Loading...</div>";
+  Content +=       "</div>";
+  Content +=       "<div class=\"modal-footer\" style=\"vertical-align: bottom;\">";
+  Content +=         "<button type=\"button\" class=\"btn btn-sm btn-outline-primary\" id=\"submit_button\">Save</button>";
+  Content +=       "</div>";
+  Content +=     "</div>";
+  Content +=   "</div>";
+  Content += "</div>\n\n";
+
+  return Content;
+}
+//------------------------------------------------------------------------------------------------
+String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
+  String Content = "";
+  if (DoAjax) Content += AjaxRefreshJS(AjaxID,Query,"4000");
+  Content += "<div class=\"card\" style=\"width: 100%;margin-top: 0.5em;margin-bottom: 0.5em;margin-left: 0.5em;margin-right: 0.5em;\">";
+  Content +=   "<div class=\"card-body\">";
+  Content +=     "<div id=\"" + AjaxID + "\">";
+  Content +=      Body;
+  Content +=     "</div>";
+  Content +=   "</div>";
+  Content += "</div>";
+
+  return Content;
+}
+//------------------------------------------------------------------------------------------------
 String formatMillis(unsigned long millisValue) {
   unsigned long seconds = millisValue / 1000; // Convert milliseconds to seconds
   unsigned long minutes = seconds / 60;       // Convert seconds to minutes
@@ -11,10 +70,20 @@ String formatMillis(unsigned long millisValue) {
   minutes %= 60;
 
   char buffer[10]; // Enough space for "HH:MM:SS" + null terminator
-  snprintf(buffer, sizeof(buffer), "%02ld:%02ld:%02ld", hours, minutes, seconds);
+  snprintf(buffer,sizeof(buffer),"%02ld:%02ld:%02ld",hours,minutes,seconds);
 
   return String(buffer);
 }
+//------------------------------------------------------------------------------------------------
+String get_Form(byte WhichOne) {
+
+}
+//------------------------------------------------------------------------------------------------
+String InfoLine(String Title,String Data) {
+  return "<div class=\"row\"><div class=\"col-5\" style=\"padding: 2px;\"><p class=\"fw-bolder text-success mb-0\">" + Title + ":</p></div><div class=\"col-7\" style=\"padding: 2px;\"><p class=\"fw-bolder mb-0\" style=\"text-align: right;\">" + Data + "</p></div></div>";
+}
+//------------------------------------------------------------------------------------------------
+// Homepage generation functions
 //------------------------------------------------------------------------------------------------
 String PageHeader() {
   String Content = "";
@@ -41,9 +110,7 @@ String PageHeader() {
   Content +=   "    -webkit-animation-timing-function:ease-in-out;\n";
   Content +=   "    -webkit-animation-direction: alternate;\n";
   Content +=   "  }\n";
-  Content +=   "  p {\n";
-  Content +=   "    line-height: 0.8;}\n";
-  Content +=   "  }\n";
+  Content +=   "  a,a:hover {text-decoration: none;}";
   Content +=   "</style>\n";
   Content += "</head>";
   Content += "<body data-theme=\"dark\">";
@@ -62,46 +129,11 @@ String PageFooter() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) {
-  String Content = "";
-  Content += "\n<script type=\"text/javascript\">\n";
-  Content += "  jQuery(document).ready(function() {\n";
-  Content += "    RandomDelay = " + RefreshMS + " + Math.floor(Math.random() * 1000) + 1;\n";
-  Content += "    function refresh() {\n";
-  Content += "      jQuery('#" + AjaxID + "').load('./" + Query + "');\n";
-  Content += "    }\n";
-  Content += "    setInterval(function() {\n";
-  Content += "      refresh()\n";
-  Content += "    },RandomDelay);\n";
-  Content += "  });\n";
-  Content += "</script>\n";
-
-  return Content;
-}
-//------------------------------------------------------------------------------------------------
-String InfoLine(String Title,String Data) {
-  return "<div class=\"row\"><div class=\"col-5\" style=\"padding: 2px;\"><p class=\"fw-bolder text-success\">" + Title + ":</p></div><div class=\"col-7\" style=\"padding: 2px;\"><p class=\"fw-bolder\" style=\"text-align: right;\">" + Data + "</p></div></div>";
-}
-//------------------------------------------------------------------------------------------------
-String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
-  String Content = "";
-  if (DoAjax) Content += AjaxRefreshJS(AjaxID,Query,"4000");
-  Content += "<div class=\"card\" style=\"width: 100%;margin-top: 0.5em;margin-bottom: 0.5em;margin-left: 0.5em;margin-right: 0.5em;\">";
-  Content +=   "<div class=\"card-body\">";
-  Content +=     "<div id=\"" + AjaxID + "\">";
-  Content +=      Body;
-  Content +=     "</div>";
-  Content +=   "</div>";
-  Content += "</div>";
-
-  return Content;
-}
-//------------------------------------------------------------------------------------------------
 String StaticData() {
   String Content = "";
   Content += InfoLine("Name",DeviceName);
   Content += InfoLine("Slave&nbsp;Units",String(SlaveTotal()));
-  Content += "<button class=\"btn btn-sm btn-outline-success\" type=\"button\" style=\"width: 100%;\">Start / Stop</button>";
+  Content += "<button class=\"btn btn-sm btn-outline-success\" type=\"button\" style=\"width: 100%; margin-top: .75em; margin-bottom: .5em;\">Start / Stop</button>";
 
   return Content;
 }
@@ -117,6 +149,8 @@ String LiveData() {
   Content += InfoLine("Run&nbsp;State",Temp);
   Content += InfoLine("Uptime",Uptime);
   Content += InfoLine("Runtime",Runtime);
+TempC = 20.3;
+TempF = 68.5;
   Temp = String(TempC,1) + "C / " + String(TempF,1) + "F";
   Content += InfoLine("Temperature",Temp);
   Content += InfoLine("Power&nbsp;Level",String(round(0.392156863 * PowerLevel),0) + "%");
@@ -132,16 +166,16 @@ String SettingsData() {
   } else {
     Temp = "1. Constant Temp";
   }
-  Content += InfoLine("Op&nbsp;Mode",Temp);
+  Content += InfoLine("Current&nbsp;Mode",CreateLink(Temp,"Operation Mode","0"));
   Temp = String(TargetTemp,1) + "C / " + String(TargetTemp * 9 / 5 + 32,1) + "F";
-  Content += InfoLine("Target&nbsp;Temp",Temp);
-  Content += InfoLine("Startup&nbsp;Power",String(StartupPercent) + "%");
-  Content += InfoLine("Fallback&nbsp;Power",String(FallBackPercent) + "%");
-  Content += InfoLine("Adjustment&nbsp;Rate",String(AdjustRate) + "%");
+  Content += InfoLine("Target&nbsp;Temp",CreateLink(Temp,"Target Temperature","1"));
+  Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
+  Content += InfoLine("Fallback&nbsp;Power",CreateLink(String(FallBackPercent) + "%","Fallback Power Level","3"));
+  Content += InfoLine("Adjustment&nbsp;Rate",CreateLink(String(AdjustRate) + "%","Adjustment Power Rate","4"));
   Temp = String(Deviation,1) + "C / " + String(Deviation * 9 / 5,1) + "F";
-  Content += InfoLine("Deviation&nbsp;Rate","+/- " + Temp);
-  Content += InfoLine("Change&nbsp;Wait",String(ChangeWait) + " secs");
-  Content += InfoLine("Rest&nbsp;Period",String(RestPeriod) + " secs");
+  Content += InfoLine("Deviation&nbsp;Rate",CreateLink("+/- " + Temp,"Deviation Rate (C)","5"));
+  Content += InfoLine("Change&nbsp;Wait",CreateLink(String(ChangeWait) + " secs","Change Wait Time (seconds)","6"));
+  Content += InfoLine("Rest&nbsp;Period",CreateLink(String(RestPeriod) + " secs","Rest Period (seconds)","7"));
 
   return Content;
 }
@@ -149,6 +183,7 @@ String SettingsData() {
 String HomePage() {
   String Content = "";
   Content += PageHeader();
+  Content += CreateModal();
   Content += "<div class=\"container-fluid\" style=\"align: left;\">";
   Content +=   "<div class=\"row\">";
   Content +=   "<div style=\"display: flex; align-items: center;\"><span class=\"iconify\" style=\"font-size: 3em;\" data-icon=\"token-branded:dzoo\"></span>&nbsp;<span class=\"fw-bolder\" style=\"font-size: 1.5em;\">Boilermaker&nbsp;v" + Version + "</span></col>";
