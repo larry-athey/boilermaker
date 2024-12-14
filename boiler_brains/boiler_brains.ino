@@ -135,6 +135,7 @@ String slaveIP4;                 // Slave unit 4 IPV4 address
 String DeviceName;               // Network host name and device name to be displayed in the web UI
 String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
+String Version = "1.0.1";        // Current release version of the project
 //------------------------------------------------------------------------------------------------
 #include "slave_sync.h"          // Library for configuring and synchronizing slave units
 #include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
