@@ -110,7 +110,7 @@ String PageHeader() {
   Content +=   "    -webkit-animation-timing-function:ease-in-out;\n";
   Content +=   "    -webkit-animation-direction: alternate;\n";
   Content +=   "  }\n";
-  Content +=   "  a,a:hover {text-decoration: none;}";
+  Content +=   "  a,a:hover {text-decoration: none;}\n";
   Content +=   "</style>\n";
   Content += "</head>";
   Content += "<body data-theme=\"dark\">";
