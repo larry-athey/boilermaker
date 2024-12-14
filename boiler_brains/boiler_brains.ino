@@ -115,11 +115,11 @@ float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is sele
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
 int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
-byte ChangePercent = 1;          // How much power % change to make when temperature is out of range
+byte AdjustRate = 1;             // How much power % change to make when temperature is out of range
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
 byte StartupPercent = 50;        // Power % to start at when running in OpMode 1
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
-byte OpMode = 0;                 // Operation mode, 0 = Constant Power, 1 = Constant Temperature
+byte OpMode = 1;                 // Operation mode, 0 = Constant Power, 1 = Constant Temperature
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once per minute
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
 String wifiSSID = "none";        // WiFi network SSID
@@ -474,7 +474,7 @@ void loop() {
             PowerAdjust(CurrentPercent);
           } else { // Progrssively increase power until target temperature has been reached
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
-              CurrentPercent += ChangePercent;
+              CurrentPercent += AdjustRate;
               if (CurrentPercent > 100) CurrentPercent = 100;
               PowerAdjust(CurrentPercent);
             }
@@ -485,11 +485,11 @@ void loop() {
             // Unlike a PID controller, the heating element is always forcing some amount of heat upward
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               if (TempC >= (TargetTemp + Deviation)) { // Over temperature
-                CurrentPercent -= ChangePercent;
+                CurrentPercent -= AdjustRate;
                 if (CurrentPercent < 10) CurrentPercent = 10;
                 PowerAdjust(CurrentPercent); // Decrease power
               } else if (TempC <= (TargetTemp - Deviation)) { // Under temperature
-                CurrentPercent += ChangePercent;
+                CurrentPercent += AdjustRate;
                 if (CurrentPercent > 100) CurrentPercent = 100;
                 PowerAdjust(CurrentPercent); // Increase power
               }
