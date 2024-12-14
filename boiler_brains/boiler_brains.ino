@@ -383,6 +383,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return LiveData();
   } else if (Header == "/ajax-settings") {
     return SettingsData();
+  } else if (Header == "/form-0") {
+    return get_Form(0); // Operation Mode
   } else if (Header == "/reboot") {
     return "Rebooting...";
   } else {
