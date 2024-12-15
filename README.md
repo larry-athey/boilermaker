@@ -6,6 +6,7 @@ _**This project began on December 9, 2024 and does not yet have a first official
 
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics<br>
+
 <br>
 ---
 <img width="1024" src="https://github.com/user-attachments/assets/c01d4923-0d53-41ff-b1f4-4d909545e285"><br>
