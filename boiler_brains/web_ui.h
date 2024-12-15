@@ -1,6 +1,9 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
 //------------------------------------------------------------------------------------------------
+String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
+String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
+//------------------------------------------------------------------------------------------------
 // Utility functions
 //------------------------------------------------------------------------------------------------
 String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) { // Refreshes data in a card on a random timed basis
@@ -161,6 +164,24 @@ String PageFooter() {
   Content += "    jQuery('#hiddenDiv').load('./toggle-run');\n";
   Content += "  };\n";
   Content += "};\n\n";
+
+  Content += "jQuery(document).ready(function() {\n";
+  Content += "  jQuery('#submit_button').on('click',function() {\n";
+  Content += "    var formData = jQuery('#modalForm').serialize();\n";
+  Content += "    jQuery.ajax({\n";
+  Content += "      type: 'GET',\n";
+  Content += "      url: './',\n";
+  Content += "      data: formData,\n";
+  Content += "      success: function(response) {\n";
+  Content += "        jQuery('#form-content').html('<p>Form submitted successfully</p>');\n";
+  Content += "        jQuery('#dynamicModal').modal('hide');\n";
+  Content += "      },\n";
+  Content += "      error: function(xhr,status,error) {\n";
+  Content += "        jQuery('#form-content').html('<p>An error occurred: ' + error + '</p>');\n";
+  Content += "      }\n";
+  Content += "    });\n";
+  Content += "  });\n";
+  Content += "});\n\n";
 
   Content += "function LoadForm(FormTitle,ID) {\n";
   Content += "  jQuery('#form-content').load('./form-' + ID,function(response,status,xhr) {\n";
