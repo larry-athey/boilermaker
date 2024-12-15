@@ -122,7 +122,7 @@ String InfoLine(String Title,String Data) { // Formats a line of text in a card
 //------------------------------------------------------------------------------------------------
 // Homepage generation functions
 //------------------------------------------------------------------------------------------------
-String PageHeader() {
+String PageHeader() { // HTML page header with custom CSS configuration
   String Content = "";
   Content += "<!DOCTYPE html>";
   Content += "<html lang=\"en\">";
@@ -155,7 +155,7 @@ String PageHeader() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String PageFooter() {
+String PageFooter() { // HTML page footer with custom Javascript to handle settings
   String Content = "";
   Content += "<div id=\"hiddenDiv\" style=\"display: none;\"></div>";
   Content += "\n<script type=\"text/javascript\">\n";
