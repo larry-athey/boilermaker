@@ -8,6 +8,8 @@ You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics<br>
 
 ---
+<img width="1024" src="https://github.com/user-attachments/assets/c01d4923-0d53-41ff-b1f4-4d909545e285">
+
 
 After dealing with one cheap Chinese SCR power controller after another I decided to combine one person's email suggestion about building a WiFi enabled PID controller and combine it with what I had just finished building for Air Still users. PID controllers have their place, but I think they're better suited for meat smokers, ovens, slow cookers, and incubators. The heating element spends more time off than on, bad for distilling.
 
