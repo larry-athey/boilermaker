@@ -302,8 +302,9 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   slaveIP2         = preferences.getString("slave2","");
   slaveIP3         = preferences.getString("slave3","");
   slaveIP4         = preferences.getString("slave4","");
-  CorrectionFactor = preferences.getFloat("correction_factor",0.00);
-  OpMode           = preferences.getFloat("op_mode",1);
+  CorrectionFactor = preferences.getFloat("correction_factor",0.0);
+  OpMode           = preferences.getUInt("op_mode",1);
+  TargetTemp       = preferences.getFloat("target_temp",80.0);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -323,6 +324,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putString("slave4",slaveIP4);
   preferences.putFloat("correction_factor",CorrectionFactor);
   preferences.putUInt("op_mode",OpMode);
+  preferences.putFloat("target_temp",TargetTemp);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -399,6 +401,9 @@ String HandleAPI(String Header) { // Handle HTTP API calls
       return jsonSuccess;
     }
   } else if (Header.indexOf("/?data_1=") == 0) { // Set Target Temperature
+    Header.remove(0,9);
+    TargetTemp = Header.toFloat();
+    SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_2=") == 0) { // Set Startup Power
     return jsonSuccess;
