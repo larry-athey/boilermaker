@@ -467,7 +467,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return String(round(0.392156863 * PowerLevel),0);
   } else if (Header == "/get-runtime") { // Get current heating runtime (seconds)
     if (ActiveRun) {
-      return String((millis() - StartTime) / 1000,0);
+      return String((millis() - StartTime) / 1000);
     } else {
       return "0";
     }
