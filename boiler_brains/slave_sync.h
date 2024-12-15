@@ -18,8 +18,8 @@ String GetSlaveIP(byte WhichOne) {
 }
 //------------------------------------------------------------------------------------------------
 bool PingSlave(byte WhichOne) {
-
-  return false;
+  bool PingTest = Ping.ping(GetSlaveIP(WhichOne).c_str(),3);
+  return PingTest;
 }
 //------------------------------------------------------------------------------------------------
 void PingAllSlaves() {
