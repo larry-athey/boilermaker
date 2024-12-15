@@ -37,7 +37,7 @@ String CreateModal() {
   Content +=         "<div id=\"form-content\">Loading...</div>";
   Content +=       "</div>";
   Content +=       "<div class=\"modal-footer\" style=\"vertical-align: bottom;\">";
-  Content +=         "<button type=\"button\" class=\"btn btn-sm btn-outline-primary\" id=\"submit_button\">Save</button>";
+  Content +=         "<button type=\"button\" class=\"btn btn-sm btn-success\" id=\"submit_button\">&nbsp;Save&nbsp;</button>";
   Content +=       "</div>";
   Content +=     "</div>";
   Content +=   "</div>";
@@ -76,7 +76,41 @@ String formatMillis(unsigned long millisValue) {
 }
 //------------------------------------------------------------------------------------------------
 String get_Form(byte WhichOne) {
+  String Content = "";
+  String Label,Value,Step,Min,Max;
 
+  if (WhichOne == 0) {
+    Label = "0 = Constant Power, 1 = Constant Temp";
+    Step = "1"; Min = "0"; Max = "1"; Value = String(OpMode);
+  } else if (WhichOne == 1) {
+    Label = "0.0 to 260.0 (C)";
+    Step = ".1"; Min = "0"; Max = "260"; Value = String(TargetTemp,1);
+  } else if (WhichOne == 2) {
+    Label = "10% to 100%";
+    Step = "1"; Min = "10"; Max = "100"; Value = String(StartupPercent);
+  } else if (WhichOne == 3) {
+    Label = "10% to 100%";
+    Step = "1"; Min = "10"; Max = "100"; Value = String(FallBackPercent);
+  } else if (WhichOne == 4) {
+    Label = "1% to 100%";
+    Step = "1"; Min = "1"; Max = "100"; Value = String(AdjustRate);
+  } else if (WhichOne == 5) {
+    Label = "0.1 to 5.0 (C)";
+    Step = ".1"; Min = ".1"; Max = "5"; Value = String(Deviation,1);
+  } else if (WhichOne == 6) {
+    Label = "1 to 1000";
+    Step = "1"; Min = "1"; Max = "1000"; Value = String(ChangeWait);
+  } else if (WhichOne == 7) {
+    Label = "1 to 1000";
+    Step = "1"; Min = "1"; Max = "1000"; Value = String(RestPeriod);
+  }
+
+  Content += "<form id=\"modalForm\">";
+  Content +=   "<label for=\"form_data\" class=\"form-label\">" + Label + "</label>";
+  Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"form_data\" name=\"form_data\" value=\"" + Value + "\">";
+  Content += "</form>";
+
+  return Content;
 }
 //------------------------------------------------------------------------------------------------
 String InfoLine(String Title,String Data) {
@@ -120,8 +154,28 @@ String PageHeader() {
 //------------------------------------------------------------------------------------------------
 String PageFooter() {
   String Content = "";
-  //Content += "\n<script type=\"text/javascript\">\n";
-  //Content += "</script>\n";
+  Content += "<div id=\"hiddenDiv\" style=\"display: none;\"></div>";
+  Content += "\n<script type=\"text/javascript\">\n";
+  Content += "function ToggleRun() {\n";
+  Content += "  if (confirm('Are you sure that you change the current run state?')) {\n";
+  Content += "    jQuery('#hiddenDiv').load('./toggle-run');\n";
+  Content += "  };\n";
+  Content += "};\n\n";
+
+  Content += "function LoadForm(FormTitle,ID) {\n";
+  Content += "  jQuery('#form-content').load('./form-' + ID,function(response,status,xhr) {\n";
+  Content += "    if (status === 'success') {\n";
+  Content += "      jQuery('#dynamicModalLabel').html(FormTitle);\n";
+  Content += "      jQuery('#dynamicModal').modal('show');\n";
+  Content += "      jQuery('.modal-backdrop').css('opacity','0.4');\n";
+  Content += "    } else {\n";
+  Content += "      jQuery('#form-content').html('Failed to load `' + FormTitle + '` form content');\n";
+  Content += "      jQuery('#dynamicModal').modal('show');\n";
+  Content += "      jQuery('.modal-backdrop').css('opacity','0.4');\n";
+  Content += "    }\n";
+  Content += "  });\n";
+  Content += "};\n";
+  Content += "</script>\n";
   Content +=   "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js\" integrity=\"sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD\" crossorigin=\"anonymous\"></script>";
   Content += "</body>";
   Content += "</html>";
@@ -133,7 +187,7 @@ String StaticData() {
   String Content = "";
   Content += InfoLine("Name",DeviceName);
   Content += InfoLine("Slave&nbsp;Units",String(SlaveTotal()));
-  Content += "<button class=\"btn btn-sm btn-outline-success\" type=\"button\" style=\"width: 100%; margin-top: .75em; margin-bottom: .5em;\">Start / Stop</button>";
+  Content += "<button onClick=\"ToggleRun()\" class=\"btn btn-sm btn-outline-success\" type=\"button\" style=\"width: 100%; margin-top: .75em; margin-bottom: .5em;\">Start / Stop</button>";
 
   return Content;
 }
@@ -149,8 +203,6 @@ String LiveData() {
   Content += InfoLine("Run&nbsp;State",Temp);
   Content += InfoLine("Uptime",Uptime);
   Content += InfoLine("Runtime",Runtime);
-TempC = 20.3;
-TempF = 68.5;
   Temp = String(TempC,1) + "C / " + String(TempF,1) + "F";
   Content += InfoLine("Temperature",Temp);
   Content += InfoLine("Power&nbsp;Level",String(round(0.392156863 * PowerLevel),0) + "%");
