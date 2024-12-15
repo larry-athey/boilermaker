@@ -376,7 +376,7 @@ void RunState(byte State) { // Toggle the active heating run state
 }
 //-----------------------------------------------------------------------------------------------
 String HandleAPI(String Header) { // Handle HTTP API calls
-  //Serial.println("\n" + Header);
+  Serial.println("\n" + Header);
   Header.remove(0,4); // Delete the "GET " from the beginning
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
   if (Header == "/") {
@@ -385,22 +385,45 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return LiveData();
   } else if (Header == "/ajax-settings") {
     return SettingsData();
-  } else if (Header == "/form-0") {
-    return get_Form(0); // Operation Mode
-  } else if (Header == "/form-1") {
-    return get_Form(1); // Target Temperature
-  } else if (Header == "/form-2") {
-    return get_Form(2); // Startup Power
-  } else if (Header == "/form-3") {
-    return get_Form(3); // Fallback Power
-  } else if (Header == "/form-4") {
-    return get_Form(4); // Adjustment Rate
-  } else if (Header == "/form-5") {
-    return get_Form(5); // Deviation Rate
-  } else if (Header == "/form-6") {
-    return get_Form(6); // Change Wait Time
-  } else if (Header == "/form-7") {
-    return get_Form(7); // Rest Period
+  } else if (Header.indexOf("/?data_0=") == 0) { // Operation Mode
+    if (ActiveRun) {
+      return jsonFailure;
+    } else {
+      Header.remove(0,9);
+      OpMode = Header.toInt();
+      SetMemory();
+      return jsonSuccess;
+    }
+  } else if (Header.indexOf("/?data_1=") == 0) { // Target Temperature
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_2=") == 0) { // Startup Power
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_3=") == 0) { // Fallback Power
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_4=") == 0) { // Adjustment Rate
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_5=") == 0) { // Deviation Rate
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_6=") == 0) { // Change Wait Time
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_7=") == 0) { // Rest Period
+    return jsonSuccess;
+  } else if (Header == "/form-0") { // Operation Mode
+    return get_Form(0);
+  } else if (Header == "/form-1") { // Target Temperature
+    return get_Form(1);
+  } else if (Header == "/form-2") { // Startup Power
+    return get_Form(2);
+  } else if (Header == "/form-3") { // Fallback Power
+    return get_Form(3);
+  } else if (Header == "/form-4") { // Adjustment Rate
+    return get_Form(4);
+  } else if (Header == "/form-5") { // Deviation Rate
+    return get_Form(5);
+  } else if (Header == "/form-6") { // Change Wait Time
+    return get_Form(6);
+  } else if (Header == "/form-7") { // Rest Period
+    return get_Form(7);
   } else if (Header == "/reboot") {
     return "Rebooting...";
   } else if (Header == "/start-run") {
