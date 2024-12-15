@@ -310,6 +310,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   AdjustRate       = preferences.getUInt("adjust_rate",1);
   Deviation        = preferences.getFloat("deviation",1.0);
   ChangeWait       = preferences.getUInt("change_wait",120);
+  RestPeriod       = preferences.getUInt("rest_period",60);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -335,6 +336,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("adjust_rate",AdjustRate);
   preferences.putFloat("deviation",Deviation);
   preferences.putUInt("change_wait",ChangeWait);
+  preferences.putUInt("rest_period",RestPeriod);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -441,6 +443,9 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_7=") == 0) { // Set Rest Period
+    Header.remove(0,9);
+    RestPeriod = Header.toInt();
+    SetMemory();
     return jsonSuccess;
   } else if (Header == "/form-0") { // Get Form: Operation Mode
     return get_Form(0);
