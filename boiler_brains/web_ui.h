@@ -3,7 +3,7 @@
 //------------------------------------------------------------------------------------------------
 // Utility functions
 //------------------------------------------------------------------------------------------------
-String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) {
+String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) { // Refreshes data in a card on a random timed basis
   String Content = "";
   Content += "\n<script type=\"text/javascript\">\n";
   Content += "  jQuery(document).ready(function() {\n";
@@ -20,11 +20,11 @@ String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String CreateLink(String LinkText,String FormTitle,String FormID) {
+String CreateLink(String LinkText,String FormTitle,String FormID) { // Creates a link for editing a setting
   return "<a href=\"javascript:void(0);\" onClick=\"LoadForm('" + FormTitle + "','" + FormID + "')\"><span class=\"text-info\">" + LinkText + "</span></a>";
 }
 //------------------------------------------------------------------------------------------------
-String CreateModal() {
+String CreateModal() { // Bootstrap modal used as a popover container for forms
   String Content = "";
   Content += "<div class=\"modal fade\" id=\"dynamicModal\" tabindex=\"-1\" aria-labelledby=\"dynamicModalLabel\" aria-hidden=\"true\">";
   Content +=   "<div class=\"modal-dialog\">";
@@ -46,7 +46,7 @@ String CreateModal() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
+String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) { // Plots a Bootstrap card
   String Content = "";
   if (DoAjax) Content += AjaxRefreshJS(AjaxID,Query,"4000");
   Content += "<div class=\"card\" style=\"width: 100%;margin-top: 0.5em;margin-bottom: 0.5em;margin-left: 0.5em;margin-right: 0.5em;\">";
@@ -60,7 +60,7 @@ String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String formatMillis(unsigned long millisValue) {
+String formatMillis(unsigned long millisValue) { // Converts a timestamp to a HH:MM:SS formated time
   unsigned long seconds = millisValue / 1000; // Convert milliseconds to seconds
   unsigned long minutes = seconds / 60;       // Convert seconds to minutes
   unsigned long hours = minutes / 60;         // Convert minutes to hours
@@ -75,7 +75,7 @@ String formatMillis(unsigned long millisValue) {
   return String(buffer);
 }
 //------------------------------------------------------------------------------------------------
-String get_Form(byte WhichOne) {
+String get_Form(byte WhichOne) { // Dynamically creates the form for the specified setting
   String Content = "";
   String Label,Value,Step,Min,Max;
 
@@ -106,14 +106,14 @@ String get_Form(byte WhichOne) {
   }
 
   Content += "<form id=\"modalForm\">";
-  Content +=   "<label for=\"form_data\" class=\"form-label\">" + Label + "</label>";
-  Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"form_data\" name=\"form_data\" value=\"" + Value + "\">";
+  Content +=   "<label for=\"data_" + String(WhichOne) + "\" class=\"form-label\">" + Label + "</label>";
+  Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
   Content += "</form>";
 
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String InfoLine(String Title,String Data) {
+String InfoLine(String Title,String Data) { // Formats a line of text in a card
   return "<div class=\"row\"><div class=\"col-5\" style=\"padding: 2px;\"><p class=\"fw-bolder text-success mb-0\">" + Title + ":</p></div><div class=\"col-7\" style=\"padding: 2px;\"><p class=\"fw-bolder mb-0\" style=\"text-align: right;\">" + Data + "</p></div></div>";
 }
 //------------------------------------------------------------------------------------------------
@@ -166,13 +166,11 @@ String PageFooter() {
   Content += "  jQuery('#form-content').load('./form-' + ID,function(response,status,xhr) {\n";
   Content += "    if (status === 'success') {\n";
   Content += "      jQuery('#dynamicModalLabel').html(FormTitle);\n";
-  Content += "      jQuery('#dynamicModal').modal('show');\n";
-  Content += "      jQuery('.modal-backdrop').css('opacity','0.4');\n";
   Content += "    } else {\n";
   Content += "      jQuery('#form-content').html('Failed to load `' + FormTitle + '` form content');\n";
-  Content += "      jQuery('#dynamicModal').modal('show');\n";
-  Content += "      jQuery('.modal-backdrop').css('opacity','0.4');\n";
   Content += "    }\n";
+  Content += "    jQuery('#dynamicModal').modal('show');\n";
+  Content += "    jQuery('.modal-backdrop').css('opacity','0.4');\n";
   Content += "  });\n";
   Content += "};\n";
   Content += "</script>\n";
@@ -214,18 +212,22 @@ String SettingsData() {
   String Content = "";
   String Temp = "";
   if (OpMode == 0) {
-    Temp = "0. Constant Power";
+    Temp = "Constant Power";
   } else {
-    Temp = "1. Constant Temp";
+    Temp = "Constant Temp";
   }
-  Content += InfoLine("Current&nbsp;Mode",CreateLink(Temp,"Operation Mode","0"));
+  if (! ActiveRun) {
+    Content += InfoLine("Current&nbsp;Mode",CreateLink(Temp,"Operation Mode","0"));
+  } else {
+    Content += InfoLine("Current&nbsp;Mode",Temp);
+  }
   Temp = String(TargetTemp,1) + "C / " + String(TargetTemp * 9 / 5 + 32,1) + "F";
   Content += InfoLine("Target&nbsp;Temp",CreateLink(Temp,"Target Temperature","1"));
   Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
   Content += InfoLine("Fallback&nbsp;Power",CreateLink(String(FallBackPercent) + "%","Fallback Power Level","3"));
   Content += InfoLine("Adjustment&nbsp;Rate",CreateLink(String(AdjustRate) + "%","Adjustment Power Rate","4"));
   Temp = String(Deviation,1) + "C / " + String(Deviation * 9 / 5,1) + "F";
-  Content += InfoLine("Deviation&nbsp;Rate",CreateLink("+/- " + Temp,"Deviation Rate (C)","5"));
+  Content += InfoLine("Deviation&nbsp;Rate",CreateLink("&plusmn; " + Temp,"Deviation Rate (C)","5"));
   Content += InfoLine("Change&nbsp;Wait",CreateLink(String(ChangeWait) + " secs","Change Wait Time (seconds)","6"));
   Content += InfoLine("Rest&nbsp;Period",CreateLink(String(RestPeriod) + " secs","Rest Period (seconds)","7"));
 
