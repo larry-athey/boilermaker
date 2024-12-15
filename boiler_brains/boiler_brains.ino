@@ -376,7 +376,7 @@ void RunState(byte State) { // Toggle the active heating run state
 }
 //-----------------------------------------------------------------------------------------------
 String HandleAPI(String Header) { // Handle HTTP API calls
-  Serial.println("\n" + Header);
+  //Serial.println("\n" + Header);
   Header.remove(0,4); // Delete the "GET " from the beginning
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
   if (Header == "/") {
