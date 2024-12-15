@@ -43,7 +43,7 @@ void ConfigMenu() { // Display the configuration menu
   Serial.print("Choose an option: ");
 }
 //------------------------------------------------------------------------------------------------
-void PurgeBuffer() {
+void PurgeBuffer() { // Purge anything waiting in the receive buffer
   while (Serial.available()) Serial.read();
 }
 //------------------------------------------------------------------------------------------------
@@ -97,32 +97,32 @@ void get_wifiMode() { // Get the WiFi IP address mode (DHCP or Static IP)
   }
 }
 //------------------------------------------------------------------------------------------------
-void get_DeviceName() {
+void get_DeviceName() { // Get the device name (hostname)
   Serial.print("Enter Device Name: ");
   DeviceName = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP1() {
+void get_SlaveIP1() { // Get the IP address for slave unit 1
   Serial.print("Enter Slave 1 IP Address: ");
   slaveIP1 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP2() {
+void get_SlaveIP2() { // Get the IP address for slave unit 2
   Serial.print("Enter Slave 2 IP Address: ");
   slaveIP2 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP3() {
+void get_SlaveIP3() { // Get the IP address for slave unit 3
   Serial.print("Enter Slave 3 IP Address: ");
   slaveIP3 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP4() {
+void get_SlaveIP4() { // Get the IP address for slave unit 4
   Serial.print("Enter Slave 4 IP Address: ");
   slaveIP4 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_CorrectionFactor() {
+void get_CorrectionFactor() { // Get the correction factor for the temperature sensor
   Serial.print("Enter Correction Factor (-5.0 to 5.0): ");
   CorrectionFactor = ReadInput().toFloat();
 }
