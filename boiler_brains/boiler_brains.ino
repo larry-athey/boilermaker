@@ -289,18 +289,19 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
 //------------------------------------------------------------------------------------------------
 void GetMemory() { // Get the configuration settings from flash memory on startup
   preferences.begin("prefs",true);
-  wifiMode     = preferences.getUInt("wifi_mode",0);
-  wifiSSID     = preferences.getString("wifi_ssid","none");
-  wifiPassword = preferences.getString("wifi_password","");
-  wifiIP       = preferences.getString("wifi_ip","");
-  wifiMask     = preferences.getString("wifi_mask","");
-  wifiGateway  = preferences.getString("wifi_gateway","");
-  wifiDNS      = preferences.getString("wifi_dns","");
-  DeviceName   = preferences.getString("device_name","Boilermaker-" + WiFi.macAddress());
-  slaveIP1     = preferences.getString("slave1","");
-  slaveIP2     = preferences.getString("slave2","");
-  slaveIP3     = preferences.getString("slave3","");
-  slaveIP4     = preferences.getString("slave4","");
+  wifiMode         = preferences.getUInt("wifi_mode",0);
+  wifiSSID         = preferences.getString("wifi_ssid","none");
+  wifiPassword     = preferences.getString("wifi_password","");
+  wifiIP           = preferences.getString("wifi_ip","");
+  wifiMask         = preferences.getString("wifi_mask","");
+  wifiGateway      = preferences.getString("wifi_gateway","");
+  wifiDNS          = preferences.getString("wifi_dns","");
+  DeviceName       = preferences.getString("device_name","Boilermaker-" + WiFi.macAddress());
+  slaveIP1         = preferences.getString("slave1","");
+  slaveIP2         = preferences.getString("slave2","");
+  slaveIP3         = preferences.getString("slave3","");
+  slaveIP4         = preferences.getString("slave4","");
+  CorrectionFactor = preferences.getFloat("correction_factor",0.00);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -318,6 +319,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putString("slave2",slaveIP2);
   preferences.putString("slave3",slaveIP3);
   preferences.putString("slave4",slaveIP4);
+  preferences.putFloat("correction_factor",CorrectionFactor);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -385,8 +387,29 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return SettingsData();
   } else if (Header == "/form-0") {
     return get_Form(0); // Operation Mode
+  } else if (Header == "/form-1") {
+    return get_Form(1); // Target Temperature
+  } else if (Header == "/form-2") {
+    return get_Form(2); // Startup Power
+  } else if (Header == "/form-3") {
+    return get_Form(3); // Fallback Power
+  } else if (Header == "/form-4") {
+    return get_Form(4); // Adjustment Rate
+  } else if (Header == "/form-5") {
+    return get_Form(5); // Deviation Rate
+  } else if (Header == "/form-6") {
+    return get_Form(6); // Change Wait Time
+  } else if (Header == "/form-7") {
+    return get_Form(7); // Rest Period
   } else if (Header == "/reboot") {
     return "Rebooting...";
+  } else if (Header == "/toggle-run") {
+    if (ActiveRun) {
+      RunState(0);
+    } else {
+      RunState(1);
+    }
+    return "Done";
   } else {
     return "Unrecognized: " + Header;
   }
@@ -396,26 +419,28 @@ void HandleSerialInput() { // Handle user configuration via the serial console
   String Option = ReadInput();
   PurgeBuffer();
   Serial.println("\n");
-  if (Option == "1" ) {
+  if (Option == "0" ) {
     get_DeviceName();
-  } else if (Option == "2" ) {
+  } else if (Option == "1" ) {
     get_wifiSSID();
-  } else if (Option == "3" ) {
+  } else if (Option == "2" ) {
     get_wifiPassword();
-  } else if (Option == "4" ) {
+  } else if (Option == "3" ) {
     get_wifiMode();
-  } else if (Option == "5" ) {
+  } else if (Option == "4" ) {
     WiFi.disconnect();
     delay(500);
     ConnectWiFi();
-  } else if (Option == "6" ) {
+  } else if (Option == "5" ) {
     get_SlaveIP1();
-  } else if (Option == "7" ) {
+  } else if (Option == "6" ) {
     get_SlaveIP2();
-  } else if (Option == "8" ) {
+  } else if (Option == "7" ) {
     get_SlaveIP3();
-  } else if (Option == "9" ) {
+  } else if (Option == "8" ) {
     get_SlaveIP4();
+  } else if (Option == "9" ) {
+    get_CorrectionFactor();
   }
   SetMemory();
   ShowConfig();
@@ -503,7 +528,7 @@ void loop() {
       }
     }
     if (wifiCheckCounter >= 60) {
-      bool PingTest = Ping.ping(wifiGateway.c_str(),1);
+      bool PingTest = Ping.ping(wifiGateway.c_str(),3);
       if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
         WiFi.disconnect();
         delay(500);
