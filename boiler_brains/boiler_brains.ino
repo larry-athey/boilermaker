@@ -383,11 +383,11 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   //Serial.println("\n" + Header);
   Header.remove(0,4); // Delete the "GET " from the beginning
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
-  if (Header == "/ajax-livedata") {
+  if (Header == "/ajax-livedata") { // Web UI update, live data card
     return LiveData();
-  } else if (Header == "/ajax-settings") {
+  } else if (Header == "/ajax-settings") { // Web UI update, settings card
     return SettingsData();
-  } else if (Header.indexOf("/?data_0=") == 0) { // Operation Mode
+  } else if (Header.indexOf("/?data_0=") == 0) { // Set Operation Mode
     if (ActiveRun) {
       return jsonFailure;
     } else {
@@ -396,47 +396,47 @@ String HandleAPI(String Header) { // Handle HTTP API calls
       SetMemory();
       return jsonSuccess;
     }
-  } else if (Header.indexOf("/?data_1=") == 0) { // Target Temperature
+  } else if (Header.indexOf("/?data_1=") == 0) { // Set Target Temperature
     return jsonSuccess;
-  } else if (Header.indexOf("/?data_2=") == 0) { // Startup Power
+  } else if (Header.indexOf("/?data_2=") == 0) { // Set Startup Power
     return jsonSuccess;
-  } else if (Header.indexOf("/?data_3=") == 0) { // Fallback Power
+  } else if (Header.indexOf("/?data_3=") == 0) { // Set Fallback Power
     return jsonSuccess;
-  } else if (Header.indexOf("/?data_4=") == 0) { // Adjustment Rate
+  } else if (Header.indexOf("/?data_4=") == 0) { // Set Adjustment Rate
     return jsonSuccess;
-  } else if (Header.indexOf("/?data_5=") == 0) { // Deviation Rate
+  } else if (Header.indexOf("/?data_5=") == 0) { // Set Deviation Rate
     return jsonSuccess;
-  } else if (Header.indexOf("/?data_6=") == 0) { // Change Wait Time
+  } else if (Header.indexOf("/?data_6=") == 0) { // Set Change Wait Time
     return jsonSuccess;
-  } else if (Header.indexOf("/?data_7=") == 0) { // Rest Period
+  } else if (Header.indexOf("/?data_7=") == 0) { // Set Rest Period
     return jsonSuccess;
-  } else if (Header == "/form-0") { // Operation Mode
+  } else if (Header == "/form-0") { // Get Form: Operation Mode
     return get_Form(0);
-  } else if (Header == "/form-1") { // Target Temperature
+  } else if (Header == "/form-1") { // Get Form: Target Temperature
     return get_Form(1);
-  } else if (Header == "/form-2") { // Startup Power
+  } else if (Header == "/form-2") { // Get Form: Startup Power
     return get_Form(2);
-  } else if (Header == "/form-3") { // Fallback Power
+  } else if (Header == "/form-3") { // Get Form: Fallback Power
     return get_Form(3);
-  } else if (Header == "/form-4") { // Adjustment Rate
+  } else if (Header == "/form-4") { // Get Form: Adjustment Rate
     return get_Form(4);
-  } else if (Header == "/form-5") { // Deviation Rate
+  } else if (Header == "/form-5") { // Get Form: Deviation Rate
     return get_Form(5);
-  } else if (Header == "/form-6") { // Change Wait Time
+  } else if (Header == "/form-6") { // Get Form: Change Wait Time
     return get_Form(6);
-  } else if (Header == "/form-7") { // Rest Period
+  } else if (Header == "/form-7") { // Get Form: Rest Period
     return get_Form(7);
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump, no memory update
     return jsonSuccess;
-  } else if (Header == "/reboot") {
+  } else if (Header == "/reboot") { // Reboot the controller
     return "Rebooting...";
-  } else if (Header == "/start-run") {
+  } else if (Header == "/start-run") { // Start a heating run
     if (! ActiveRun) RunState(1);
     return "Started";
-  } else if (Header == "/stop-run") {
+  } else if (Header == "/stop-run") { // Stop the heating run
     RunState(0);
     return "Stopped";
-  } else if (Header == "/toggle-run") {
+  } else if (Header == "/toggle-run") { // Toggle the current run status
     if (ActiveRun) {
       RunState(0);
     } else {
