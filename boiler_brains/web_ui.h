@@ -108,7 +108,7 @@ String get_Form(byte WhichOne) { // Dynamically creates the form for the specifi
     Step = "1"; Min = "1"; Max = "1000"; Value = String(RestPeriod);
   }
 
-  Content += "<form id=\"modalForm\">";
+  Content += "<form id=\"modalForm\" onsubmit=\"return false;\">";
   Content +=   "<label for=\"data_" + String(WhichOne) + "\" class=\"form-label\">" + Label + "</label>";
   Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
   Content += "</form>";
