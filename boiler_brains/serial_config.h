@@ -120,3 +120,8 @@ void get_SlaveIP4() {
   slaveIP4 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
+void get_CorrectionFactor() {
+  Serial.print("Enter Correction Factor (-5.0 to 5.0): ");
+  CorrectionFactor = ReadInput().toFloat();
+}
+//------------------------------------------------------------------------------------------------
