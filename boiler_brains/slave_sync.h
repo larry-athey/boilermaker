@@ -24,7 +24,7 @@ bool PingSlave(byte WhichOne) { // Returns true if a slave unit (1..4) is alive 
 //------------------------------------------------------------------------------------------------
 byte PingAllSlaves() { // Pings all slaves and returns the number of how many are pinging
   byte Total = 0;
-  if (SlaveTotal() == 0) return 0;
+  if (SlaveTotal() == 0) return Total;
   if (Ping.ping(GetSlaveIP(1).c_str(),3)) Total ++;
   if (Ping.ping(GetSlaveIP(2).c_str(),3)) Total ++;
   if (Ping.ping(GetSlaveIP(3).c_str(),3)) Total ++;
