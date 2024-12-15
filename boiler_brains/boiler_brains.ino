@@ -106,10 +106,6 @@ WiFiServer Server(80);
 //------------------------------------------------------------------------------------------------
 bool ActiveRun = false;          // True if there's an active heating run
 bool UpToTemp = false;           // True if the run startup has reached operating temperature
-bool Slave1Online = false;       // True if slave 1 is configured and is responding to pings
-bool Slave2Online = false;       // True if slave 2 is configured and is responding to pings
-bool Slave3Online = false;       // True if slave 3 is configured and is responding to pings
-bool Slave4Online = false;       // True if slave 4 is configured and is responding to pings
 long LoopCounter = 0;            // Timekeeper for the loop to eliminate the need to delay it
 long StartTime = 0;              // Start time of the current heating run
 long LastAdjustment = 0;         // Time of the last power adjustment
