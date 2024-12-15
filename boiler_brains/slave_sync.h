@@ -35,7 +35,7 @@ byte PingAllSlaves() { // Pings all slaves and returns the number of how many ar
 bool UpdateSlave(byte WhichOne,String Query) { // Update a slave unit with an HTTP API call
   HTTPClient http;
 
-  http.begin("http://" + GetSlaveIP(byte WhichOne) + Query);
+  http.begin("http://" + GetSlaveIP(WhichOne) + Query);
   int httpResponseCode = http.GET();
 
   if (httpResponseCode > 0) {
