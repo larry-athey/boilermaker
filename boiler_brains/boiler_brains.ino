@@ -303,6 +303,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   slaveIP3         = preferences.getString("slave3","");
   slaveIP4         = preferences.getString("slave4","");
   CorrectionFactor = preferences.getFloat("correction_factor",0.00);
+  OpMode           = preferences.getFloat("op_mode",1);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -321,6 +322,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putString("slave3",slaveIP3);
   preferences.putString("slave4",slaveIP4);
   preferences.putFloat("correction_factor",CorrectionFactor);
+  preferences.putUInt("op_mode",OpMode);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
