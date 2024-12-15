@@ -305,6 +305,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   CorrectionFactor = preferences.getFloat("correction_factor",0.0);
   OpMode           = preferences.getUInt("op_mode",1);
   TargetTemp       = preferences.getFloat("target_temp",80.0);
+  StartupPercent   = preferences.getUInt("startup_percent",50);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -325,6 +326,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putFloat("correction_factor",CorrectionFactor);
   preferences.putUInt("op_mode",OpMode);
   preferences.putFloat("target_temp",TargetTemp);
+  preferences.putUInt("startup_percent",StartupPercent);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -406,6 +408,9 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_2=") == 0) { // Set Startup Power
+    Header.remove(0,9);
+    StartupPercent = Header.toInt();
+    SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_3=") == 0) { // Set Fallback Power
     return jsonSuccess;
