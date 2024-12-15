@@ -31,7 +31,7 @@
 //       power mode which follows the power level of the master controller. They are still able
 //       to run independently in constant power or constant temperature mode, and will maintain
 //       their own settings. Also, each slave can have its own 4 slaves as well that will follow
-//       what this controller tells it to do.
+//       what this controller tells it to do. Think of it like a pyramid scheme. LOL!!!
 //------------------------------------------------------------------------------------------------
 //#define LOCAL_DISPLAY          // Include libraries and code for the LilyGo T-Display-S3 board
 //#define DS18B20                // Use DS18B20 temperature sensor instead of Type-K thermocouple
