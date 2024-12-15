@@ -359,6 +359,7 @@ void PowerAdjust(byte Percent) { // Set the SCR board or SSR timing to a target 
     PowerLevel = 0;
   }
   #endif
+  UpdateAllSlaves("/?power=" + String(Percent));
 }
 //-----------------------------------------------------------------------------------------------
 void RunState(byte State) { // Toggle the active heating run state
@@ -369,7 +370,6 @@ void RunState(byte State) { // Toggle the active heating run state
     digitalWrite(FAN_OUT,HIGH);
     PowerAdjust(StartupPercent);
     UpdateAllSlaves("/start-run");
-    UpdateAllSlaves("/?power=" + String(StartupPercent));
   } else {
     Runtime = "00:00:00";
     ActiveRun = false;
