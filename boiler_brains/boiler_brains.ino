@@ -309,6 +309,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   FallBackPercent  = preferences.getUInt("fallback_percent",50);
   AdjustRate       = preferences.getUInt("adjust_rate",1);
   Deviation        = preferences.getFloat("deviation",1.0);
+  ChangeWait       = preferences.getUInt("change_wait",120);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -333,6 +334,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("fallback_percent",FallBackPercent);
   preferences.putUInt("adjust_rate",AdjustRate);
   preferences.putFloat("deviation",Deviation);
+  preferences.putUInt("change_wait",ChangeWait);
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -434,6 +436,9 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_6=") == 0) { // Set Change Wait Time
+    Header.remove(0,9);
+    ChangeWait = Header.toInt();
+    SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_7=") == 0) { // Set Rest Period
     return jsonSuccess;
