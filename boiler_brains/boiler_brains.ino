@@ -464,13 +464,13 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   } else if (Header == "/form-7") { // Get Form: Rest Period
     return get_Form(7);
   } else if (Header == "/get-power") { // Get current power percentage
-
+    return String(round(0.392156863 * PowerLevel));
   } else if (Header == "/get-runtime") { // Get current heating runtime (seconds)
-
+    return String((millis() - StartTime) / 1000);
   } else if (Header == "/get-tempc") { // Get current Temp C reading
-
+    return String(TempC,1);
   } else if (Header == "/get-tempf") { // Get current Temp F reading
-
+    return String(TempF,1);
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump, no memory update
     return jsonSuccess;
   } else if (Header == "/reboot") { // Reboot the controller
