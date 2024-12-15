@@ -117,7 +117,7 @@ int ChangeWait = 120;            // How many seconds to wait between power adjus
 int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
 byte AdjustRate = 1;             // How much power % change to make when temperature is out of range
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
-byte StartupPercent = 50;        // Power % to start at when running in OpMode 1
+byte StartupPercent = 50;        // Power % to start at or target power in OpMode 0
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
 byte OpMode = 1;                 // Operation mode, 0 = Constant Power, 1 = Constant Temperature
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once per minute
@@ -403,6 +403,12 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return get_Form(7); // Rest Period
   } else if (Header == "/reboot") {
     return "Rebooting...";
+  } else if (Header == "/start-run") {
+    if (! ActiveRun) RunState(1);
+    return "Started";
+  } else if (Header == "/stop-run") {
+    RunState(0);
+    return "Stopped";
   } else if (Header == "/toggle-run") {
     if (ActiveRun) {
       RunState(0);
