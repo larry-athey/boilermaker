@@ -32,24 +32,23 @@ byte PingAllSlaves() { // Pings all slaves and returns the number of how many ar
   return Total;
 }
 //------------------------------------------------------------------------------------------------
-void UpdateSlave(byte WhichOne,String Query) { // Update a slave unit with an HTTP API call
-  /*
+bool UpdateSlave(byte WhichOne,String Query) { // Update a slave unit with an HTTP API call
   HTTPClient http;
-  http.begin("http://example.com/json-endpoint");  // Replace with your JSON endpoint
 
-  // Send HTTP GET request
+  http.begin("http://" + GetSlaveIP(byte WhichOne) + Query);
   int httpResponseCode = http.GET();
 
   if (httpResponseCode > 0) {
     String payload = http.getString();
-    Serial.println("HTTP Response code: " + String(httpResponseCode));
-    Serial.println(payload);  // This will print the JSON string
+    //Serial.println("HTTP Response code: " + String(httpResponseCode));
+    //Serial.println(payload);
+    http.end();
+    return true;
   } else {
-    Serial.print("Error code: ");
-    Serial.println(httpResponseCode);
+    //Serial.print("Error code: " + String(httpResponseCode));
+    http.end();
+    return false;
   }
-  http.end();  // Close connection
-  */
 }
 //------------------------------------------------------------------------------------------------
 void UpdateAllSlaves(String Query) { // Updates all slaves with the same HTTP API call
