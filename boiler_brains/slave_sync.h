@@ -22,8 +22,14 @@ bool PingSlave(byte WhichOne) {
   return PingTest;
 }
 //------------------------------------------------------------------------------------------------
-void PingAllSlaves() {
-
+byte PingAllSlaves() {
+  byte Total = 0;
+  if (SlaveTotal() == 0) return 0;
+  if (Ping.ping(GetSlaveIP(1).c_str(),3)) Total ++;
+  if (Ping.ping(GetSlaveIP(2).c_str(),3)) Total ++;
+  if (Ping.ping(GetSlaveIP(3).c_str(),3)) Total ++;
+  if (Ping.ping(GetSlaveIP(4).c_str(),3)) Total ++;
+  return Total;
 }
 //------------------------------------------------------------------------------------------------
 void UpdateSlave(byte WhichOne,String Query) {
