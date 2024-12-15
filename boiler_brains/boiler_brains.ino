@@ -464,10 +464,10 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   } else if (Header == "/form-7") { // Get Form: Rest Period
     return get_Form(7);
   } else if (Header == "/get-power") { // Get current power percentage
-    return String(round(0.392156863 * PowerLevel));
+    return String(round(0.392156863 * PowerLevel),0);
   } else if (Header == "/get-runtime") { // Get current heating runtime (seconds)
     if (ActiveRun) {
-      return String((millis() - StartTime) / 1000);
+      return String((millis() - StartTime) / 1000,0);
     } else {
       return "0";
     }
