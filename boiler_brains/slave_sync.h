@@ -17,8 +17,9 @@ String GetSlaveIP(byte WhichOne) {
   if (WhichOne == 4) return slaveIP4;
 }
 //------------------------------------------------------------------------------------------------
-void PingSlave(byte WhichOne) {
+bool PingSlave(byte WhichOne) {
 
+  return false;
 }
 //------------------------------------------------------------------------------------------------
 void PingAllSlaves() {
@@ -26,6 +27,7 @@ void PingAllSlaves() {
 }
 //------------------------------------------------------------------------------------------------
 void UpdateSlave(byte WhichOne,String Query) {
+  /*
   HTTPClient http;
   http.begin("http://example.com/json-endpoint");  // Replace with your JSON endpoint
 
@@ -41,11 +43,14 @@ void UpdateSlave(byte WhichOne,String Query) {
     Serial.println(httpResponseCode);
   }
   http.end();  // Close connection
+  */
 }
 //------------------------------------------------------------------------------------------------
 void UpdateAllSlaves(String Query) {
   if (SlaveTotal() > 0) {
-    PingAllSlaves();
+    for (byte x = 1; x <= 4; x ++) {
+      if (PingSlave(x)) UpdateSlave(x,Query);
+    }
   }
 }
 //------------------------------------------------------------------------------------------------
