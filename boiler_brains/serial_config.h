@@ -24,20 +24,22 @@ void ShowConfig() { // Send an ANSI clear screen sequence and display all config
   Serial.println("slaveIP2: " + slaveIP2);
   Serial.println("slaveIP3: " + slaveIP3);
   Serial.println("slaveIP4: " + slaveIP4);
+  Serial.println("CorrectionFactor: " + String(CorrectionFactor));
   Serial.println("");
 }
 //------------------------------------------------------------------------------------------------
 void ConfigMenu() { // Display the configuration menu
   Serial.println("Boilermaker Configuration Menu:");
-  Serial.println("  1. Set Device Name");
-  Serial.println("  2. Set SSID");
-  Serial.println("  3. Set Password");
-  Serial.println("  4. Set DHCP or Static IP");
-  Serial.println("  5. Connect to WiFi");
-  Serial.println("  6. Set Slave 1 IP");
-  Serial.println("  7. Set Slave 2 IP");
-  Serial.println("  8. Set Slave 3 IP");
-  Serial.println("  9. Set Slave 4 IP");
+  Serial.println("  0. Set Device Name");
+  Serial.println("  1. Set SSID");
+  Serial.println("  2. Set Password");
+  Serial.println("  3. Set DHCP or Static IP");
+  Serial.println("  4. Connect to WiFi");
+  Serial.println("  5. Set Slave 1 IP");
+  Serial.println("  6. Set Slave 2 IP");
+  Serial.println("  7. Set Slave 3 IP");
+  Serial.println("  8. Set Slave 4 IP");
+  Serial.println("  9. Set Correction Factor");
   Serial.print("Choose an option: ");
 }
 //------------------------------------------------------------------------------------------------
