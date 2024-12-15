@@ -26,6 +26,12 @@
 // on a MAX-6675 amplifier module. The DS18B20 is my normal go-to due to their low price and they
 // ore perfectly fine for use in distillation projects since they have an upper temperature limit
 // of 125C/257F. Uncomment the DS18B20 constant to use that instead of the thermocouple setup.
+//
+// NOTE: When using these controllers in a master/slave setup, all 4 slaves are ran in constant
+//       power mode which follows the power level of the master controller. They are still able
+//       to run independently in constant power or constant temperature mode, and will maintain
+//       their own settings. Also, each slave can have its own 4 slaves as well that will follow
+//       what this controller tells it to do.
 //------------------------------------------------------------------------------------------------
 //#define LOCAL_DISPLAY          // Include libraries and code for the LilyGo T-Display-S3 board
 //#define DS18B20                // Use DS18B20 temperature sensor instead of Type-K thermocouple
@@ -276,7 +282,6 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     wifiMask = WiFi.subnetMask().toString();
     wifiGateway = WiFi.gatewayIP().toString();
     wifiDNS = WiFi.dnsIP(0).toString();
-    SynchronizeAllSlaves();
   } else {
     wifiIP = "";
     wifiMask = "";
@@ -367,11 +372,14 @@ void RunState(byte State) { // Toggle the active heating run state
     UpToTemp  = false;
     digitalWrite(FAN_OUT,HIGH);
     PowerAdjust(StartupPercent);
+    UpdateAllSlaves("/start-run");
+    UpdateAllSlaves("/?power=" + String(StartupPercent));
   } else {
     Runtime = "00:00:00";
     ActiveRun = false;
     digitalWrite(FAN_OUT,LOW);
     PowerAdjust(0);
+    UpdateAllSlaves("/stop-run");
   }
 }
 //-----------------------------------------------------------------------------------------------
@@ -379,9 +387,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   //Serial.println("\n" + Header);
   Header.remove(0,4); // Delete the "GET " from the beginning
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
-  if (Header == "/") {
-    return HomePage();
-  } else if (Header == "/ajax-livedata") {
+  if (Header == "/ajax-livedata") {
     return LiveData();
   } else if (Header == "/ajax-settings") {
     return SettingsData();
@@ -424,6 +430,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return get_Form(6);
   } else if (Header == "/form-7") { // Rest Period
     return get_Form(7);
+  } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump, no memory update
+    return jsonSuccess;
   } else if (Header == "/reboot") {
     return "Rebooting...";
   } else if (Header == "/start-run") {
@@ -438,9 +446,9 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     } else {
       RunState(1);
     }
-    return "Done";
+    return jsonSuccess;
   } else {
-    return "Unrecognized: " + Header;
+    return HomePage(); // Always send the home page if no recognized queries are received
   }
 }
 //-----------------------------------------------------------------------------------------------
@@ -549,6 +557,7 @@ void loop() {
                 if (CurrentPercent > 100) CurrentPercent = 100;
                 PowerAdjust(CurrentPercent); // Increase power
               }
+              UpdateAllSlaves("/?power=" + String(CurrentPercent));
             }
           }
         }
@@ -563,6 +572,7 @@ void loop() {
         delay(500);
         ConnectWiFi();
       }
+      UpdateAllSlaves("/start-run");
       wifiCheckCounter = 0;
     }
     #ifdef LOCAL_DISPLAY
