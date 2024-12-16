@@ -607,7 +607,6 @@ void loop() {
                 if (CurrentPercent > 100) CurrentPercent = 100;
                 PowerAdjust(CurrentPercent); // Increase power
               }
-              UpdateAllSlaves("/?power=" + String(CurrentPercent));
             }
           }
         }
