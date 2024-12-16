@@ -206,7 +206,7 @@ String StaticData() {
   String Content = "";
   Content += InfoLine("Name",DeviceName);
   Content += InfoLine("Slave&nbsp;Units",String(SlaveTotal()) + " (" + String(SlavesPinging) + " online)");
-  Content += "<button onClick=\"ToggleRun()\" class=\"btn btn-sm btn-outline-success\" type=\"button\" style=\"width: 100%; margin-top: .75em; margin-bottom: .5em;\">Start / Stop</button>";
+  Content += "<button onClick=\"ToggleRun()\" class=\"btn btn-sm btn-success\" type=\"button\" style=\"width: 100%; margin-top: .75em; margin-bottom: .5em;\">Start / Stop</button>";
 
   return Content;
 }
