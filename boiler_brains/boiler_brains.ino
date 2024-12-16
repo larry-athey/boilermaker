@@ -279,6 +279,7 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     wifiMask = WiFi.subnetMask().toString();
     wifiGateway = WiFi.gatewayIP().toString();
     wifiDNS = WiFi.dnsIP(0).toString();
+    SlavesPinging = PingAllSlaves();
   } else {
     wifiIP = "";
     wifiMask = "";
