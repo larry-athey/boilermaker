@@ -622,6 +622,7 @@ void loop() {
         delay(500);
         ConnectWiFi();
       }
+      SlavesPinging = PingAllSlaves();
       wifiCheckCounter = 0;
     }
     #ifdef LOCAL_DISPLAY
