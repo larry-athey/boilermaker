@@ -6,4 +6,4 @@ This case was designed to accommodate an [SSR-40DA](https://www.amazon.com/Inkbi
 
 This design is also based around a 6-column 90mm bus bar in the bottom of the case, but includes holes for strain reliefs in case you decide to sacrifice a 12 gauge extension cord. Holes in the bottom of the case are also provided in the event that you want to wall mount the unit.
 
-There is also a 50mm fan mounting opening between the AC power cable holes. You should install your fan so that it pulls cool air through the heat sink and evacuates the heat from the case. I suggest using a fan that comes with a guard. This fan only runs when the Boilermaker is active.
+There is also a 50mm fan mounting opening between the AC power cable holes. You should install your fan so that it pulls cool air through the heat sink and evacuates the heat from the case. I suggest using a fan that comes with a guard. This fan only runs when the Boilermaker is active so as not to fill it up with dust like a computer's cooling fan does.
