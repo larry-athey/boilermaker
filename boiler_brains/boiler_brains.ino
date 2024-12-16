@@ -475,6 +475,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return String(TempC,1);
   } else if (Header == "/get-tempf") { // Get current Temp F reading
     return String(TempF,1);
+  } else if (Header == "/get-uptime") { // Get current system uptime (seconds)
+    return String(millis() / 1000);
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump, no memory update
     return jsonSuccess;
   } else if (Header == "/reboot") { // Reboot the controller
