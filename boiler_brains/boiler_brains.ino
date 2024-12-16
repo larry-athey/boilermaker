@@ -117,6 +117,7 @@ float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is sele
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
 int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
+byte SlavesPinging = 0;          // Shows how many configured slaves are actually online
 byte AdjustRate = 1;             // How much power % change to make when temperature is out of range
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
 byte StartupPercent = 50;        // Power % to start at or target power in OpMode 0
