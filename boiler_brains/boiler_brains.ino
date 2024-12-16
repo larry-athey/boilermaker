@@ -620,7 +620,6 @@ void loop() {
         delay(500);
         ConnectWiFi();
       }
-      UpdateAllSlaves("/start-run");
       wifiCheckCounter = 0;
     }
     #ifdef LOCAL_DISPLAY
