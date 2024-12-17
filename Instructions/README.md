@@ -25,3 +25,5 @@ The menu options are as follows:
 **4. Connect to WiFi** - Use this option to test your WiFi configuration. Once you can see that your Boilermaker connects to your WiFi, you won't have to worry about it again unless you change your WiFi netwoork name or password. Your Boilermaker will automatically connect to your WiFi network at startup, and will check its connection once per minute and automatically reconnect if necessary.
 
 **5. Set Slave 1 IP** - This applies to all four slave IP address settings. Any Boilermaker can control up to 4 more Boilermakers, whether they are being used as a master or a slave. Which means that every slave can also have up to 4 slaves. You simply provide the IP address of other Boilermakers and they will automatically follow this one's power level and run status.
+
+**9. Set Correction Factor** - In the extremely rare event that you got a temperature sensor that isn't reading correctly, you can enter a number from -5.00 to +5.00 (C) here to shift its readings up or down. Even at that rate, 5 degrees (C) in either direction would tell me to just replace the sensor. But, the option is here in case you actually need it.
