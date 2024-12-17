@@ -6,6 +6,8 @@ Unlike other WiFi enabled ESP32 powered devices, the Boilermaker does not defaul
 
 Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/) program, which is also available for Linux desktop systems, including Raspberry Pi systems. Linux users can also install any of the many command line terminal programs with their package manager, such as minicom. Seriously, serial terminal programs are as old as mainframe servers, this is far from anything new.
 
+_**NOTE:** You can also simply use the serial terminal in the Arduino IDE by pressing CTRL+Shift+M._
+
 Once your Boilermaker is connected to your computer with a USB data cable _(not just a charging cable)_, it will appear as a serial port and your terminal program will see it. The communications parameters are 9600 baud, 8N1. This is an old standard and shouldn't require any special configuration steps on your part.
 
 Once you are connected, press your Enter key to refresh the screen and you will see the following in your terminal. As you can see, the serial terminal is only used for configuring network related settings and a temperature sensor offset in the extremely rare event that you have an inaccurate sensor. No need for the added bloat of an access point and web configutator.<br>
