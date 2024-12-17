@@ -25,3 +25,5 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 **Power Level:** Shows the current power level during an active run.
 
 ### Third WebUI Data Card
+
+The third WebUI card displays all of the user configurable settings.
