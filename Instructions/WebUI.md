@@ -26,4 +26,4 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 
 ### Third WebUI Data Card
 
-The third WebUI card displays all of the user configurable settings.
+The third WebUI card displays all of the user configurable settings. These are also updated on a random time basis since the Boilermaker has a complete HTTP API that allows it to be remotely configured by another device on the same network.
