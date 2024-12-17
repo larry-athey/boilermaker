@@ -5,3 +5,5 @@ The WebUI is designed for cell phone screens in vertical/portrait mode. It will 
 It is important to remember that the Boilermaker code is derived from the [Airhead](https://github.com/larry-athey/airhead), which is a port of PHP to C++ from my [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) boiler management routines. What I've done with the Boilermaker is make various static variables in the Airhead code, user configurable options in the WebUI. This conveniently makes it possible to explain what these settings are doing with the 700 watt heating element in a 1 gallon boiler vessel. You can then adapt this information to your larger heating element and boiler vessel.
 
 ### First WebUI Data Card
+
+In the first card at the top of the WebUI, you see the device name and the number of configured slave units.
