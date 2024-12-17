@@ -10,4 +10,5 @@ Once your Boilermaker is connected to your computer with a USB data cable _(not 
 
 Once you are connected, press your Enter key to refresh the screen and you will see the following in your terminal.
 
-![Serial Configuration Menu](https://github.com/user-attachments/assets/244df97a-8892-4117-ae09-ec47df7a9d40)
+![Serial Configuration Menu](https://github.com/user-attachments/assets/d612be73-193b-4cfc-8d32-baa44cb02adb)
+
