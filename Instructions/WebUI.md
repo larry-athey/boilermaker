@@ -26,4 +26,4 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 
 ### Third WebUI Data Card
 
-The third WebUI card displays all of the user configurable settings. These are also updated on a random time basis since the Boilermaker has a complete HTTP API that allows it to be remotely configured by another device on the same network. Tapping/clicking on any of the values shown in light blue will make a popup form appear so you can edit these as you choose. Keep in mind that the ESP32 is only a 240 MHz computer, its web server is a bit laggy.
+The third WebUI card displays all of the user configurable settings. These are also updated on a random time basis since the Boilermaker has a complete HTTP API that allows it to be remotely configured by another device on the same network. Tapping/clicking on any of the values shown in light blue will make a popup form appear so you can edit these as you choose. Keep in mind that the ESP32 is only a 240 MHz computer, its web server is a bit laggy. Sometimes it takes a couple seconds for the form to display.
