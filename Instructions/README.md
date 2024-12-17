@@ -21,3 +21,5 @@ The menu options are as follows:
 **2. Set Password** - This is where you set the WiFi network password.
 
 **3. Set DHCP or Static IP** - This is where you tell your Boilermaker to ask your router for an IP address, or you specifically set an IP address that never changes. It's far beyond the scope of this document to explain how IP addresses and TCP/IP standards work. I will just say that you will make life a lot easier for yourself if you set a static IP address. Otherwise, you will need to go into your router configuration and create a reservation for your Boilermaker so that it gets the same IP address every time.
+
+**4. Connect to WiFi** - Use this option to test your WiFi configuration. Once you can see that your Boilermaker connects to your WiFi, you won't have to worry about it again unless you change your WiFi netwoork name or password. Your Boilermaker will automatically connect to your WiFi network at startup, and will check its connection once per minute and automatically reconnect if necessary.
