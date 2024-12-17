@@ -12,3 +12,4 @@ The second line here that shows how many configured slave units you have, also s
 
 ### Second WebUI Data Card
 
+The second WebUI card displays live data from the Boilermaker. This is updated at a random time period anywhere from 4.5 to 5.5 seconds, there is not an actual continuous live data stream between your cell phone and the Boilermaker.
