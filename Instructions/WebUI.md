@@ -17,3 +17,5 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 **Run State:** This will say "Inactive" in yellow letters if the Boilermaker is idle, or it will say "Active" in red flashing letters if it is actively running your heating element.
 
 **Uptime:** This shows how long your Boilermaker has been running without a restart in Hours:Minutes:Seconds. Keep in mind that ESP32 units only have a timer, not a real time clock. These will only run for 49.7 days before the timer rolls over to zero. The Boilermaker code will reboot the device at that point and that would be a bad thing to happen in the middle of a distillation run.
+
+**Runtime:** This shows how long the current run has been active.
