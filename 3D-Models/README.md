@@ -1,6 +1,6 @@
 This case should print just fine on any 3D printer since it's not unnecessarily large. However this will not be a quick print due to the thickness of the walls, which is necessary since PLA printed items will warp if exposed to escessive heat. I'm not even joking for a minute, on a Creality Ender 5 Pro running at standard resolution and using 30% infill, the top of the case takes 8.5 hours and the bottom takes over 24 hours. Making the walls thinner and reducing the infill doesn't have that much effect on the time to print.
 
-_**NOTE:** You are free to use any resolution and infill rate of your choosing. I just use 30% infill by default for everything in order to make top surfaces smoother._
+_**NOTE:** You are free to use any resolution and infill rate of your choosing. I just use 30% infill by default for everything in order to make top surfaces smoother. The difference in print time between 15% and 30% isn't enough to make me lower my standards._
 
 I intend to sell Boilermakers as assembled and tested units _(and pre-configured for the customer's WiF network)_, and I really can't afford to send out units where the case will warp due to excessive internal heat. $30 for a weather-proof ABS outdoor utility enclosure also doesn't make sense to me for something like this. Especially since a 1 KG roll of PLA filament is only $23 and I could print 6 cases.
 
