@@ -8,7 +8,7 @@ Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/
 
 Once your Boilermaker is connected to your computer with a USB data cable _(not just a charging cable)_, it will appear as a serial port and your terminal program will see it. The communications parameters are 9600 baud, 8N1. This is an old standard and shouldn't require any special configuration steps on your part.
 
-Once you are connected, press your Enter key to refresh the screen and you will see the following in your terminal.
+Once you are connected, press your Enter key to refresh the screen and you will see the following in your terminal. As you can see, the serial terminal is only used for configuring network related settings and a temperature sensor offset in the extremely rare event that you have an inaccurate sensor.
 
 ![Serial Configuration Menu](https://github.com/user-attachments/assets/d612be73-193b-4cfc-8d32-baa44cb02adb)
 
