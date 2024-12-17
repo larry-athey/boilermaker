@@ -23,3 +23,5 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 **Temperature:** Shows the current temperature whether or not there is an active run.
 
 **Power Level:** Shows the current power during an active run.
+
+### Third WebUI Data Card
