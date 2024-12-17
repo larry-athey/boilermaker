@@ -14,7 +14,7 @@ Once you are connected, press your Enter key to refresh the screen and you will 
 
 The menu options are as follows:
 
-**0. Set Device Name** - This is where you give your Boilermaker a personalized name. This will be displayed in the Web UI and is also used as its hostname when it accounces its presence on your network.
+**0. Set Device Name** - This is where you give your Boilermaker a personalized name. This will be displayed in the Web UI and is also used as its hostname when it announces its presence on your network.
 
 **1. Set SSID** - This is where you set the WiFi network name that you want to connect to.
 
