@@ -12,3 +12,6 @@ Once you are connected, press your Enter key to refresh the screen and you will 
 
 ![Serial Configuration Menu](https://github.com/user-attachments/assets/d612be73-193b-4cfc-8d32-baa44cb02adb)
 
+The menu options are as follows:
+
+**0. Set Device Name** - This is where you give your Boilermaker a personalized name. This will be displayed in the Web UI and is also used as its hostname when it accounces its presence on your network.
