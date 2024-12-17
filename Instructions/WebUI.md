@@ -14,4 +14,4 @@ The second line here that shows how many configured slave units you have, also s
 
 The second WebUI card displays live data from the Boilermaker. This data in the following two WebUI cards is updated at a random time period anywhere from 4.5 to 5.5 seconds. There is not an actual continuous data stream between your cell phone and the Boilermaker, your phone only requests data updates from it at random times.
 
-**Run State:** This will say "Inactive" in yellow letters if the Bailermaker is idle, or will say "Active" in red flashing letters if it is actively running your heating element.
+**Run State:** This will say "Inactive" in yellow letters if the Boilermaker is idle, or it will say "Active" in red flashing letters if it is actively running your heating element.
