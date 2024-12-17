@@ -7,3 +7,8 @@ Unlike other WiFi enabled ESP32 powered devices, the Boilermaker does not defaul
 Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/) program, which is also available for Linux desktop systems, including Raspberry Pi systems. Linux users can also install any of the many command line terminal programs with their package manager, such as minicom. Seriously, serial terminal programs are as old as mainframe servers, this is far from anything new.
 
 Once your Boilermaker is connected to your computer with a USB data cable _(not just a charging cable)_, it will appear as a serial port and your terminal program will see it. The communications parameters are 9600 baud, 8N1. This is an old standard and shouldn't require any special configuration steps on your part.
+
+Once you are connected, press your Enter key to refresh the screen and you will see the following.
+
+![Serial Configuration Menu](https://github.com/user-attachments/assets/c2e79390-1e22-448e-b0bf-b1c3e128819a)
+
