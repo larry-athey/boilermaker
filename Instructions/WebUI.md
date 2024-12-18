@@ -32,3 +32,5 @@ The third WebUI card displays all of the user configurable settings. These value
 
 **Target Temp:** As the name implies, this is the target temperature that you want to shoot for. Everything is done in Celcius at the hardware level, so you need to enter your choice in Celcius here. The upper limit of 260C is 500F, which will require you to be using a thermocouple instead of a DS18B20. This will allow you to use a Boilermaker to control an electric smoker/grill. I use one to run the cheapest bottom of the barrel [Masterbuilt steam smoker](https://www.amazon.com/gp/product/B07VRJQXGL/) you can buy. Cheap way to have a smart smoker!
 
+**Startup Power:** This parameter has two purposes. In Constant Power mode, this is the power level that the Boilermaker runs at continuously. In Constant Temp mode, this is where your power level starts at as it slowly increases its power level until the **Target Temp** has been reached.
+
