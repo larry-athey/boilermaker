@@ -38,3 +38,5 @@ The third WebUI card displays all of the user configurable settings. These value
 
 **Adjustment Rate:** This parameter is how much your power is progressively adjusted over time to reach the **Target Temp**. This is also how much to adjust the power up or down when a temperature correction is needed. The temperature management here works exactly like the cruise control in a car. It progressively gets more and more gas to get up to speed, and then falls back. Then the gas is increased or decreased by a certain amount with a delay between adjustments to stay locked on the target speed.
 
+**Deviation Rate:** This parameter determines how much temperature drift is allowed before a correction is required.
+
