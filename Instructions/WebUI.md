@@ -34,3 +34,5 @@ The third WebUI card displays all of the user configurable settings. These value
 
 **Startup Power:** This parameter has two purposes. In Constant Power mode, this is the power level that the Boilermaker runs at. In Constant Temp mode, this is where your power level starts at as it slowly increases the power level until the **Target Temp** has been reached.
 
+**Fallback Power:** As mentioned in the above, in Constant Temp mode, the Boilermaker starts out at one temperature and slowly increases power until the **Target Temp** has been reached. If you were to stop there, you would quickly overshoot the target, especially if you're at 100%. So, after the **Target Temp** is reached, the controller has to fall back to a point and then begin temperature management by working up to the required power level. 50% is a good starting point, you will just have to test things to find the magic number for your setup.
+
