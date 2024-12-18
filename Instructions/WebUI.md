@@ -1,6 +1,6 @@
-<img width="1024" src="https://github.com/user-attachments/assets/e2d0b582-1564-4070-9d84-48ad7b6f0c3f"><br>
-
 # Web User Interface
+
+<img width="1024" src="https://github.com/user-attachments/assets/e2d0b582-1564-4070-9d84-48ad7b6f0c3f"><br>
 
 The WebUI is designed for cell phone screens in vertical/portrait mode. It will still work on desktop/laptop/tablet screens, but will appear stretched out. I would add more code to fine tune it to be more friendly to larger screen sizes, but I'm working with a limited amount of code space in the ESP32 and I already have it 75% full. If you must use it on a desktop PC, use Firefox and switch it into mobile app view by pressing **CTRL+Shift+M** or **Command+Option+M** if you are using a Mac.
 
