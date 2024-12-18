@@ -486,10 +486,10 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return "Rebooting...";
   } else if (Header == "/start-run") { // Start a heating run
     if (! ActiveRun) RunState(1);
-    return "Started";
+    return jsonSuccess;
   } else if (Header == "/stop-run") { // Stop the heating run
     RunState(0);
-    return "Stopped";
+    return jsonSuccess;
   } else if (Header == "/toggle-run") { // Toggle the current run status
     if (ActiveRun) {
       RunState(0);
