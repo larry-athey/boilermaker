@@ -36,3 +36,5 @@ The third WebUI card displays all of the user configurable settings. These value
 
 **Fallback Power:** As mentioned in the above, in Constant Temp mode, the Boilermaker starts out at one temperature and slowly increases power until the **Target Temp** has been reached. If you were to stop there, you would quickly overshoot the target, especially if you're at 100%. So, after the **Target Temp** is reached, the controller has to fall back to a point and then begin temperature management by working up to the required power level. 50% is a good starting point, you will just have to test things to find the magic number for your setup.
 
+**Adjustment Rate:** This parameter is how much your power is adjusted as it increases power to reach the **Target Temp**. This is also how much to adjust the power up or down when a temperature correction is needed. The temperature management here works exactly like the cruise control in a car. It gets a lot of get to get up to speed, then the gas is increased or decreased by a certain amount with a delay between adjustments to stay locked on to the target speed.
+
