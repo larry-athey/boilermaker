@@ -554,6 +554,12 @@ void HandleSerialInput() { // Handle user configuration via the serial console
   ConfigMenu();
 }
 //-----------------------------------------------------------------------------------------------
+#ifdef LOCAL_DISPLAY
+void ProcessButtons() {
+  
+}
+#endif
+//------------------------------------------------------------------------------------------------
 void loop() {
   int CurrentPercent = round(0.392156863 * PowerLevel);
   long CurrentTime = millis();
@@ -565,6 +571,7 @@ void loop() {
   }
   #ifdef LOCAL_DISPLAY
   // Check for inc/dec button presses and handle as necessary
+  if ((digitalRead(INC_BTN) == 0) || (digitalRead(DEC_BTN) == 0)) ProcessButtons();
   #endif
   // Check for HTTP API calls and handle as necessary
   WiFiClient Client = Server.available();
