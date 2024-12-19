@@ -10,7 +10,7 @@ Bottom - 172 grams<br>
 Lid - 85 grams<br>
 ESP32 Cover - 10 grams<br>
 
-I intend to sell Boilermakers as assembled and tested units _(and pre-configured for the customer's WiF network)_, and I really can't afford to send out units where the case will warp due to excessive internal heat. $30 for a weather-proof ABS outdoor utility enclosure also doesn't make sense to me for something like this. Especially since a 1 KG roll of PLA filament is only $23 and I could print 6 cases.
+I intend to sell Boilermakers as assembled and tested units _(and pre-configured for the customer's WiF network)_, and I really can't afford to send out units where the case will warp due to excessive internal heat. $30 for a weather-proof ABS outdoor utility enclosure also doesn't make sense to me for something like this. Especially since a 1 KG roll of PLA filament is only $23 and I could print 5 cases.
 
 This case was designed to accommodate an [SSR-40DA](https://www.amazon.com/Inkbird-Solid-Thermostat-Temperature-Controller/dp/B00HV974KC/) mounted to a [large SSR heat sink](https://www.amazon.com/uxcell-Aluminum-Dissipation-Single-10A-100A/dp/B07C8R7MS2/), and supports both a standard [38 Pin ESP32](https://www.amazon.com/gp/product/B09J95SMG7/) or a [LilyGo T-Display-S3](https://www.amazon.com/gp/product/B0BRTT727Z/) in the factory shell _(for those who want a local LCD display)_. The 38 Pin ESP32 mounts in the same place as the LilyGo, but requires an additional cover _(**BM-ESP32-Cover.stl**)_ to be 3D printed to keep it in place.
 
