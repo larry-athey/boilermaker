@@ -4,7 +4,7 @@ This case should print just fine on any 3D printer since it's not unnecessarily 
 
 _**NOTE:** You are free to use any resolution and infill rate of your choosing. I just use 30% infill by default for everything in order to make top surfaces smoother. The difference in print time between 15% and 30% isn't enough to make me lower my standards._
 
-Using my settings with no supports for the bottom or ESP32 cover and the required supports for the ESP32 opening in the lide, below are the weights so you know how much filament that you will need left on your roll.
+Using my settings with no supports for the bottom or ESP32 cover and the required supports for the ESP32 opening in the lid, below are the weights of each item so you will know how much filament that you need to have left on your roll.
 
 Bottom - 172 grams<br>
 Lid - 82 grams<br>
