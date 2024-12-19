@@ -412,42 +412,58 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     } else {
       Header.remove(0,9);
       OpMode = Header.toInt();
+      if (OpMode < 0) OpMode = 0;
+      if (OpMode > 1) OpMode = 1;
       SetMemory();
       return jsonSuccess;
     }
   } else if (Header.indexOf("/?data_1=") == 0) { // Set Target Temperature
     Header.remove(0,9);
     TargetTemp = Header.toFloat();
+    if (TargetTemp < 0) TargetTemp = 0;
+    if (TargetTemp > 260) TargetTemp = 260;
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_2=") == 0) { // Set Startup Power
     Header.remove(0,9);
     StartupPercent = Header.toInt();
+    if (StartupPercent < 10) StartupPercent = 10;
+    if (StartupPercent > 100) StartupPercent = 100;
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_3=") == 0) { // Set Fallback Power
     Header.remove(0,9);
     FallBackPercent = Header.toInt();
+    if (FallBackPercent < 10) FallBackPercent = 10;
+    if (FallBackPercent > 100) FallBackPercent = 100;
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_4=") == 0) { // Set Adjustment Rate
     Header.remove(0,9);
     AdjustRate = Header.toInt();
+    if (AdjustRate < 1) AdjustRate = 1;
+    if (AdjustRate > 100) AdjustRate = 100;
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_5=") == 0) { // Set Deviation Rate
     Header.remove(0,9);
     Deviation = Header.toFloat();
+    if (Deviation < 0.1) Deviation = 0.1;
+    if (Deviation > 5) Deviation = 5;
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_6=") == 0) { // Set Change Wait Time
     Header.remove(0,9);
     ChangeWait = Header.toInt();
+    if (ChangeWait < 1) ChangeWait = 1;
+    if (ChangeWait > 1000) ChangeWait = 1000;
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_7=") == 0) { // Set Rest Period
     Header.remove(0,9);
     RestPeriod = Header.toInt();
+    if (RestPeriod < 1) RestPeriod = 1;
+    if (RestPeriod > 1000) RestPeriod = 1000;
     SetMemory();
     return jsonSuccess;
   } else if (Header == "/form-0") { // Get Form: Operation Mode
@@ -481,6 +497,10 @@ String HandleAPI(String Header) { // Handle HTTP API calls
   } else if (Header == "/get-uptime") { // Get current system uptime (seconds)
     return String(millis() / 1000);
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump, no memory update
+    Header.remove(0,8);
+    if (Header.toInt() < 10) Header = "10";
+    if (Header.toInt() > 100) Header = "100";
+    PowerAdjust(Header.toInt());
     return jsonSuccess;
   } else if (Header == "/reboot") { // Reboot the controller
     return "Rebooting...";
