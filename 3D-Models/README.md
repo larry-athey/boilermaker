@@ -7,7 +7,7 @@ _**NOTE:** You are free to use any resolution and infill rate of your choosing. 
 Using my settings with no supports for the bottom or ESP32 cover and the required supports for the ESP32 opening in the lid, below are the weights of each item so you will know how much filament that you need to have left on your roll.
 
 Bottom - 172 grams<br>
-Lid - 82 grams<br>
+Lid - 85 grams<br>
 ESP32 Cover - 10 grams<br>
 
 I intend to sell Boilermakers as assembled and tested units _(and pre-configured for the customer's WiF network)_, and I really can't afford to send out units where the case will warp due to excessive internal heat. $30 for a weather-proof ABS outdoor utility enclosure also doesn't make sense to me for something like this. Especially since a 1 KG roll of PLA filament is only $23 and I could print 6 cases.
