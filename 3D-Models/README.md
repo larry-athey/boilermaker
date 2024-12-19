@@ -4,6 +4,12 @@ This case should print just fine on any 3D printer since it's not unnecessarily 
 
 _**NOTE:** You are free to use any resolution and infill rate of your choosing. I just use 30% infill by default for everything in order to make top surfaces smoother. The difference in print time between 15% and 30% isn't enough to make me lower my standards._
 
+Using my settings with no supports for the bottom or ESP32 cover and the required supports for the ESP32 opening in the lide, below are the weights so you know how much filament that you will need left on your roll.
+
+Bottom - 172 grams
+Lid - 82 grams
+ESP32 Cover - 10 grams
+
 I intend to sell Boilermakers as assembled and tested units _(and pre-configured for the customer's WiF network)_, and I really can't afford to send out units where the case will warp due to excessive internal heat. $30 for a weather-proof ABS outdoor utility enclosure also doesn't make sense to me for something like this. Especially since a 1 KG roll of PLA filament is only $23 and I could print 6 cases.
 
 This case was designed to accommodate an [SSR-40DA](https://www.amazon.com/Inkbird-Solid-Thermostat-Temperature-Controller/dp/B00HV974KC/) mounted to a [large SSR heat sink](https://www.amazon.com/uxcell-Aluminum-Dissipation-Single-10A-100A/dp/B07C8R7MS2/), and supports both a standard [38 Pin ESP32](https://www.amazon.com/gp/product/B09J95SMG7/) or a [LilyGo T-Display-S3](https://www.amazon.com/gp/product/B0BRTT727Z/) in the factory shell _(for those who want a local LCD display)_. The 38 Pin ESP32 mounts in the same place as the LilyGo, but requires an additional cover _(**BM-ESP32-Cover.stl**)_ to be 3D printed to keep it in place.
