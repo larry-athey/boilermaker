@@ -131,10 +131,10 @@ String wifiIP;                   // WiFi network IPV4 address
 String wifiMask;                 // WiFi network subnet mask
 String wifiGateway;              // WiFi network default gateway address
 String wifiDNS;                  // WiFi network DNS resolver address
-String slaveIP1;                 // Slave unit 1 IPV4 address
-String slaveIP2;                 // Slave unit 2 IPV4 address
-String slaveIP3;                 // Slave unit 3 IPV4 address
-String slaveIP4;                 // Slave unit 4 IPV4 address
+String slaveIP1 = "";            // Slave unit 1 IPV4 address
+String slaveIP2 = "";            // Slave unit 2 IPV4 address
+String slaveIP3 = "";            // Slave unit 3 IPV4 address
+String slaveIP4 = "";            // Slave unit 4 IPV4 address
 String DeviceName;               // Network host name and device name to be displayed in the web UI
 String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
