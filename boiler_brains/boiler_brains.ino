@@ -587,7 +587,6 @@ void DecValue() { // Decrement the value associated with the current OpMode
 //-----------------------------------------------------------------------------------------------
 void ProcessButtons() {
   byte HoldCounter = 0;
-
   if ((digitalRead(INC_BTN) == 0) && (digitalRead(DEC_BTN) == 0)) {
     // Both buttons pressed simultaneously toggles the run state
     if (ActiveRun) {
