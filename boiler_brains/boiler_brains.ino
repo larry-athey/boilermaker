@@ -555,8 +555,76 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 }
 //-----------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
+void IncValue() { // Increment the value associated with the current OpMode
+  if (OpMode == 0) {
+    if (StartupPercent < 100) {
+      StartupPercent ++;
+      PowerAdjust(StartupPercent);
+    }
+  } else {
+    if (TargetTemp < 260) {
+      TargetTemp ++;
+      if (TargetTemp > 260) TargetTemp = 260;
+    }
+  }
+  ScreenUpdate();
+}
+//-----------------------------------------------------------------------------------------------
+void DecValue() { // Decrement the value associated with the current OpMode
+  if (OpMode == 0) {
+    if (StartupPercent > 10) {
+      StartupPercent --;
+      PowerAdjust(StartupPercent);
+    }
+  } else {
+    if (TargetTemp > 0) {
+      TargetTemp --;
+      if (TargetTemp < 0) TargetTemp = 0;
+    }
+  }
+  ScreenUpdate();
+}
+//-----------------------------------------------------------------------------------------------
 void ProcessButtons() {
-  
+  byte HoldCounter = 0;
+
+  if ((digitalRead(INC_BTN) == 0) && (digitalRead(DEC_BTN) == 0)) {
+    // Both buttons pressed simultaneously toggles the run state
+    if (ActiveRun) {
+      RunState(0);
+    } else {
+      RunState(1);
+    }
+    ScreenUpdate();
+    while ((digitalRead(INC_BTN) == 0) && (digitalRead(DEC_BTN) == 0)) delay(10);
+  } else if (digitalRead(INC_BTN) == 0) {
+    // Increment power level or target temperature
+    IncValue();
+    while (digitalRead(INC_BTN) == 0) {
+      delay(10);
+      HoldCounter ++;
+      if (HoldCounter == 150) { // User is intentionally holding the + button
+        while (digitalRead(INC_BTN) == 0) {
+          IncValue();
+          delay(250);
+        }
+      }
+    }
+  } else if (digitalRead(DEC_BTN) == 0) {
+    // Decrement power level or target temperature
+    DecValue();
+    while (digitalRead(DEC_BTN) == 0) {
+      delay(10);
+      HoldCounter ++;
+      if (HoldCounter == 150) { // User is intentionally holding the - button
+        while (digitalRead(DEC_BTN) == 0) {
+          DecValue();
+          delay(250);
+        }
+      }
+    }
+  }
+  SetMemory();
 }
 #endif
 //------------------------------------------------------------------------------------------------
