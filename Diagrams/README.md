@@ -2,4 +2,4 @@ If you are just going to be using this with a small still (1000 watts or less) a
 
 However, if you're going to be running something heftier than that or you intend to use a Type-K thermocouple and a MAX-6675 amplifier, you'll want to follow the schematic that I've provided here. There's a whole lot of nothing complicated going on with it. Everything is just a few point-to-point connections and a simple transistor switch to run a 5 volt cooling fan.
 
-I don't have any plans to create a PCB for this PSU and interface due to the fact that I could probably build 50 of them using point-to-point prototype boards as I wait for the 3D printing of the case to finish.
+I don't have any plans to create a PCB for this PSU and interface due to the fact that I could easily build a couple dozen of them at a relaxed pace just using point-to-point prototype boards, as I wait for the 3D printing of the case to finish.
