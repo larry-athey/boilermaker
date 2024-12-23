@@ -127,3 +127,26 @@ void get_CorrectionFactor() { // Get the correction factor for the temperature s
   CorrectionFactor = ReadInput().toFloat();
 }
 //------------------------------------------------------------------------------------------------
+bool isValidIP(String ip) {
+  // Convert String to std::string for easier manipulation
+  std::string ipStr = ip.c_str();
+
+  if (ipStr.find('.') != std::string::npos) {
+    // Check for IPv4
+    // IPv4 validation
+    IPAddress ipv4Addr;
+    if (ipv4Addr.fromString(ip)) {
+      return true;
+    }
+  } else if (ipStr.find(':') != std::string::npos) {
+    // Check for IPv6
+    // IPv6 validation using the WiFi library which supports IPv6
+    WiFiClient client;
+    if (client.connect(ipStr.c_str(),80)) { // Try connecting to the slave's web server
+      client.stop();
+      return true;
+    }
+  }
+  return false;
+}
+//------------------------------------------------------------------------------------------------
