@@ -549,6 +549,10 @@ void HandleSerialInput() { // Handle user configuration via the serial console
   } else if (Option == "9" ) {
     get_CorrectionFactor();
   }
+  if (! isValidIP(slaveIP1)) slaveIP1 = "";
+  if (! isValidIP(slaveIP2)) slaveIP2 = "";
+  if (! isValidIP(slaveIP3)) slaveIP3 = "";
+  if (! isValidIP(slaveIP4)) slaveIP4 = "";
   SetMemory();
   ShowConfig();
   ConfigMenu();
