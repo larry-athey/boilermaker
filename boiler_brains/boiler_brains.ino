@@ -321,6 +321,9 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   Deviation        = preferences.getFloat("deviation",1.0);
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
+  #ifndef SCR_OUT
+  SSR_PWM          = preferences.getFloat("ssr_pwm",2.5);
+  #endif
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -347,6 +350,9 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putFloat("deviation",Deviation);
   preferences.putUInt("change_wait",ChangeWait);
   preferences.putUInt("rest_period",RestPeriod);
+  #ifndef SCR_OUT
+  preferences.putFloat("ssr_pwm",SSR_PWM);
+  #endif
   preferences.end();
 }
 //------------------------------------------------------------------------------------------------
@@ -556,7 +562,16 @@ void HandleSerialInput() { // Handle user configuration via the serial console
     get_SlaveIP4();
   } else if (Option == "9" ) {
     get_CorrectionFactor();
+    if (CorrectionFactor < -5) CorrectionFactor = -5.0;
+    if (CorrectionFactor > 5) CorrectionFactor = 5.0;
   }
+  #ifndef SCR_OUT
+  else if (Option == "10" ) {
+    get_SSR_PWM();
+    if (SSR_PWM < 1) SSR_PWM = 1.0;
+    if (SSR_PWM > 5) SSR_PWM = 5.0;
+  }
+  #endif
   if (! isValidIP(slaveIP1)) slaveIP1 = "";
   if (! isValidIP(slaveIP2)) slaveIP2 = "";
   if (! isValidIP(slaveIP3)) slaveIP3 = "";
