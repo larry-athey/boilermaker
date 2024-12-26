@@ -86,6 +86,7 @@
   #else
     #define SSR_OUT GPIO_NUM_17  // Same pin as used with an SCR board
   #endif
+float SSR_PWM = 2.5;             // If using an SSR, how many seconds wide is the PWM duty?
 int dutyCyclePercentage = 0;     // Low frequency PWM duty cycle percentage
 hw_timer_t *timer = NULL;        // High resolution timer library
 #endif
@@ -154,7 +155,7 @@ void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see i
   static uint32_t cycleCounter = 0;
   cycleCounter ++;
     
-  if (cycleCounter == 10) { // Reset counter every 10 interrupts (equivalent to 2.5 seconds if interrupt every 250ms)
+  if (cycleCounter == 10) { // Reset counter every 10 interrupts (equivalent to 2.5 seconds using the default SSR_PWM value)
     cycleCounter = 0;
   }
 
@@ -205,8 +206,8 @@ void setup() {
   // All heating elements have a slow reaction time, so an SCR's switching frequency is wasteful
   timer = timerBegin(0,80,true); // Timer at 1 MHz, count up
   timerAttachInterrupt(timer,&onTimer,true); // Attach the PWM toggle function
-  timerAlarmWrite(timer,250000,true); // Timer trigger set to 250ms (250,000 microseconds)
-  timerAlarmEnable(timer); // Now enable the .20 Hz pulse width modulator
+  timerAlarmWrite(timer,SSR_PWM * 10000,true); // Timer trigger set to 2.5 seconds by default
+  timerAlarmEnable(timer); // Now enable the low speed pulse width modulator
   #else
   // Assign the SCR controller output pin to a PWM channel
   // For heating elements, 1 KHz to 3 KHz is used, adjust as necessary
