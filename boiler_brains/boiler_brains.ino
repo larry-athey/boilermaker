@@ -62,7 +62,7 @@
   #ifdef DS18B20
     #define ONE_WIRE 13          // 1-Wire network pin for the DS18B20 temperature sensor
   #else
-    #define thermoDO 11          // MAX-6675 SPI data bus
+    #define thermoMISO 11        // MAX-6675 SPI data bus
     #define thermoCS 10          // "                   "
     #define thermoCLK 12         // "                   "
   #endif
@@ -72,9 +72,9 @@
   #ifdef DS18B20
     #define ONE_WIRE 15          // 1-Wire network pin for the DS18B20 temperature sensor
   #else
-    #define thermoDO 19          // MAX-6675 SPI data bus
-    #define thermoCS 23          // "                   "
-    #define thermoCLK 5          // "                   "
+    #define thermoMISO 19        // MAX-6675 SPI data bus
+    #define thermoCS 5           // "                   "
+    #define thermoCLK 18         // "                   "
   #endif
 #endif
 //------------------------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ Arduino_Canvas_Indexed *canvas = new Arduino_Canvas_Indexed(320 /* width */, 170
 OneWire oneWire(ONE_WIRE);
 DallasTemperature DT(&oneWire);
 #else
-MAX6675 thermocouple(thermoCLK,thermoCS,thermoDO);
+MAX6675 thermocouple(thermoCLK,thermoCS,thermoMISO);
 #endif
 Preferences preferences;
 WiFiServer Server(80);
@@ -170,7 +170,7 @@ void setup() {
   // Enable serial communications for WiFi setup and slave IP address management
   Serial.begin(9600);
   delay(1000);
-  Serial.println("");
+  if (Serial) Serial.println("");
 
   // Get the last user settings from flash memory
   GetMemory();
@@ -217,11 +217,14 @@ void setup() {
   DT.begin();
   #endif
   Server.begin();
+  pinMode(FAN_OUT,OUTPUT); 
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
-  ShowConfig();
-  ConfigMenu();
+  if (Serial) {
+    ShowConfig();
+    ConfigMenu();
+  }
 }
 //------------------------------------------------------------------------------------------------
 void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
@@ -236,22 +239,22 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     int dnsSegments[4];
     segCount = sscanf(wifiIP.c_str(),"%d.%d.%d.%d",&ipSegments[0],&ipSegments[1],&ipSegments[2],&ipSegments[3]);
     if (segCount != 4) {
-      Serial.println("\nCannot parse static IP address!");
+      if (Serial) Serial.println("\nCannot parse static IP address!");
       Passed = false;
     }
     segCount = sscanf(wifiMask.c_str(),"%d.%d.%d.%d",&maskSegments[0],&maskSegments[1],&maskSegments[2],&maskSegments[3]);
     if (segCount != 4) {
-      Serial.println("\nCannot parse subnet mask!");
+      if (Serial) Serial.println("\nCannot parse subnet mask!");
       Passed = false;
     }
     segCount = sscanf(wifiGateway.c_str(),"%d.%d.%d.%d",&gwSegments[0],&gwSegments[1],&gwSegments[2],&gwSegments[3]);
     if (segCount != 4) {
-      Serial.println("\nCannot parse gateway address!");
+      if (Serial) Serial.println("\nCannot parse gateway address!");
       Passed = false;
     }
     segCount = sscanf(wifiDNS.c_str(),"%d.%d.%d.%d",&dnsSegments[0],&dnsSegments[1],&dnsSegments[2],&dnsSegments[3]);
     if (segCount != 4) {
-      Serial.println("\nCannot parse DNS resolver address!");
+      if (Serial) Serial.println("\nCannot parse DNS resolver address!");
       Passed = false;
     }
     if (Passed) {
@@ -260,7 +263,7 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
       IPAddress gateway(gwSegments[0],gwSegments[1],gwSegments[2],gwSegments[3]);
       IPAddress dns(dnsSegments[0],dnsSegments[1],dnsSegments[2],dnsSegments[3]);
       if (! WiFi.config(staticIP,gateway,subnet,dns,dns)) {
-        Serial.println("\nWiFi static IP configuration failed!");
+        if (Serial) Serial.println("\nWiFi static IP configuration failed!");
         delay(2000);
       }
     } else {
@@ -269,9 +272,9 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
   }
   WiFi.setHostname(DeviceName.c_str());
   WiFi.begin(wifiSSID,wifiPassword);
-  Serial.print("\nConnecting to WiFi ..");
+  if (Serial) Serial.print("\nConnecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
-    Serial.print('.');
+    if (Serial) Serial.print('.');
     delay(1000);
     x ++;
     if (x == 15) break;
@@ -287,7 +290,7 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     wifiMask = "";
     wifiGateway = "";
     wifiDNS = "";
-    Serial.println("\nConnection Failed!");
+    if (Serial) Serial.println("\nConnection Failed!");
     delay(2000);
   }
 }
@@ -401,7 +404,7 @@ void RunState(byte State) { // Toggle the active heating run state
 }
 //-----------------------------------------------------------------------------------------------
 String HandleAPI(String Header) { // Handle HTTP API calls
-  //Serial.println("\n" + Header);
+  //if (Serial) Serial.println("\n" + Header);
   Header.remove(0,4); // Delete the "GET " from the beginning
   Header.remove(Header.indexOf(" HTTP/1.1"),9); // Delete the " HTTP/1.1" from the end
   if (Header == "/ajax-livedata") { // Web UI update, live data card
@@ -674,7 +677,7 @@ void loop() {
     Client.stop();
   }
   // Check for serial console input and handle as necessary
-  if (Serial.available()) HandleSerialInput();
+  if ((Serial) && (Serial.available())) HandleSerialInput();
   if (CurrentTime - LoopCounter >= 1000) {
     TempUpdate();
     if (ActiveRun) {
