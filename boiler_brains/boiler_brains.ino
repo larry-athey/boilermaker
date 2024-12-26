@@ -169,7 +169,9 @@ void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see i
 void setup() {
   // Enable serial communications for WiFi setup and slave IP address management
   Serial.begin(9600);
+  Serial.setDebugOutput(false);
   delay(1000);
+  PurgeBuffer();
   if (Serial) Serial.println("");
 
   // Get the last user settings from flash memory
