@@ -25,6 +25,9 @@ void ShowConfig() { // Send an ANSI clear screen sequence and display all config
   Serial.println("slaveIP3: " + slaveIP3);
   Serial.println("slaveIP4: " + slaveIP4);
   Serial.println("CorrectionFactor: " + String(CorrectionFactor));
+  #ifndef SCR_OUT
+  Serial.println("SSR_PWM: " + String(SSR_PWM) + " second(s)");
+  #endif
   Serial.println("");
 }
 //------------------------------------------------------------------------------------------------
@@ -40,6 +43,9 @@ void ConfigMenu() { // Display the configuration menu
   Serial.println("  7. Set Slave 3 IP");
   Serial.println("  8. Set Slave 4 IP");
   Serial.println("  9. Set Correction Factor");
+  #ifndef SCR_OUT
+  Serial.println(" 10. Set SSR PWM duty width");
+  #endif
   Serial.print("Choose an option: ");
 }
 //------------------------------------------------------------------------------------------------
@@ -126,6 +132,13 @@ void get_CorrectionFactor() { // Get the correction factor for the temperature s
   Serial.print("Enter Correction Factor (-5.0 to 5.0): ");
   CorrectionFactor = ReadInput().toFloat();
 }
+//------------------------------------------------------------------------------------------------
+#ifndef SCR_OUT
+void get_SSR_PWM() { // Get the duty width of the SSR PWM in seconds
+  Serial.print("Enter SSR PWM duty width in seconds (1.0 to 5.0): ");
+  SSR_PWM = ReadInput().toFloat();
+}
+#endif
 //------------------------------------------------------------------------------------------------
 bool isValidIP(String ip) {
   // Convert String to std::string for easier manipulation
