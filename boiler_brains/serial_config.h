@@ -44,7 +44,7 @@ void ConfigMenu() { // Display the configuration menu
   Serial.println("  8. Set Slave 4 IP");
   Serial.println("  9. Set Correction Factor");
   #ifndef SCR_OUT
-  Serial.println(" 10. Set SSR PWM duty width");
+  Serial.println(" 10. Set SSR PWM Duty Width");
   #endif
   Serial.print("Choose an option: ");
 }
