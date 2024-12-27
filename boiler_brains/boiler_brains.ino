@@ -646,20 +646,16 @@ void HandleSerialInput() { // Handle user configuration via the serial console
     if ((wifiSSID != "none") && (wifiPassword != "")) ConnectWiFi();
   } else if (Option == "5" ) {
     get_SlaveIP1();
-    if (slaveIP1 == "0.0.0.0") slaveIP1 = "";
-    if (! isValidIP(slaveIP1)) slaveIP1 = "";
+    if ((slaveIP1 == "0.0.0.0") || (! isValidIP(slaveIP1))) slaveIP1 = "";
   } else if (Option == "6" ) {
     get_SlaveIP2();
-    if (slaveIP2 == "0.0.0.0") slaveIP2 = "";
-    if (! isValidIP(slaveIP2)) slaveIP2 = "";
+    if ((slaveIP2 == "0.0.0.0") || (! isValidIP(slaveIP2))) slaveIP2 = "";
   } else if (Option == "7" ) {
     get_SlaveIP3();
-    if (slaveIP3 == "0.0.0.0") slaveIP3 = "";
-    if (! isValidIP(slaveIP3)) slaveIP3 = "";
+    if ((slaveIP3 == "0.0.0.0") || (! isValidIP(slaveIP3))) slaveIP3 = "";
   } else if (Option == "8" ) {
     get_SlaveIP4();
-    if (slaveIP4 == "0.0.0.0") slaveIP4 = "";
-    if (! isValidIP(slaveIP4)) slaveIP4 = "";
+    if ((slaveIP4 == "0.0.0.0") || (! isValidIP(slaveIP4))) slaveIP4 = "";
   } else if (Option == "9" ) {
     get_CorrectionFactor();
     if (CorrectionFactor < -5) CorrectionFactor = -5.0;
