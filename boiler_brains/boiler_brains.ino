@@ -219,10 +219,6 @@ void setup() {
   #ifdef DS18B20
   DT.begin();
   #endif
-//while (true) {
-//  Serial.println("Here");
-//  delay(1000);
-//}
   pinMode(FAN_OUT,OUTPUT); 
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
