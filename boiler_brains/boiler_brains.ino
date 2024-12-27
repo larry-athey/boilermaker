@@ -544,11 +544,15 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
   } else if (Header == "/get-uptime") { // Get current system uptime (seconds)
     return String(millis() / 1000);
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump, no memory update
-    Header.remove(0,8);
-    if (Header.toInt() < 10) Header = "10";
-    if (Header.toInt() > 100) Header = "100";
-    PowerAdjust(Header.toInt());
-    return jsonSuccess;
+    if (ActiveRun) {
+      Header.remove(0,8);
+      if (Header.toInt() < 10) Header = "10";
+      if (Header.toInt() > 100) Header = "100";
+      PowerAdjust(Header.toInt());
+      return jsonSuccess;
+    } else {
+      return jsonFailure;
+    }
   } else if (Header == "/reboot") { // Reboot the controller
     return "Rebooting...";
   } else if (Header.indexOf("/?set-correctionfactor=") == 0) { // Set new CorrectionFactor value
