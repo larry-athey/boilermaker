@@ -18,17 +18,17 @@ String GetSlaveIP(byte WhichOne) { // Returns the IP address of a slave (1..4) a
 }
 //------------------------------------------------------------------------------------------------
 bool PingSlave(byte WhichOne) { // Returns true if a slave unit (1..4) is alive and pinging
-  bool PingTest = Ping.ping(GetSlaveIP(WhichOne).c_str(),3);
+  bool PingTest = Ping.ping(GetSlaveIP(WhichOne).c_str(),2);
   return PingTest;
 }
 //------------------------------------------------------------------------------------------------
 byte PingAllSlaves() { // Pings all slaves and returns the number of how many are pinging
   byte Total = 0;
   if (SlaveTotal() == 0) return Total;
-  if (Ping.ping(GetSlaveIP(1).c_str(),3)) Total ++;
-  if (Ping.ping(GetSlaveIP(2).c_str(),3)) Total ++;
-  if (Ping.ping(GetSlaveIP(3).c_str(),3)) Total ++;
-  if (Ping.ping(GetSlaveIP(4).c_str(),3)) Total ++;
+  if (Ping.ping(GetSlaveIP(1).c_str(),2)) Total ++;
+  if (Ping.ping(GetSlaveIP(2).c_str(),2)) Total ++;
+  if (Ping.ping(GetSlaveIP(3).c_str(),2)) Total ++;
+  if (Ping.ping(GetSlaveIP(4).c_str(),2)) Total ++;
   return Total;
 }
 //------------------------------------------------------------------------------------------------
