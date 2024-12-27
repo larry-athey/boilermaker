@@ -18,6 +18,7 @@ String GetSlaveIP(byte WhichOne) { // Returns the IP address of a slave (1..4) a
 }
 //------------------------------------------------------------------------------------------------
 bool PingSlave(byte WhichOne) { // Returns true if a slave unit (1..4) is alive and pinging
+  if (GetSlaveIP(WhichOne) == "") return false;
   bool PingTest = Ping.ping(GetSlaveIP(WhichOne).c_str(),2);
   return PingTest;
 }
