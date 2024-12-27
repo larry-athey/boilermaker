@@ -55,3 +55,5 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/reboot** - Reboots the Boilermaker. _(Any surprise there?)_ If you use **/get-uptime** and see that the Boilermaker has been running anywhere near 49 days, you should reboot it before starting a run because the internal code could reboot the unit in the middle of your run if you hit its maximum allowed uptime of 49.7 days.
 
 **/?set-correctionfactor=** - Set a new temperature sensor correction factor. The value passed here is a temperature in Celcius and must be a whole or floating point number between -5 and 5.
+
+**/?set-slaveip1=** through **/?set-slaveip4=** - Set the IP address of the 4 possible slave units. This can be either IPV4 or IPV6 format. Setting a slave's IP to **0.0.0.0** will unassign that memory slot.
