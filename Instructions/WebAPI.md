@@ -16,4 +16,4 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/ajax-settings** - Used by the WebUI to update the third data card on the screen.
 
-**/?data_0=** - Primarily used by the WebUI to set the operation mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Constant Temp. If you have slaves configured, all slaves will be switched to Constant Power and will follow all power adjustments made by the master.
+**/?data_0=** - Primarily used by the WebUI to set the operation mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Constant Temp. If you have slaves configured, all slaves will be switched to Constant Power mode and will follow all power adjustments made by the master.
