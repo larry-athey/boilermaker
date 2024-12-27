@@ -532,24 +532,40 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return jsonSuccess;
   } else if (Header.indexOf("/?set-slaveip1=") == 0) { // Set new slaveIP1 address
     Header.remove(0,15);
-    slaveIP1 = Header;
-    SetMemory();
-    return jsonSuccess;
+    if (isValidIP(Header)) {
+      slaveIP1 = Header;
+      SetMemory();
+      return jsonSuccess;
+    } else {
+      return jsonFailure;
+    }
   } else if (Header.indexOf("/?set-slaveip2=") == 0) { // Set new slaveIP2 address
     Header.remove(0,15);
-    slaveIP2 = Header;
-    SetMemory();
-    return jsonSuccess;
+    if (isValidIP(Header)) {
+      slaveIP2 = Header;
+      SetMemory();
+      return jsonSuccess;
+    } else {
+      return jsonFailure;
+    }
   } else if (Header.indexOf("/?set-slaveip3=") == 0) { // Set new slaveIP3 address
     Header.remove(0,15);
-    slaveIP3 = Header;
-    SetMemory();
-    return jsonSuccess;
+    if (isValidIP(Header)) {
+      slaveIP3 = Header;
+      SetMemory();
+      return jsonSuccess;
+    } else {
+      return jsonFailure;
+    }
   } else if (Header.indexOf("/?set-slaveip4=") == 0) { // Set new slaveIP4 address
     Header.remove(0,15);
-    slaveIP4 = Header;
-    SetMemory();
-    return jsonSuccess;
+    if (isValidIP(Header)) {
+      slaveIP4 = Header;
+      SetMemory();
+      return jsonSuccess;
+    } else {
+      return jsonFailure;
+    }
   } else if (Header.indexOf("/?set-ssrpwm=") == 0) { // Set new SSR_PWM value (requires reboot)
     Header.remove(0,13);
     SSR_PWM = Header.toFloat();
