@@ -31,3 +31,5 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/?data_6=** - Primarily used by the WebUI to set the Change Wait of the Boilermaker. The value passed here must be a whole number between 1 and 1000 (seconds). Adjusting this value during an active Constant Temp run will work at any point during the run.
 
 **/?data_7=** - Primarily used by the WebUI to set the Rest Period of the Boilermaker. The value passed here must be a whole number between 1 and 1000 (seconds). Adjusting this value during an active Constant Temp run will only work if the Boilermaker hasn't yet reached the target temperature.
+
+**/form-0 through /form-7** - Used by the WebUI to dynamically generate the various settings editor forms.
