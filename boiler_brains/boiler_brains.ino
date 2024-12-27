@@ -543,8 +543,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return String(TempF,1);
   } else if (Header == "/get-uptime") { // Get current system uptime (seconds)
     return String(millis() / 1000);
-  } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump, no memory update
-    if (ActiveRun) {
+  } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump
+    if ((ActiveRun) && (OpMode == 0)) {
       Header.remove(0,8);
       if (Header.toInt() < 10) Header = "10";
       if (Header.toInt() > 100) Header = "100";
