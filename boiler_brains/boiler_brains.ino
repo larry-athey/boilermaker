@@ -501,6 +501,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return get_Form(6);
   } else if (Header == "/form-7") { // Get Form: Rest Period
     return get_Form(7);
+  } else if (Header == "/get-correctionfactor") { // Get the CorrectionFactor value
+    return String(CorrectionFactor);
   } else if (Header == "/get-power") { // Get current power percentage
     return String(round(0.392156863 * PowerLevel),0);
   } else if (Header == "/get-slaveip1") { // Get slave 1 IP address
@@ -527,6 +529,10 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     } else {
       return "0.0.0.0";
     }
+  #ifndef SCR_OUT
+  } else if (Header == "/get-ssrpwm") { // Get the SSR_PWM value
+    return String(SSR_PWM);
+  #endif
   } else if (Header == "/get-runtime") { // Get current heating runtime (seconds)
     if (ActiveRun) {
       return String((millis() - StartTime) / 1000);
