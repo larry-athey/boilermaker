@@ -43,3 +43,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/get-ssrpwm** - If using this code with an SSR and low speed PWM, this returns the duty width of the PWM in seconds. If using this code with an SCR controller, this is not a valid API call.
 
 **/get-runtime** - Returns the total elapsed seconds of the currently active run, or zero if there is no active run.
+
+**/get-tempc** - Returns the current measured temperature in Celcius (after correction factor).
+
+**/get-tempf** - Returns the current measured temperature in Fahrenheit (after correction factor).
