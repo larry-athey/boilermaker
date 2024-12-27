@@ -22,10 +22,12 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_2=** - Primarily used by the WebUI to set the Startup Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active run does not change the current power level, you will need to restart the run.
 
-**/?data_3=** - Primarily used by the WebUI to set the Fallback Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active Constant Temp run will work if the Boilermaker hasn't yet reached the target temperature.
+**/?data_3=** - Primarily used by the WebUI to set the Fallback Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active Constant Temp run will only work if the Boilermaker hasn't yet reached the target temperature.
 
 **/?data_4=** - Primarily used by the WebUI to set the Adjustment Rate of the Boilermaker. The value passed here must be a whole number between 1 and 100. Adjusting this value during an active Constant Temp run will work at any point during the run.
 
 **/?data_5=** - Primarily used by the WebUI to set the Deviation Rate of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0.1 and 5. Adjusting this value during an active Constant Temp run will work at any point during the run.
 
 **/?data_6=** - Primarily used by the WebUI to set the Change Wait of the Boilermaker. The value passed here must be a whole number between 1 and 1000 (seconds). Adjusting this value during an active Constant Temp run will work at any point during the run.
+
+**/?data_7=** - Primarily used by the WebUI to set the Rest Period of the Boilermaker. The value passed here must be a whole number between 1 and 1000 (seconds). Adjusting this value during an active Constant Temp run will only work if the Boilermaker hasn't yet reached the target temperature.
