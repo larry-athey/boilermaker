@@ -8,4 +8,6 @@ If you use **curl** in Linux or Mac OS to configure it, you have to tell it to u
 
 The `-s` option silences the network traffic progress that **curl** normally prints on the screen so all you get is the temperature value, and the `--http0.9` tells **curl** what HTTP protocol to use. If you don't specify the 0.9 protocol, you will only get an empty output.
 
-### API Call Listing
+### Boilermaker API Call Listing
+
+**/ajax-livedata** - Used by the WebUI to update the second data card on the screen.
