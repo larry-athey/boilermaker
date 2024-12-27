@@ -35,3 +35,5 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/form-0** through **/form-7** - Used by the WebUI to dynamically generate the various settings editor forms.
 
 **/get-correctionfactor** - Returns the current temperature sensor correction factor in Celcius.
+
+**/get-power** - Returns the current power percentage level.
