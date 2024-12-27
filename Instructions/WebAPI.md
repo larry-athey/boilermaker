@@ -13,3 +13,5 @@ The `-s` option silences the network traffic progress that **curl** normally pri
 Not passing any API call or making an invalid API call will return the entire home page of the WebUI.
 
 **/ajax-livedata** - Used by the WebUI to update the second data card on the screen.
+
+**/ajax-settings** - Used by the WebUI to update the third data card on the screen.
