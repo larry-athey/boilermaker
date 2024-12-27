@@ -566,13 +566,15 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     } else {
       return jsonFailure;
     }
+  #ifndef SCR_OUT
   } else if (Header.indexOf("/?set-ssrpwm=") == 0) { // Set new SSR_PWM value (requires reboot)
     Header.remove(0,13);
     SSR_PWM = Header.toFloat();
     if (SSR_PWM < 1) SSR_PWM = 1.0;
     if (SSR_PWM > 5) SSR_PWM = 5.0;
     SetMemory();
-    return jsonSuccess;    
+    return jsonSuccess;
+  #endif
   } else if (Header == "/start-run") { // Start a heating run
     if (! ActiveRun) RunState(1);
     return jsonSuccess;
