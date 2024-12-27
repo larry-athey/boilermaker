@@ -20,4 +20,4 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_1=** - Primarily used by the WebUI to set the target temperature of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0 and 260. If you are using this Boilermaker with the **RPi Smart Still** controller system, this value will be set lower boiler range temperature of your program when you start a run, and will be dynamically adjusted upward if you have the Progressive Temperature feature enabled.
 
-**/?data_2=** - Primarily used by the WebUI to set the startup power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this during an active run does not change the current power level, you will need to restart the run to change the current power level.
+**/?data_2=** - Primarily used by the WebUI to set the startup power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this during an active run does not change the current power level, you will need to restart the run.
