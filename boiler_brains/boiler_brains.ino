@@ -180,7 +180,7 @@ void setup() {
   if (wifiSSID == "none") {
     SetMemory();
   } else {
-    ConnectWiFi();
+    if ((wifiSSID != "none") && (wifiPassword != "")) ConnectWiFi();
   }
 
   #ifdef LOCAL_DISPLAY
@@ -219,7 +219,10 @@ void setup() {
   #ifdef DS18B20
   DT.begin();
   #endif
-  Server.begin();
+//while (true) {
+//  Serial.println("Here");
+//  delay(1000);
+//}
   pinMode(FAN_OUT,OUTPUT); 
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
@@ -232,6 +235,7 @@ void setup() {
 //------------------------------------------------------------------------------------------------
 void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
   byte x = 0;
+  if (Server) Server.end();
   WiFi.mode(WIFI_STA);
   if (wifiMode == 1) {
     bool Passed = true;
@@ -283,6 +287,7 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
     if (x == 15) break;
   }
   if (WiFi.status() == WL_CONNECTED) {
+    Server.begin();
     wifiIP = WiFi.localIP().toString();
     wifiMask = WiFi.subnetMask().toString();
     wifiGateway = WiFi.gatewayIP().toString();
@@ -544,6 +549,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
     get_DeviceName();
   } else if (Option == "1" ) {
     get_wifiSSID();
+    if (wifiSSID == "") wifiSSID == "none";
   } else if (Option == "2" ) {
     get_wifiPassword();
   } else if (Option == "3" ) {
@@ -551,7 +557,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
   } else if (Option == "4" ) {
     WiFi.disconnect();
     delay(500);
-    ConnectWiFi();
+    if ((wifiSSID != "none") && (wifiPassword != "")) ConnectWiFi();
   } else if (Option == "5" ) {
     get_SlaveIP1();
   } else if (Option == "6" ) {
@@ -740,7 +746,7 @@ void loop() {
       if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
         WiFi.disconnect();
         delay(500);
-        ConnectWiFi();
+        if ((wifiSSID != "none") && (wifiPassword != "")) ConnectWiFi();
       }
       SlavesPinging = PingAllSlaves();
       wifiCheckCounter = 0;
