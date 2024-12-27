@@ -37,3 +37,5 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/get-correctionfactor** - Returns the current temperature sensor correction factor in Celcius.
 
 **/get-power** - Returns the current power percentage level.
+
+**/get-slaveip1** through **/get-slaveip1** - Returns the IP address of the requested slave unit and will return 0.0.0.0 if the requested slave unit is not configured.
