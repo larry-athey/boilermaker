@@ -6,4 +6,4 @@ If you use **curl** in Linux or Mac OS to configure it, you have to tell it to u
 
 `curl -s --http0.9 http://192.168.1.150/get-tempc`
 
-The `-s` option silences the network traffic progress that **curl** normally prints on the screen so all you get is the temperature value and the `--http0.9` tells **curl** what HTTP protocol to use.
+The `-s` option silences the network traffic progress that **curl** normally prints on the screen so all you get is the temperature value and the `--http0.9` tells **curl** what HTTP protocol to use. If you don't specify the 0.9 protocol, you will only get an empty output on your screen.
