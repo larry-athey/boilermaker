@@ -41,3 +41,5 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/get-slaveip1** through **/get-slaveip4** - Returns the IP address of the requested slave unit and will return 0.0.0.0 if the requested slave unit is not configured.
 
 **/get-ssrpwm** - If using this code with an SSR and low speed PWM, this returns the duty width of the PWM in seconds. If using this code with an SCR controller, this is not a valid API call.
+
+**/get-runtime** - Returns the total elapsed seconds of the currently active run, or zero if there is no active run.
