@@ -503,6 +503,30 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return get_Form(7);
   } else if (Header == "/get-power") { // Get current power percentage
     return String(round(0.392156863 * PowerLevel),0);
+  } else if (Header == "/get-slaveip1") { // Get slave 1 IP address
+    if (slaveIP1 != "") {
+      return slaveIP1;
+    } else {
+      return "0.0.0.0";
+    }
+  } else if (Header == "/get-slaveip2") { // Get slave 2 IP address
+    if (slaveIP2 != "") {
+      return slaveIP2;
+    } else {
+      return "0.0.0.0";
+    }
+  } else if (Header == "/get-slaveip3") { // Get slave 3 IP address
+    if (slaveIP3 != "") {
+      return slaveIP3;
+    } else {
+      return "0.0.0.0";
+    }
+  } else if (Header == "/get-slaveip4") { // Get slave 4 IP address
+    if (slaveIP4 != "") {
+      return slaveIP4;
+    } else {
+      return "0.0.0.0";
+    }
   } else if (Header == "/get-runtime") { // Get current heating runtime (seconds)
     if (ActiveRun) {
       return String((millis() - StartTime) / 1000);
