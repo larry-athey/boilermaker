@@ -62,6 +62,6 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/start-run** - Used to start a run.
 
-**/stop-run** - Used to stop the active run.
+**/stop-run** - Used to stop an active run.
 
 **/toggle-run** - Primarily used by the WebUI to toggle the active run state of the Boilermaker.
