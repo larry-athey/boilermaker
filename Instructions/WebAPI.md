@@ -4,4 +4,4 @@ The WebUI communicates with the Boilermaker using HTTP API calls since it's a si
 
 If you use **curl** in Linux or Mac OS to configure it, you have to tell it to use an old HTTP protocol. This is because there is limited code space in an ESP32 and modern HTTP protocols would have an absolutely huge code footprint. For example, if your Boilermaker has the IP address 192.168.1.150 and you wanted to read the current temperature in Celcius, you would use this command.
 
-`curl --http0.9 http://192.168.1.150/get-tempc`
+`curl -s --http0.9 http://192.168.1.150/get-tempc`
