@@ -12,7 +12,7 @@ In the first card at the top of the WebUI, you see the device name and the numbe
 
 The second line here that shows how many configured slave units you have, also shows how many of them are online and responding to pings. You should make sure that your slave units are online before you start a run. Otherwise, you will need to manually switch them constant power mode and then start them after your master unit has started. The HTTP API commands from the master to put slaves in the correct operating mode and start them is only sent once and only if they are pinging.
 
-_**NOTE:** The start/stop button has an immediate effect on the Boilermaker, but you may not see the run status change on your screen for 4 or 5 seconds. There is not a constant data stream between your web browser and the Boilermaker, it uses random timed Ajax refresh calls. If you have slave units configured, this update will take even longer because your Boilermaker needs to make API calls to all of the slaves to start and stop them and set their power level._
+_**NOTE:** The start/stop button has an immediate effect on the Boilermaker, but you may not see the run status change on your screen for 4 or 5 seconds. There is not a constant data stream between your web browser and the Boilermaker, it uses random timed Ajax refresh calls. If you have slave units configured, this update will take even longer because your Boilermaker needs to make API calls to all of the slaves to start and stop them and set their power level. Don't get impatient and repeatedly press the start/stop button!_
 
 ### Second WebUI Data Card
 
