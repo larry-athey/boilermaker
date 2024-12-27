@@ -1,6 +1,8 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
 //
+// Tested up to Espressif ESP32 v2.0.14 due to LilyGo requirements
+//
 // Derived from the boiler management routines in my Airhead upgrade for Air Stills (and clones).
 // WiFi enabled with a built-in web interface that you can access from your phone's web browser to
 // control the unit. Initial configuration to set up the WiFi connection is performed using a USB
@@ -824,7 +826,7 @@ void loop() {
       }
     }
     if (wifiCheckCounter >= 60) {
-      bool PingTest = Ping.ping(wifiGateway.c_str(),3);
+      bool PingTest = Ping.ping(wifiGateway.c_str(),2);
       if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
         WiFi.disconnect();
         delay(500);
