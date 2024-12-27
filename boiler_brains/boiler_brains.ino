@@ -523,6 +523,20 @@ String HandleAPI(String Header) { // Handle HTTP API calls
     return jsonSuccess;
   } else if (Header == "/reboot") { // Reboot the controller
     return "Rebooting...";
+  } else if (Header.indexOf("/?set-correctionfactor=") == 0) { // Set new CorrectionFactor value
+    Header.remove(0,23);
+    CorrectionFactor = Header.toFloat();
+    if (CorrectionFactor < -5) CorrectionFactor = -5.0;
+    if (CorrectionFactor > 5) CorrectionFactor = 5.0;
+    SetMemory();
+    return jsonSuccess;
+  } else if (Header.indexOf("/?set-ssrpwm=") == 0) { // Set new SSR_PWM value (requires reboot)
+    Header.remove(0,13);
+    SSR_PWM = Header.toFloat();
+    if (SSR_PWM < 1) SSR_PWM = 1.0;
+    if (SSR_PWM > 5) SSR_PWM = 5.0;
+    SetMemory();
+    return jsonSuccess;    
   } else if (Header == "/start-run") { // Start a heating run
     if (! ActiveRun) RunState(1);
     return jsonSuccess;
