@@ -16,10 +16,12 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/ajax-settings** - Used by the WebUI to update the third data card on the screen.
 
-**/?data_0=** - Primarily used by the WebUI to set the operation mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Constant Temp. If you have slaves configured, all slaves will be switched to Constant Power mode when a run starts and will follow all power adjustments made by the master.
+**/?data_0=** - Primarily used by the WebUI to set the Operation Mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Constant Temp. If you have slaves configured, all slaves will be switched to Constant Power mode when a run starts and will follow all power adjustments made by the master.
 
-**/?data_1=** - Primarily used by the WebUI to set the target temperature of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0 and 260. If you are using this Boilermaker with the **RPi Smart Still** controller system, this value will be set lower boiler range temperature of your program when you start a run, and will be dynamically adjusted upward if you have the Progressive Temperature feature enabled.
+**/?data_1=** - Primarily used by the WebUI to set the Target Temperature of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0 and 260. If you are using this Boilermaker with the **RPi Smart Still** controller system, this value will be set lower boiler range temperature of your program when you start a run, and will be dynamically adjusted upward if you have the Progressive Temperature feature enabled.
 
-**/?data_2=** - Primarily used by the WebUI to set the startup power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active run does not change the current power level, you will need to restart the run.
+**/?data_2=** - Primarily used by the WebUI to set the Startup Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active run does not change the current power level, you will need to restart the run.
 
-**/?data_3=** - Primarily used by the WebUI to set the fallback power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active Constant Temp run will work if the Boilermaker hasn't yet reached the target temperature.
+**/?data_3=** - Primarily used by the WebUI to set the Fallback Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active Constant Temp run will work if the Boilermaker hasn't yet reached the target temperature.
+
+**/?data_4=** - Primarily used by the WebUI to set the Adjustment Rate of the Boilermaker. The value passed here must be a whole number between 1 and 100. Adjusting this value during an active Constant Temp run will work at any point during the run.
