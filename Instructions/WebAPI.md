@@ -27,3 +27,5 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/?data_4=** - Primarily used by the WebUI to set the Adjustment Rate of the Boilermaker. The value passed here must be a whole number between 1 and 100. Adjusting this value during an active Constant Temp run will work at any point during the run.
 
 **/?data_5=** - Primarily used by the WebUI to set the Deviation Rate of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0.1 and 5. Adjusting this value during an active Constant Temp run will work at any point during the run.
+
+**/?data_6=** - Primarily used by the WebUI to set the Change Wait of the Boilermaker. The value passed here must be a whole number between 1 and 1000 (seconds). Adjusting this value during an active Constant Temp run will work at any point during the run.
