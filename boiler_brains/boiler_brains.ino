@@ -83,11 +83,11 @@
 #ifndef SCR_OUT
 #include "esp_timer.h"           // High resolution timer library for use with interrupt driven code
 #include "driver/gpio.h"         // ESP-IDF GPIO library
-  #ifdef LOCAL_DISPLAY
-    #define SSR_OUT GPIO_NUM_1   // Same pin as used with an SCR board
-  #else
-    #define SSR_OUT GPIO_NUM_17  // Same pin as used with an SCR board
-  #endif
+#ifdef LOCAL_DISPLAY
+#define SSR_OUT GPIO_NUM_1       // Same pin as used with an SCR board
+#else
+#define SSR_OUT GPIO_NUM_17      // Same pin as used with an SCR board
+#endif
 float SSR_PWM = 2.5;             // If using an SSR, how many seconds wide is the PWM duty?
 int dutyCyclePercentage = 0;     // Low frequency PWM duty cycle percentage
 hw_timer_t *timer = NULL;        // High resolution timer library
