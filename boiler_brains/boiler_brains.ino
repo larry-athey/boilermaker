@@ -319,7 +319,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   OpMode           = preferences.getUInt("op_mode",1);
   TargetTemp       = preferences.getFloat("target_temp",80.0);
   StartupPercent   = preferences.getUInt("startup_percent",50);
-  FallBackPercent  = preferences.getUInt("fallback_percent",50);
+  FallBackPercent  = preferences.getUInt("fb_percent",50); // Cannot use the word "fallback" for some reason
   AdjustRate       = preferences.getUInt("adjust_rate",1);
   Deviation        = preferences.getFloat("deviation",1.0);
   ChangeWait       = preferences.getUInt("change_wait",120);
@@ -348,7 +348,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("op_mode",OpMode);
   preferences.putFloat("target_temp",TargetTemp);
   preferences.putUInt("startup_percent",StartupPercent);
-  preferences.putUInt("fallback_percent",FallBackPercent);
+  preferences.putUInt("fb_percent",FallBackPercent); // Cannot use the word "fallback" for some reason
   preferences.putUInt("adjust_rate",AdjustRate);
   preferences.putFloat("deviation",Deviation);
   preferences.putUInt("change_wait",ChangeWait);
