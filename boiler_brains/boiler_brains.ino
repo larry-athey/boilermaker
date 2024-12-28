@@ -62,21 +62,21 @@
 #define DEC_BTN 14               // Value - button
 //#define SCR_OUT 1              // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
   #ifdef DS18B20
-    #define ONE_WIRE 13          // 1-Wire network pin for the DS18B20 temperature sensor
+  #define ONE_WIRE 13            // 1-Wire network pin for the DS18B20 temperature sensor
   #else
-    #define thermoMISO 11        // MAX-6675 SPI data bus
-    #define thermoCS 10          // "                   "
-    #define thermoCLK 12         // "                   "
+  #define thermoMISO 11          // MAX-6675 SPI data bus
+  #define thermoCS 10            // "                   "
+  #define thermoCLK 12           // "                   "
   #endif
 #else
 #define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor)
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
   #ifdef DS18B20
-    #define ONE_WIRE 15          // 1-Wire network pin for the DS18B20 temperature sensor
+  #define ONE_WIRE 15            // 1-Wire network pin for the DS18B20 temperature sensor
   #else
-    #define thermoMISO 19        // MAX-6675 SPI data bus
-    #define thermoCS 5           // "                   "
-    #define thermoCLK 18         // "                   "
+  #define thermoMISO 19          // MAX-6675 SPI data bus
+  #define thermoCS 5             // "                   "
+  #define thermoCLK 18           // "                   "
   #endif
 #endif
 //------------------------------------------------------------------------------------------------
