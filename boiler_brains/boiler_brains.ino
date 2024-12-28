@@ -202,10 +202,9 @@ void setup() {
   #endif
 
   #ifndef SCR_OUT
+  // Custom interrupt driven low speed (.1 Hz to 1 Hz) PWM for driving a solid state relay
   gpio_set_direction(SSR_OUT,GPIO_MODE_OUTPUT);
   gpio_set_level(SSR_OUT,0);
-  // Timer setup for 2.5 second period (100% duty cycle would be on for 2.5 seconds, off for none)
-  // All heating elements have a slow reaction time, so an SCR's switching frequency is wasteful
   timer = timerBegin(0,80,true); // Timer at 1 MHz, count up
   timerAttachInterrupt(timer,&onTimer,true); // Attach the PWM toggle function
   timerAlarmWrite(timer,SSR_PWM * 10000,true); // Timer trigger set to 2.5 seconds by default
