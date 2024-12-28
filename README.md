@@ -22,4 +22,4 @@ By default, this controller uses a Type-K thermocouple and a MAX-6675 amplifier 
 
 This controller also features a complete Web API for configuration and control, this is how one master unit controls up to 4 slaves. Each of those slaves can also have up to 4 slaves _(look at it like an Amway pyramid scheme)_. This means that these controllers can be added to all kinds of systems out there that offer API integration of third party devices and services.
 
-The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker and features progressive temperature output just like you see in Mode 3 of the [Airhead](https://github.com/larry-athey/airhead) controller.
+The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker and features progressive temperature output just like you see in Mode 3 of the [Airhead](https://github.com/larry-athey/airhead) controller. This is not a standard feature of Boilermaker since the vast majority of distillers would never use it, but could be easily accomplished with a looping script running on any computer in your home.
