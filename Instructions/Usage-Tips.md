@@ -33,3 +33,5 @@ _**NOTE:** While the progressive temperature over time is a standard feature in 
 ### Controlling Other Devices
 
 Aside from controlling boilers, another great use for the Boilermaker is turning any absolutely cheap bottom of the line electric smoker into a WiFi enabled **reliable and accurate** electric smoker. My first digital smoker got taken out by a lightning strike and I replaced it with a cheap [Masterbuilt steam smoker](https://www.amazon.com/gp/product/B07VRJQXGL/) and a $25 PID controller. Let's just say that PID controllers have their place, but they're really not the best option for a smoker since the heating element spends more time off than on.
+
+With a PID controller, the heating element barely stays on long enough to get your wood chips smoldering. Whereas with the Boilermaker, the power level never drops below 10%, so there is always some amount of heat coming from the heating element. Even with the default 2.5 second PWM duty, 50% power means the heating element runs for 1.25 seconds before resting for 1.25 seconds, so there is always ample heat to cause the wood chips to smolder.
