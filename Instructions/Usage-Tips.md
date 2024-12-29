@@ -18,4 +18,4 @@ Still Spirits T500: 6 gallons, 1500 watt 120 volt element running at 120 volts.
 - Change Wait: 30 seconds
 - Rest Period: 60 seconds
 
-...
+Once they both do the fallback and stablize, the Air Still will hover between 10% and 13%, the Still Spirits T500 will hover between 18% and 20%. These numbers will slightly vary when you have ethanol in the boiler and depending on your altitude.
