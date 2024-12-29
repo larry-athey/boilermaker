@@ -44,4 +44,4 @@ I do have plans for making a WiFi enabled ESP32 powered temperature probe and ti
 
 ### The SCR vs SSR Debate
 
-There really is no sense in trying to prove one is better than the other because they both do the same thing, just at different speeds. SCRs run hotter because they are turning the power on and off 60 times per second in the USA _(50 times per second in most other countries)_.
+There really is no sense in trying to prove one is better than the other because they both do the same thing, just at different speeds. SCRs run hotter because they are turning the power on and off 60 times per second in the USA _(50 times per second in most other countries)_. This heat is what eventually leads to the failure of an SCR, moreso than overloading one. An SSR will also fail from too much heat because it's really not any different than an SCR when you look at what's inside of one.
