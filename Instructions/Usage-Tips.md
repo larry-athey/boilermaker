@@ -9,6 +9,7 @@ Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
 - Deviation Rate: 0.2C
 - Change Wait: 30 seconds
 - Rest Period: 60 seconds
+- SSR PWM Duty: 2.5 seconds
 
 Still Spirits T500: 6 gallons, 1500 watt 120 volt element running at 120 volts.
 - Startup Power: 90%
@@ -17,6 +18,7 @@ Still Spirits T500: 6 gallons, 1500 watt 120 volt element running at 120 volts.
 - Deviation Rate: 0.5C
 - Change Wait: 30 seconds
 - Rest Period: 60 seconds
+- SSR PWM Duty: 1 second
 
 Once they both do the fallback and stablize, the Air Still will hover between 10% and 13%, the Still Spirits T500 will hover between 18% and 20%. Yes, they will actually work downward when targeting a temperature below boiling. These numbers will slightly vary when you have ethanol in the boiler and depending on your altitude. The Air Still will do its fallback well before hitting 100% power, the Still Spirits T500 will work up to 100% and stay there for about an hour before doing its fallback.
 
