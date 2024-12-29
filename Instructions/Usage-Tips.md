@@ -12,7 +12,7 @@ Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
 
 Still Spirits T500: 6 gallons, 1500 watt 120 volt element running at 120 volts.
 - Startup Power: 90%
-- Fallback Power: 35%
+- Fallback Power: 40%
 - Adjustment Rate: 1%
 - Deviation Rate: 0.5C
 - Change Wait: 30 seconds
