@@ -24,4 +24,4 @@ This controller also features a complete Web API for configuration and control, 
 
 The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker and features progressive temperature output just like you see in Mode 3 of the [Airhead](https://github.com/larry-athey/airhead) controller. This is not a standard feature of Boilermaker since the vast majority of distillers would never use it, but could be easily accomplished with a looping script running on a computer on your home network if a person absolutely wants it.
 
-_**NOTE:** The Boilermaker is also handy for turning any cheap electric smoker into one that's a whole lot more accurate, see the [usage tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) for more information.
+_**NOTE:** The Boilermaker is also handy for turning any cheap electric smoker into one that's a whole lot more reliable and accurate, see the [usage tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) for more information._
