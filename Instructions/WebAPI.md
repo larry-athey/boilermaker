@@ -8,7 +8,7 @@ If you use **curl** in Linux or Mac OS to configure it, you have to tell it to u
 
 The `-s` option silences the network traffic progress that **curl** normally prints on the screen so all you get is the temperature value, and the `--http0.9` tells **curl** what HTTP protocol to use. If you don't specify the 0.9 protocol, you will only get an empty result.
 
-_**NOTE:** This API only returns JSON objects for success or failure when setting values. Requested values are returned as-is, plain text. The ESP32 has limited code space and storing text strings eats up more space than plain old evaluation code. If we were dealing with unlimited code space like you have on any server running PHP, I'd be telling a different story here._
+_**NOTE:** This API only returns JSON objects for success or failure when setting values. Requested values are returned as-is, plain text. The ESP32 has limited code space and storing text strings eats up more space than plain old evaluation code. If I was dealing with unlimited code space like you have on any actual server running PHP, I'd be telling a different story here._
 
 ### Boilermaker API Call Listing
 
