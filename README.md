@@ -7,7 +7,7 @@ _**This project began on December 9, 2024 and does not yet have a first official
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
 
-_**NOTE:** Turnkey kits for those not comfortable with building this from scratch will be available from [my website](https://panhandleponics.com/) in the coming weeks. There will be a short lead time on all orders to allow for 3D printing of the 3D models._<br>
+_**NOTE:** Assembled and tested units for those not comfortable with building this from scratch will be available from [my website](https://panhandleponics.com/) in the coming weeks. There will be a short lead time on all orders to allow for 3D printing of the 3D models._<br>
 
 <img width="1024" src="https://github.com/user-attachments/assets/28a96f4a-670e-46cb-8502-e2bf2e2e060c"><br>
 ---
