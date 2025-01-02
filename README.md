@@ -10,6 +10,9 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 <img width="1024" src="https://github.com/user-attachments/assets/28a96f4a-670e-46cb-8502-e2bf2e2e060c"><br>
 ---
 
+**Facebook Idiot:** _Why would you bother?_<br>
+**Me:** It's only a "bother" for somebody who couldn't do it if they had to. I'd rather have nicer things.
+
 After dealing with one cheap Chinese SCR power controller after another I decided to combine one person's email suggestion about building a WiFi enabled PID controller and combine it with what I had just finished building for Air Still users. PID controllers have their place, but I think they're better suited for 3D printers, ovens, slow cookers, and incubators. The heating element spends more time off than on, bad for distilling.
 
 This controller will run (1) a PWM controlled SCR board, or (2) a voltage controlled SCR board with a [PWM to voltage convertor module](https://www.amazon.com/dp/B0BG2G5FMX) in the middle, or (3) a [zero-crossing trigger solid state relay](https://www.amazon.com/dp/B08FR13GYR) utilizing a 0.20 Hz PWM _(most reliable method for heating elements)_. The third option is sometimes referred to as a simplified PID controller, but it's actually just working like a PWM SCR controller slowed down to less than 1/1000 the speed.
