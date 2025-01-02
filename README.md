@@ -5,7 +5,9 @@ WiFi enabled and ESP32 driven  power controller and temperature regulator for di
 _**This project began on December 9, 2024 and does not yet have a first official release.**_
 
 You may contact me directly at https://panhandleponics.com<br>
-Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics<br>
+Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
+
+_**NOTE:** Assembled and tested units for those not comfortable with building this from scratch will soon be available from [my website](https://panhandleponics.com/). There will be a short lead time on all orders to allow for 3D printing of the 3D models._<br>
 
 <img width="1024" src="https://github.com/user-attachments/assets/28a96f4a-670e-46cb-8502-e2bf2e2e060c"><br>
 ---
@@ -28,3 +30,6 @@ This controller also features a complete Web API for configuration and control, 
 The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker and features progressive temperature output just like you see in Mode 3 of the [Airhead](https://github.com/larry-athey/airhead) controller. This is not a standard feature of Boilermaker since the vast majority of distillers would never use it, but could be easily accomplished with a looping script running on a computer on your home network if a person absolutely wants it.
 
 _**NOTE:** The Boilermaker is also handy for turning any cheap electric smoker into one that's a whole lot more reliable and accurate, see the [usage tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) for more information._
+
+<img width="1024" src="https://github.com/user-attachments/assets/6303cf1b-7fc9-481e-a0dc-133c85d81b82">
+
