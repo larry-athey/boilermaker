@@ -18,4 +18,4 @@ In the **Case-Cover-Assembled.jpg** photo shown above, you can see the placement
 
 <img width="1024" src="./Case-Bottom-Assembled.jpg"><br>
 
-In the **Case-Bottom-Assembled.jpg** photo shown above, you can see the SSR and heatink as well as a screw terminal bus bar installed in the case bottom. The trigger wires to the SSR are connected and you would connect your AC power input/output lines at this point. Connect the ESP32 PSU input lines to the AC input side of the SSR and the bus bar. Honestly, it's totally up to you if you want to interrupt the hot or neutral with the SSR, it honestly makes no difference.
+In the **Case-Bottom-Assembled.jpg** photo shown above, you can see the SSR and heatink as well as a screw terminal bus bar installed in the case bottom. The trigger wires to the SSR are connected and you would connect your AC power input/output lines at this point. Connect the ESP32 PSU input lines to the AC input side of the SSR and the bus bar. Honestly, it's totally up to you if you want to switch the hot or neutral with the SSR, it honestly makes no difference.
