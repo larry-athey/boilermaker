@@ -207,7 +207,7 @@ void setup() {
   gpio_set_level(SSR_OUT,0);
   timer = timerBegin(0,80,true); // Timer at 1 MHz, count up
   timerAttachInterrupt(timer,&onTimer,true); // Attach the PWM toggle function
-  timerAlarmWrite(timer,SSR_PWM * 10000,true); // Timer trigger set to 2.5 seconds by default
+  timerAlarmWrite(timer,SSR_PWM * 100000,true); // Timer trigger set to 2.5 seconds by default
   timerAlarmEnable(timer); // Now enable the low speed pulse width modulator
   #else
   // Assign the SCR controller output pin to a PWM channel
