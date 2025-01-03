@@ -4,4 +4,6 @@ However, if you're going to be running something heftier than that or you intend
 
 I don't have any plans to create a PCB for this PSU and interface due to the fact that I could easily build a couple dozen of them at a relaxed pace just using point-to-point prototype boards, as I wait for the 3D printing of the case to finish. As you can see by looking at **PSU-and-Interface.jpg**, there's a whole lot of nothing involved in making these on a small piece of prototype PCB.
 
-<img width="1024" src="./PSU-and-Interface.jpg">
+<img width="1024" src="./PSU-and-Interface.jpg"><br>
+
+As you can see, there's a whole lot of nothing to it. 4 wires come from it for the SSR + (yellow), SSR - (green), and two for the AC power input to the power supply (blue and white).
