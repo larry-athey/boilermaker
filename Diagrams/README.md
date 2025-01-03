@@ -10,4 +10,4 @@ As you can see, there's a whole lot of nothing to it. 4 wires come from it for t
 
 <img width="1024" src="./ESP32-Home.jpg"><br>
 
-As you can see in the **ESP32-Home.jpg** photo in the above, the ESP32 simply rests in the recessed cavity in the case cover. Another cover goes over this _(the **BM-ESP32-Cover.stl** model)_ to keep the ESP32 in place.
+As you can see in the **ESP32-Home.jpg** photo in the above, the ESP32 simply rests in the recessed cavity in the case cover. Another cover goes over this _(the **BM-ESP32-Cover.stl** model)_ to keep the ESP32 in place. This cavity is also big enough to hold the LilyGo ABS shell for their standard non-touch T-Display-S3 module.
