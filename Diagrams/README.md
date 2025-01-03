@@ -14,4 +14,4 @@ As you can see in the **ESP32-Home.jpg** photo in the above, the ESP32 simply re
 
 <img width="1024" src="./Case-Cover-Assembled.jpg"><br>
 
-In the **Case-Cover-Assembled.jpg** photo shown above, you can see the placement of the PSU and interface board, the MAX-6675 thermocouple amplifier, and the ribbon cables used to connect everything to the row of the ESP32 pins. The external antenna is located between the ESP32 pins. If you bundle up the ribbon cables with zip ties, this will keep everything out of the way of the heatsink.
+In the **Case-Cover-Assembled.jpg** photo shown above, you can see the placement of the PSU and interface board, the MAX-6675 thermocouple amplifier, and the ribbon cables used to connect everything to the ESP32 pins. The external antenna is located between the rows of ESP32 pins. If you bundle up the ribbon cables with zip ties, this will keep everything out of the way of the heatsink.
