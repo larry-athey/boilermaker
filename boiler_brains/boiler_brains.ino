@@ -216,7 +216,7 @@ void setup() {
   ledcAttachPin(SCR_OUT,1);
   ledcWrite(1,0);
   #endif
-
+ 
   #ifdef DS18B20
   DT.begin();
   #endif
