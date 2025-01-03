@@ -6,4 +6,4 @@ I don't have any plans to create a PCB for this PSU and interface due to the fac
 
 <img width="1024" src="./PSU-and-Interface.jpg"><br>
 
-As you can see, there's a whole lot of nothing to it. 4 wires come from it for the SSR + (yellow), SSR - (green), and two for the AC power input to the power supply (blue and white). The cooling fan connects to the screw terminals (+ on the left, - on the right). The 4-pin header is for the ESP32 for (left to right) the fan trigger, SSR trigger, +5 volts, and ground. This only takes about an hour to build.
+As you can see, there's a whole lot of nothing to it. 4 wires come from it for the SSR + (yellow), SSR - (green), and two for the AC power input to the power supply (blue and white). The cooling fan connects to the screw terminals (+ on the left, - on the right). The 4-pin header is for the ESP32 for (left to right) the fan trigger, SSR trigger, +5 volts, and ground. This only takes about an hour to assemble.
