@@ -22,4 +22,4 @@ In the **Case-Bottom-Assembled.jpg** photo shown above, you can see the SSR and 
 
 <img width="1024" src="./Assembled-Boilermaker.jpg"><br>
 
-And, as you can see in the **Assembled-Boilermaker.jpg** photo above, you have an assembled Boilermaker that's ready to go. Your choice of SSR will vary, depending on the load that you intend to run.
+And, as you can see in the **Assembled-Boilermaker.jpg** photo above, you have an assembled Boilermaker that's ready to go. Your choice of SSR will vary, depending on the load that you intend to run. Refer to the last paragraph in the [Usage Tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) document for more information. While the aperage rating is important, the size of the heatink and having a cooling fan are equally important.
