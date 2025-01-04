@@ -22,7 +22,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_1=** - Primarily used by the WebUI to set the Target Temperature of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0 and 260. If you are using this Boilermaker with the **RPi Smart Still** controller system, this value will be set lower boiler range temperature of your program when you start a run, and will be dynamically adjusted upward if you have the Progressive Temperature feature enabled.
 
-**/?data_2=** - Primarily used by the WebUI to set the Startup Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active run does not change the current power level, you will need to restart the run.
+**/?data_2=** - Primarily used by the WebUI to set the Startup Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active Constant Power run will update the current power level.
 
 **/?data_3=** - Primarily used by the WebUI to set the Fallback Power of the Boilermaker. The value passed here must be a whole number between 10 and 100. Adjusting this value during an active Constant Temp run will only work if the Boilermaker hasn't yet reached the target temperature.
 
@@ -52,7 +52,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/get-uptime** - Returns the current system uptime in seconds.
 
-**/?power=** - Performs a power jump during an active Constant Power run. The value passed here must be a whole number between 10 and 100. If you are manually controlling slaves, you must first put the slave in Constant Power mode and then start it before making this call or or the slave will start up at its pre-programmed Startup Power level.
+**/?power=** - Performs a power jump during an active Constant Power run without affecting the Startup Power setting stored in memory. The value passed here must be a whole number between 10 and 100. If you are manually controlling slaves, you must first put the slave in Constant Power mode and then start it before making this call or or the slave will start up at its pre-programmed Startup Power level.
 
 **/reboot** - Reboots the Boilermaker. _(Any surprise there?)_ If you use **/get-uptime** and see that the Boilermaker has been running anywhere near 49 days, you should reboot it before starting a run because the internal code could reboot the unit in the middle of your run if you hit its maximum allowed uptime of 49.7 days.
 
