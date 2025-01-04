@@ -153,7 +153,7 @@ String Version = "1.0.1";        // Current release version of the project
 #endif
 //-----------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
-void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see in a PID controller
+void IRAM_ATTR onTimer() { // Custom low frequency PWM designed specifically for SSR usage
   static uint32_t cycleCounter = 0;
   cycleCounter ++;
     
