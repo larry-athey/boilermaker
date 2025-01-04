@@ -543,6 +543,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return String(TempF,1);
   } else if (Header == "/get-uptime") { // Get current system uptime (seconds)
     return String(millis() / 1000);
+  } else if (Header == "/get-wifistats") { // Get current WiFi channel and signal level
+    return "WiFi Channel: " + String(WiFi.channel()) + "\n" + "WiFi Signal: " + String(WiFi.RSSI());
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump
     if ((ActiveRun) && (OpMode == 0)) {
       Header.remove(0,8);
