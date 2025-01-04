@@ -52,6 +52,8 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/get-uptime** - Returns the current system uptime in seconds.
 
+**/get-wifistats** - Returns the current WiFi channel and signal level as two formatted lines of text. Keep in mind that a signal level of -40 is stronger than -50.
+
 **/?power=** - Performs a power jump during an active Constant Power run without affecting the Startup Power setting stored in memory. The value passed here must be a whole number between 10 and 100. If you are manually controlling slaves, you must first put the slave in Constant Power mode and then start it before making this call or or the slave will start up at its pre-programmed Startup Power level.
 
 **/reboot** - Reboots the Boilermaker. _(Any surprise there?)_ If you use **/get-uptime** and see that the Boilermaker has been running anywhere near 49 days, you should reboot it before starting a run because the internal code could reboot the unit in the middle of your run if you hit its maximum allowed uptime of 49.7 days.
