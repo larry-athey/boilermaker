@@ -446,7 +446,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     if (StartupPercent < 10) StartupPercent = 10;
     if (StartupPercent > 100) StartupPercent = 100;
     SetMemory();
-    if (ActiveRun) PowerAdjust(StartupPercent);
+    if ((OpMode == 0) && (ActiveRun)) PowerAdjust(StartupPercent);
     return jsonSuccess;
   } else if (Header.indexOf("/?data_3=") == 0) { // Set Fallback Power
     Header.remove(0,9);
