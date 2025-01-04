@@ -52,7 +52,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/get-uptime** - Returns the current system uptime in seconds.
 
-**/get-wifistats** - Returns the current WiFi channel and signal level as two formatted lines of text. Keep in mind that a signal level of -40 is stronger than -50.
+**/get-wifistats** - Returns the current WiFi channel and signal level as two formatted lines of text. Keep in mind that a signal level of -40 is stronger than -50, the closer to zero the stronger the signal.
 
 **/?power=** - Performs a power jump during an active Constant Power run without affecting the Startup Power setting stored in memory. The value passed here must be a whole number between 10 and 100. If you are manually controlling slaves, you must first put the slave in Constant Power mode and then start it before making this call or or the slave will start up at its pre-programmed Startup Power level.
 
