@@ -157,7 +157,7 @@ void IRAM_ATTR onTimer() { // Custom low frequency PWM similar to what you see i
   static uint32_t cycleCounter = 0;
   cycleCounter ++;
     
-  if (cycleCounter == 10) { // Reset counter every 10 interrupts (equivalent to 2.5 seconds using the default SSR_PWM value)
+  if (cycleCounter == 10) { // Reset counter every 10 interrupts
     cycleCounter = 0;
   }
 
