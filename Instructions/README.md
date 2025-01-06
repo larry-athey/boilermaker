@@ -6,7 +6,7 @@ Unlike other WiFi enabled ESP32 powered devices, the Boilermaker does not defaul
 
 Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/) program, which is also available for Linux desktop systems, including Raspberry Pi systems. Linux users can also install any of the many command line terminal programs with their package manager, such as minicom. Seriously, serial terminal programs are as old as mainframe servers, this is far from anything new.
 
-_**NOTE:** You can also simply use the serial terminal in the Arduino IDE by pressing CTRL+Shift+M._
+_**NOTE:** You can also do this with your mobile phone [according to Grok](https://x.com/i/grok/share/BJil4zNbj3p3dYd8i8HHYdEaw) but I haven't tried this yet. You can also simply use the serial terminal in the Arduino IDE by pressing CTRL+Shift+M._
 
 Windows and Mac users will also need to download and install the [CP210x driver](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads) so the Boilermaker will appear as a serial port that your terminal program can connect to. Linux users need not bother with this since the driver is already part of the kernel source tree.
 
