@@ -261,7 +261,7 @@ String HomePage() {
   Content += CreateModal();
   Content += "<div class=\"container-fluid\" style=\"align: left;\">";
   Content +=   "<div class=\"row\">";
-  Content +=   "<div style=\"display: flex; align-items: center;\"><span class=\"iconify\" style=\"font-size: 3em;\" data-icon=\"token-branded:dzoo\"></span>&nbsp;<span class=\"fw-bolder\" style=\"font-size: 1.5em;\">Boilermaker&nbsp;v" + Version + "</span></col>";
+  Content +=   "<div style=\"display: flex; align-items: center;\"><span class=\"iconify\" style=\"font-size: 3em;\" data-icon=\"token-branded:dzoo\"></span>&nbsp;<span class=\"fw-bolder\" style=\"font-size: 1.5em;\">Boilermaker&nbsp;v" + Version + "</span></div>";
   Content +=   "</div>";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(StaticData(),"TopCard","",false);
