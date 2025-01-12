@@ -36,7 +36,7 @@
 //       what this controller tells it to do. Think of it like a pyramid scheme. LOL!!!
 //------------------------------------------------------------------------------------------------
 //#define LOCAL_DISPLAY          // Include libraries and code for the LilyGo T-Display-S3 board
-//#define DS18B20                // Use DS18B20 temperature sensor instead of Type-K thermocouple
+#define DS18B20                  // Use DS18B20 temperature sensor instead of Type-K thermocouple
 //------------------------------------------------------------------------------------------------
 #ifdef LOCAL_DISPLAY
 #include "Arduino_GFX_Library.h" // Standard GFX library for Arduino, built with version 1.4.9
@@ -72,7 +72,7 @@
 #define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor)
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
   #ifdef DS18B20
-  #define ONE_WIRE 15            // 1-Wire network pin for the DS18B20 temperature sensor
+  #define ONE_WIRE 13            // 1-Wire network pin for the DS18B20 temperature sensor
   #else
   #define thermoMISO 19          // MAX-6675 SPI data bus
   #define thermoCS 5             // "                   "
