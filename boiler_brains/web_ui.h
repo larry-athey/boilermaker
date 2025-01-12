@@ -83,8 +83,7 @@ String get_Form(byte WhichOne) { // Dynamically creates the form for the specifi
   String Label,Value,Step,Min,Max;
 
   if (WhichOne == 0) {
-    Label = "0 = Constant Power, 1 = Constant Temp";
-    Step = "1"; Min = "0"; Max = "1"; Value = String(OpMode);
+    Label = "Operation Mode";
   } else if (WhichOne == 1) {
     Label = "0.0 to 260.0 (C)";
     Step = ".1"; Min = "0"; Max = "260"; Value = String(TargetTemp,1);
@@ -110,7 +109,22 @@ String get_Form(byte WhichOne) { // Dynamically creates the form for the specifi
 
   Content += "<form id=\"modalForm\" onsubmit=\"return false;\">";
   Content +=   "<label for=\"data_" + String(WhichOne) + "\" class=\"form-label\">" + Label + "</label>";
-  Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
+  if (WhichOne == 0) {
+    String S0,S1;
+    if (OpMode == 0) {
+      S0 = "selected";
+      S1 = "";
+    } else {
+      S0 = "";
+      S1 = "selected";
+    }
+    Content += "<select style=\"width: 100%;\" size=\"1\" class=\"form-control form-select fw-bolder\" id=\"data_0\" name=\"data_0\">";
+    Content += "<option " + S0 + " value=\"0\">Constant Power</option>";
+    Content += "<option " + S1 + " value=\"1\">Constant Temperature</option>";
+    Content += "</select>";
+  } else {
+    Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
+  }
   Content += "</form>";
 
   return Content;
@@ -238,7 +252,7 @@ String SettingsData() {
     Temp = "Constant Temp";
   }
   if (! ActiveRun) {
-    Content += InfoLine("Current&nbsp;Mode",CreateLink(Temp,"Operation Mode","0"));
+    Content += InfoLine("Current&nbsp;Mode",CreateLink(Temp,"Device Management","0"));
   } else {
     Content += InfoLine("Current&nbsp;Mode",Temp);
   }
@@ -261,7 +275,7 @@ String HomePage() {
   Content += CreateModal();
   Content += "<div class=\"container-fluid\" style=\"align: left;\">";
   Content +=   "<div class=\"row\">";
-  Content +=   "<div style=\"display: flex; align-items: center;\"><span class=\"iconify\" style=\"font-size: 3em;\" data-icon=\"token-branded:dzoo\"></span>&nbsp;<span class=\"fw-bolder\" style=\"font-size: 1.5em;\">Boilermaker&nbsp;v" + Version + "</span></div>";
+  Content +=   "<div class=\"col\" style=\"display: flex; align-items: center;\"><span class=\"iconify\" style=\"font-size: 3em;\" data-icon=\"token-branded:dzoo\"></span>&nbsp;<span class=\"fw-bolder\" style=\"font-size: 1.5em;\">Boilermaker&nbsp;v" + Version + "</span>";
   Content +=   "</div>";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(StaticData(),"TopCard","",false);
