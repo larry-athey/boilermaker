@@ -23,7 +23,7 @@ Heating elements have a slow reaction time, generally 1 second for every 1000 wa
 
 In the low speed 0.20 Hz PWM that I came up with for the [Airhead](https://github.com/larry-athey/airhead) controller and implemented here, even at 50% power, the heating element runs for 1.25 seconds and rests for 1.25 seconds. Most heating elements run for the full duration of their reaction time. Whereas when using an SCR controller, all heating elements only run for 0.008 seconds 60 times per second. See why the low speed PWM running an SSR is better?
 
-By default, this controller uses a Type-K thermocouple and a MAX-6675 amplifier module. However, it will still work with a DS18B20 temperature sensor just by uncommenting a constant defintion in the source code. If your intention is to only use this controller with a distillation boiler, then the DS18B20 is perfectly fine since it has an upper temperature limit of 125C/257F. Neither one is more accurate than the other.
+This controller uses either a DS18B20 temperature sensor or a Type-K thermocouple and a MAX-6675/MAX-31855 amplifier module. If your intention is to only use this controller with a distillation boiler or a meat smoker, then the DS18B20 is perfectly fine since it has an upper temperature limit of 125C/257F. If you need a higher temperature range, you will want to comment out the DS18B20 constant and use the thermocouple/amplifier combo instead.
 
 This controller also features a complete Web API for configuration and control, this is how one master unit controls up to 4 slaves. Each of those slaves can also have up to 4 slaves _(look at it like an Amway pyramid scheme)_. This means that these controllers can be added to all kinds of systems out there that offer API integration of third party devices and services.
 
@@ -32,4 +32,3 @@ The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system ful
 _**NOTE:** The Boilermaker is also handy for turning any cheap electric smoker into one that's a whole lot more reliable and accurate, see the [usage tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) for more information._
 
 <img width="1024" src="https://github.com/user-attachments/assets/6303cf1b-7fc9-481e-a0dc-133c85d81b82">
-
