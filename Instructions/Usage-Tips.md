@@ -3,6 +3,7 @@
 Although the Boilermaker adds temperature control automation to your boiler, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
 
 Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
+- Target Temperature: 80.0C/176.0F
 - Startup Power: 50%
 - Fallback Power: 33%
 - Adjustment Rate: 1%
@@ -12,6 +13,7 @@ Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
 - SSR PWM Duty: 2.5 seconds
 
 Still Spirits T500: 6 gallons, 1500 watt 120 volt element running at 120 volts.
+- Target Temperature: 80.0C/176.0F
 - Startup Power: 90%
 - Fallback Power: 40%
 - Adjustment Rate: 1%
@@ -41,6 +43,16 @@ With a PID controller, the heating element barely stays on long enough to get yo
 Since a smoker can reach much higher temperatures than a boiler, you will definitely need to use a Type-K thermocouple rather than a DS18B20 temperature sensor or you'll never know when it gets above 125/257F in the smoker. Generally, this wouldn't be a problem with a smoker since people usually slow cook things between 107C/225F and 121C/250F. However, even I have had the random fire flare up in the smoker because grease caught on fire when it dripped onto the red hot heating element.
 
 I do have plans for making a WiFi enabled ESP32 powered temperature probe and timer unit for this Boilermaker application with multiple temperature probes. I just have a few other programming projects that I need to tie up first. But I think it would be handy to have the capability to connect up to 4 probes and a timer to control the Boilermaker and have it able to do an emergency shutdown if a fire is detected in the smoker. I'll get to this eventually, I'm just not exactly sure when that will happen.
+
+Masterbuilt Steam Smoker Settings: 1800 watt 120 volt element running at 120 volts.
+- Target Temperature: 107.2C/225.0F
+- Startup Power: 90%
+- Fallback Power: 80%
+- Adjustment Rate: 1%
+- Deviation Rate: 0.5C
+- Change Wait: 45 seconds
+- Rest Period: 60 seconds
+- SSR PWM Duty: 2.5 seconds
 
 ### The SCR vs SSR Debate
 
