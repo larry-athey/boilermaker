@@ -4,7 +4,7 @@ Although the Boilermaker adds temperature control automation to your boiler, it 
 
 Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
 - Startup Power: 50%
-- Fallback Power: 30%
+- Fallback Power: 33%
 - Adjustment Rate: 1%
 - Deviation Rate: 0.2C
 - Change Wait: 30 seconds
