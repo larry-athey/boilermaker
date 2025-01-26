@@ -44,7 +44,7 @@ Since a smoker can reach much higher temperatures than a boiler, you will defini
 
 I do have plans for making a WiFi enabled ESP32 powered temperature probe and timer unit for this Boilermaker application with multiple temperature probes. I just have a few other programming projects that I need to tie up first. But I think it would be handy to have the capability to connect up to 4 probes and a timer to control the Boilermaker and have it able to do an emergency shutdown if a fire is detected in the smoker. I'll get to this eventually, I'm just not exactly sure when that will happen.
 
-Masterbuilt Steam Smoker Settings: 1800 watt 120 volt element running at 120 volts.
+Masterbuilt Steam Smoker Settings: 1800 watt 240 volt element running at 120 volts.
 - Target Temperature: 107.2C/225.0F
 - Startup Power: 90%
 - Fallback Power: 80%
