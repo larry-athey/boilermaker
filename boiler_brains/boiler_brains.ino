@@ -45,7 +45,7 @@
 //------------------------------------------------------------------------------------------------
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
-#include "ESP32Ping.h"           // ICMP (ping) library used for keep-alive functions and slave unit testing
+#include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
 #ifdef DS18B20
 #include "OneWire.h"             // OneWire Network communications library
