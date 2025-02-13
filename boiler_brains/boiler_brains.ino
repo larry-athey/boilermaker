@@ -361,7 +361,8 @@ void SetMemory() { // Update flash memory with the current configuration setting
 void TempUpdate() { // Update the temperature sensor values
   #ifdef DS18B20
   DT.requestTemperatures();
-  TempC = DT.getTempCByIndex(0);
+  float Test = DT.getTempCByIndex(0); // Returns -127.00 if the device reading fails
+  if (Test > -127.00) TempC = Test;
   #else
   TempC = thermocouple.readCelsius();
   #endif
