@@ -1,7 +1,10 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
 //
-// Tested up to Espressif ESP32 v2.0.14 due to LilyGo requirements
+// The project is based on the 38 pin ESP32 WROOM-DA (Dual Antenna) or similar. If yours doesn't
+// have an onboard LED attached to GPIO 2, you can compile for the WROOM-DA and solder a 220 ohm
+// resistor and LED in series between GPIO 2 and any ground pin. This provides a visual indicator
+// of a functional WiFi connection and network activity.
 //
 // Derived from the boiler management routines in my Airhead upgrade for Air Stills (and clones).
 // WiFi enabled with a built-in web interface that you can access from your phone's web browser to
@@ -19,11 +22,6 @@
 // be used to implement Boilermakers into other systems without the need to wire them in and add
 // code for any other system's proprietary protocols. Use a script as a translator if necessary.
 //
-// This code can be used with a LilyGo T-Display-S3, or can be headless without any local display.
-// Comment out the LOCAL_DISPLAY constant below to use this code with any other ESP32 board. I've
-// chosen a 38 pin unit as the alternative, but you can just change the GPIO pin assignments for
-// the PWM output and temperature sensor inputs to work with whatever ESP32 board that you have.
-//
 // This controller uses either a DS18B20 temperature sensor or a thermocouple which depends on a
 // MAX-6675/MAX-31855 amplifier module. The DS18B20 is my normal go-to due to their low price and
 // they ore perfectly fine for use in distillation projects since they have an upper temperature
@@ -35,76 +33,44 @@
 //       their own settings. Also, each slave can have its own 4 slaves as well that will follow
 //       what this controller tells it to do. Think of it like a pyramid scheme. LOL!!!
 //------------------------------------------------------------------------------------------------
-//#define LOCAL_DISPLAY          // Include libraries and code for the LilyGo T-Display-S3 board
 #define DS18B20                  // Use DS18B20 temperature sensor instead of Type-K thermocouple
-//------------------------------------------------------------------------------------------------
-#ifdef LOCAL_DISPLAY
-#include "Arduino_GFX_Library.h" // Standard GFX library for Arduino, built with version 1.4.9
-#include "FreeSans9pt7b.h"       // https://github.com/moononournation/ArduinoFreeFontFile.git
-#endif
 //------------------------------------------------------------------------------------------------
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
 #ifdef DS18B20
-#include "OneWire.h"             // OneWire Network communications library
-#include "DallasTemperature.h"   // Dallas Semiconductor DS18B20 temperature sensor library
+  #include "OneWire.h"           // OneWire Network communications library
+  #include "DallasTemperature.h" // Dallas Semiconductor DS18B20 temperature sensor library
 #else
-#include "max6675.h"             // Adafruit MAX-6675 amplifier library for Type-K thermocouples
+  #include "max6675.h"           // Adafruit MAX-6675 amplifier library for Type-K thermocouples
 #endif
 //------------------------------------------------------------------------------------------------
-#ifdef LOCAL_DISPLAY
-#define FAN_OUT 2                // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor)
-#define SCREEN_BACKLIGHT 38      // Screen backlight LED pin
-#define SCREEN_POWER_ON 15       // Screen power on/off pin
-#define INC_BTN 0                // Value + button
-#define DEC_BTN 14               // Value - button
-//#define SCR_OUT 1              // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
-  #ifdef DS18B20
-  #define ONE_WIRE 13            // 1-Wire network pin for the DS18B20 temperature sensor
-  #else
-  #define thermoMISO 11          // MAX-6675 SPI data bus
-  #define thermoCS 10            // "                   "
-  #define thermoCLK 12           // "                   "
-  #endif
-#else
 #define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor)
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
-  #ifdef DS18B20
+#ifdef DS18B20
   #define ONE_WIRE 13            // 1-Wire network pin for the DS18B20 temperature sensor
-  #else
+#else
   #define thermoMISO 19          // MAX-6675 SPI data bus
   #define thermoCS 5             // "                   "
   #define thermoCLK 18           // "                   "
-  #endif
 #endif
 //------------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
-#include "esp_timer.h"           // High resolution timer library for use with interrupt driven code
-#include "driver/gpio.h"         // ESP-IDF GPIO library
-#ifdef LOCAL_DISPLAY
-#define SSR_OUT GPIO_NUM_1       // Same pin as used with an SCR board
-#else
-#define SSR_OUT GPIO_NUM_17      // Same pin as used with an SCR board
-#endif
-float SSR_PWM = 2.5;             // If using an SSR, how many seconds wide is the PWM duty?
-int dutyCyclePercentage = 0;     // Low frequency PWM duty cycle percentage
-hw_timer_t *timer = NULL;        // High resolution timer library
+  #include "esp_timer.h"         // High resolution timer library for use with interrupt driven code
+  #include "driver/gpio.h"       // ESP-IDF GPIO library
+  #define SSR_OUT GPIO_NUM_17    // Same pin as used with an SCR board
+
+  float SSR_PWM = 2.5;           // If using an SSR, how many seconds wide is the PWM duty?
+  int dutyCyclePercentage = 0;   // Low frequency PWM duty cycle percentage
+  hw_timer_t *timer = NULL;      // High resolution timer library
 #endif
 //------------------------------------------------------------------------------------------------
-#ifdef LOCAL_DISPLAY
-//Arduino_DataBus *bus = new Arduino_ESP32PAR8Q(7 /* DC */, 6 /* CS */, 8 /* WR */, 9 /* RD */,39 /* D0 */, 40 /* D1 */, 41 /* D2 */, 42 /* D3 */, 45 /* D4 */, 46 /* D5 */, 47 /* D6 */, 48 /* D7 */);
-
-Arduino_DataBus *bus = new Arduino_ESP32LCD8(7 /* DC */, 6 /* CS */, 8 /* WR */, 9 /* RD */, 39 /* D0 */, 40 /* D1 */, 41 /* D2 */, 42 /* D3 */, 45 /* D4 */, 46 /* D5 */, 47 /* D6 */, 48 /* D7 */);
-rArduino_GFX *gfx = new Arduino_ST7789(bus, 5 /* RST */, 0 /* rotation */, true /* IPS */, 170 /* width */, 320 /* height */, 35 /* col offset 1 */, 0 /* row offset 1 */, 35 /* col offset 2 */, 0 /* row offset 2 */);
-Arduino_Canvas_Indexed *canvas = new Arduino_Canvas_Indexed(320 /* width */, 170 /* height */, gfx);
-#endif
 #ifdef DS18B20
-OneWire oneWire(ONE_WIRE);
-DallasTemperature DT(&oneWire);
+  OneWire oneWire(ONE_WIRE);
+  DallasTemperature DT(&oneWire);
 #else
-MAX6675 thermocouple(thermoCLK,thermoCS,thermoMISO);
+  MAX6675 thermocouple(thermoCLK,thermoCS,thermoMISO);
 #endif
 Preferences preferences;
 WiFiServer Server(80);
@@ -148,9 +114,6 @@ String Version = "1.0.1";        // Current release version of the project
 #include "slave_sync.h"          // Library for configuring and synchronizing slave units
 #include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
 #include "web_ui.h"              // Library for the web user interface and HTTP API implementation
-#ifdef LOCAL_DISPLAY
-#include "local_display.h"       // Library for the LilyGo T-Display-S3 local display support
-#endif
 //-----------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
 void IRAM_ATTR onTimer() { // Custom low frequency PWM designed specifically for SSR usage
@@ -184,22 +147,6 @@ void setup() {
   } else {
     if ((wifiSSID != "none") && (wifiPassword != "")) ConnectWiFi();
   }
-
-  #ifdef LOCAL_DISPLAY
-  // Power up the screen and backlight
-  pinMode(SCREEN_POWER_ON,OUTPUT);
-  digitalWrite(SCREEN_POWER_ON,HIGH);
-  ledcSetup(0,2000,8);
-  ledcAttachPin(SCREEN_BACKLIGHT,0);
-  ledcWrite(0,255); // Screen brightness (0-255)
-  // Initialize the graphics library and blank the screen
-  gfx->begin();
-  gfx->setRotation(3);
-  gfx->fillScreen(BLACK);
-  // In order to eliminate screen flicker, everything is plotted to an off-screen buffer and popped onto the screen when done
-  canvas->begin();
-  ScreenUpdate();
-  #endif
 
   #ifndef SCR_OUT
   // Custom interrupt driven low speed (.1 Hz to 1 Hz) PWM for driving a solid state relay
@@ -677,79 +624,6 @@ void HandleSerialInput() { // Handle user configuration via the serial console
   ShowConfig();
   ConfigMenu();
 }
-//-----------------------------------------------------------------------------------------------
-#ifdef LOCAL_DISPLAY
-void IncValue() { // Increment the value associated with the current OpMode
-  if (OpMode == 0) {
-    if (StartupPercent < 100) {
-      StartupPercent ++;
-      PowerAdjust(StartupPercent);
-    }
-  } else {
-    if (TargetTemp < 260) {
-      TargetTemp ++;
-      if (TargetTemp > 260) TargetTemp = 260;
-    }
-  }
-  ScreenUpdate();
-}
-//-----------------------------------------------------------------------------------------------
-void DecValue() { // Decrement the value associated with the current OpMode
-  if (OpMode == 0) {
-    if (StartupPercent > 10) {
-      StartupPercent --;
-      PowerAdjust(StartupPercent);
-    }
-  } else {
-    if (TargetTemp > 0) {
-      TargetTemp --;
-      if (TargetTemp < 0) TargetTemp = 0;
-    }
-  }
-  ScreenUpdate();
-}
-//-----------------------------------------------------------------------------------------------
-void ProcessButtons() {
-  byte HoldCounter = 0;
-  if ((digitalRead(INC_BTN) == 0) && (digitalRead(DEC_BTN) == 0)) {
-    // Both buttons pressed simultaneously toggles the run state
-    if (ActiveRun) {
-      RunState(0);
-    } else {
-      RunState(1);
-    }
-    ScreenUpdate();
-    while ((digitalRead(INC_BTN) == 0) && (digitalRead(DEC_BTN) == 0)) delay(10);
-  } else if (digitalRead(INC_BTN) == 0) {
-    // Increment power level or target temperature
-    IncValue();
-    while (digitalRead(INC_BTN) == 0) {
-      delay(10);
-      HoldCounter ++;
-      if (HoldCounter == 150) { // User is intentionally holding the + button
-        while (digitalRead(INC_BTN) == 0) {
-          IncValue();
-          delay(250);
-        }
-      }
-    }
-  } else if (digitalRead(DEC_BTN) == 0) {
-    // Decrement power level or target temperature
-    DecValue();
-    while (digitalRead(DEC_BTN) == 0) {
-      delay(10);
-      HoldCounter ++;
-      if (HoldCounter == 150) { // User is intentionally holding the - button
-        while (digitalRead(DEC_BTN) == 0) {
-          DecValue();
-          delay(250);
-        }
-      }
-    }
-  }
-  SetMemory();
-}
-#endif
 //------------------------------------------------------------------------------------------------
 void loop() {
   int CurrentPercent = round(0.392156863 * PowerLevel);
@@ -760,10 +634,6 @@ void loop() {
     // Reboot the system if we're reaching the maximum long integer value of CurrentTime (49 days)
     ESP.restart();
   }
-  #ifdef LOCAL_DISPLAY
-  // Check for inc/dec button presses and handle as necessary
-  if ((digitalRead(INC_BTN) == 0) || (digitalRead(DEC_BTN) == 0)) ProcessButtons();
-  #endif
   // Check for HTTP API calls and handle as necessary
   WiFiClient Client = Server.available();
   if (Client) {
@@ -842,9 +712,6 @@ void loop() {
       SlavesPinging = PingAllSlaves();
       wifiCheckCounter = 0;
     }
-    #ifdef LOCAL_DISPLAY
-    ScreenUpdate();
-    #endif
     LoopCounter = CurrentTime;
   }
 }
