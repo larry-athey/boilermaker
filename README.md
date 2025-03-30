@@ -7,13 +7,13 @@ _**This project began on December 9, 2024 and does not yet have a first official
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
 
+**Facebook Idiot:** _Why would you bother?_<br>
+**Me:** It's only a "bother" for somebody who couldn't do it on their best day. I'd rather have nicer things.
+
 _**NOTE:** Assembled and tested units for those not comfortable with building this from scratch will soon be available from [my website](https://panhandleponics.com/technology-assisted-distillation/). There will be a short lead time on all orders to allow for 3D printing of the cases._<br>
 
 <img width="1024" src="https://github.com/user-attachments/assets/28a96f4a-670e-46cb-8502-e2bf2e2e060c"><br>
 ---
-
-**Facebook Idiot:** _Why would you bother?_<br>
-**Me:** It's only a "bother" for somebody who couldn't do it on their best day. I'd rather have nicer things.
 
 After dealing with one cheap Chinese SCR power controller after another I decided to combine one person's email suggestion about building a WiFi enabled PID controller and combine it with what I had just finished building for Air Still users. PID controllers have their place, but I think they're better suited for 3D printers, fermenters, ovens, slow cookers, and incubators. The heating element spends more time off than on, bad for distilling.
 
