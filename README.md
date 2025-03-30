@@ -10,8 +10,6 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 **Facebook Idiot:** _Why would you bother?_<br>
 **Me:** It's only a "bother" for somebody who couldn't do it on their best day. I'd rather have nicer things.
 
-_**NOTE:** Assembled and tested units for those not comfortable with building this from scratch will soon be available from [my website](https://panhandleponics.com/technology-assisted-distillation/). There will be a short lead time on all orders to allow for 3D printing of the cases._<br>
-
 <img width="1024" src="https://github.com/user-attachments/assets/28a96f4a-670e-46cb-8502-e2bf2e2e060c"><br>
 ---
 
