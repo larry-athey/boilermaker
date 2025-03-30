@@ -10,6 +10,8 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 **Facebook Idiot:** _Why would you bother?_<br>
 **Me:** It's only a "bother" for somebody who couldn't do it on their best day. I'd rather have nicer things.
 
+---
+
 <img width="1024" src="https://github.com/user-attachments/assets/28a96f4a-670e-46cb-8502-e2bf2e2e060c"><br>
 ---
 
