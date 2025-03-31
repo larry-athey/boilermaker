@@ -138,16 +138,16 @@ String InfoLine(String Title,String Data) { // Formats a line of text in a card
 //------------------------------------------------------------------------------------------------
 String PageHeader() { // HTML page header with custom CSS configuration
   String Content = "";
-  Content += "<!DOCTYPE html>";
-  Content += "<html lang=\"en\">";
-  Content += "<head>";
-  Content +=   "<title>" + DeviceName + "</title>";
-  Content +=   "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\">";
-  Content +=   "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD\" crossorigin=\"anonymous\">";
-  Content +=   "<link rel=\"stylesheet\" href=\"https://unpkg.com/bootstrap-darkmode@0.7.0/dist/darktheme.css\">";
-  Content +=   "<script src=\"https://code.iconify.design/2/2.0.3/iconify.min.js\"></script>";
-  Content +=   "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js\"></script>";
-  Content +=   "<link rel=\"icon\" href=\"https://panhandleponics.com/wp-content/uploads/2024/12/boilermaker.png?v=1.1\">";
+  Content += "<!DOCTYPE html>\n";
+  Content += "<html lang=\"en\">\n";
+  Content += "<head>\n";
+  Content +=   "<title>" + DeviceName + "</title>\n";
+  Content +=   "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\">\n";
+  Content +=   "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD\" crossorigin=\"anonymous\">\n";
+  Content +=   "<link rel=\"stylesheet\" href=\"https://unpkg.com/bootstrap-darkmode@0.7.0/dist/darktheme.css\">\n";
+  Content +=   "<script src=\"https://code.iconify.design/2/2.0.3/iconify.min.js\"></script>\n";
+  Content +=   "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js\"></script>\n";
+  Content +=   "<link rel=\"icon\" href=\"https://panhandleponics.com/wp-content/uploads/2024/12/boilermaker.png?v=1.1\">\n";
   Content +=   "\n<style type=\"text/css\">\n";
   Content +=   "  @-webkit-keyframes blinker {\n";
   Content +=   "    from {opacity: 1.0;}\n";
@@ -163,15 +163,15 @@ String PageHeader() { // HTML page header with custom CSS configuration
   Content +=   "  }\n";
   Content +=   "  a,a:hover {text-decoration: none;}\n";
   Content +=   "</style>\n";
-  Content += "</head>";
-  Content += "<body data-theme=\"dark\">";
+  Content += "</head>\n";
+  Content += "<body data-theme=\"dark\">\n";
 
   return Content;
 }
 //------------------------------------------------------------------------------------------------
 String PageFooter() { // HTML page footer with custom Javascript to handle settings
   String Content = "";
-  Content += "<div id=\"hiddenDiv\" style=\"display: none;\"></div>";
+  Content += "<div id=\"hiddenDiv\" style=\"display: none;\"></div>\n";
   Content += "\n<script type=\"text/javascript\">\n";
   Content += "function ToggleRun() {\n";
   Content += "  if (confirm('Are you sure that you change the current run state?')) {\n";
@@ -209,9 +209,9 @@ String PageFooter() { // HTML page footer with custom Javascript to handle setti
   Content += "  });\n";
   Content += "};\n";
   Content += "</script>\n";
-  Content +=   "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js\" integrity=\"sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD\" crossorigin=\"anonymous\"></script>";
-  Content += "</body>";
-  Content += "</html>";
+  Content +=   "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js\" integrity=\"sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD\" crossorigin=\"anonymous\"></script>\n";
+  Content += "</body>\n";
+  Content += "</html>\n";
 
   return Content;
 }
