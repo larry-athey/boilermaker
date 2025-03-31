@@ -273,20 +273,20 @@ String HomePage() {
   String Content = "";
   Content += PageHeader();
   Content += CreateModal();
-  Content += "<div class=\"container-fluid\" style=\"align: left;\">";
+  Content += "<div class=\"container-fluid\" style=\"align: left;\">\n";
   Content +=   "<div class=\"row\">";
   Content +=   "<div class=\"col\" style=\"display: flex; align-items: center;\"><span class=\"iconify\" style=\"font-size: 3em;\" data-icon=\"token-branded:dzoo\"></span>&nbsp;<span class=\"fw-bolder\" style=\"font-size: 1.5em;\">Boilermaker&nbsp;v" + Version + "</span>";
-  Content +=   "</div>";
+  Content +=   "</div>\n";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(StaticData(),"TopCard","",false);
-  Content +=   "</div>";
+  Content +=   "</div>\n";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(LiveData(),"LiveData","ajax-livedata",true);
-  Content +=   "</div>";
+  Content +=   "</div>\n";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(SettingsData(),"SettingsData","ajax-settings",true);
-  Content +=   "</div>";
-  Content += "</div>";
+  Content +=   "</div>\n";
+  Content += "</div>\n";
   Content += PageFooter();
 
   return Content;
