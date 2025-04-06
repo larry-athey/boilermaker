@@ -77,6 +77,7 @@ WiFiServer Server(80);
 //------------------------------------------------------------------------------------------------
 bool ActiveRun = false;          // True if there's an active heating run
 bool UpToTemp = false;           // True if the run startup has reached operating temperature
+bool PWMenabled = false;         // True if the low speed PWM is enabled
 long LoopCounter = 0;            // Timekeeper for the loop to eliminate the need to delay it
 long StartTime = 0;              // Start time of the current heating run
 long LastAdjustment = 0;         // Time of the last power adjustment
@@ -155,7 +156,7 @@ void setup() {
   timer = timerBegin(0,80,true); // Timer at 1 MHz, count up
   timerAttachInterrupt(timer,&onTimer,true); // Attach the PWM toggle function
   timerAlarmWrite(timer,SSR_PWM * 100000,true); // Timer trigger set to 2.5 seconds by default
-  timerAlarmEnable(timer); // Now enable the low speed pulse width modulator
+  // timerAlarmEnable(timer); // Now enable the low speed pulse width modulator
   #else
   // Assign the SCR controller output pin to a PWM channel
   // For heating elements, 1 KHz to 3 KHz is used, adjust as necessary
@@ -346,6 +347,10 @@ void PowerAdjust(byte Percent) { // Set the SCR board or SSR timing to a target 
 //-----------------------------------------------------------------------------------------------
 void RunState(byte State) { // Toggle the active heating run state
   if (State == 1) {
+    #ifndef SCR_OUT
+    timerAlarmEnable(timer);
+    PWMenabled = true;
+    #endif
     StartTime = millis();
     ActiveRun = true;
     UpToTemp  = false;
@@ -359,6 +364,10 @@ void RunState(byte State) { // Toggle the active heating run state
     digitalWrite(FAN_OUT,LOW);
     PowerAdjust(0);
     UpdateAllSlaves("/stop-run");
+    #ifndef SCR_OUT
+    timerAlarmDisable(timer);
+    PWMenabled = false;
+    #endif
   }
 }
 //-----------------------------------------------------------------------------------------------
@@ -688,11 +697,19 @@ void loop() {
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               if (TempC >= (TargetTemp + Deviation)) { // Over temperature
                 CurrentPercent -= AdjustRate;
-                if (CurrentPercent < 10) CurrentPercent = 10;
+                if (CurrentPercent < 10) {
+                  CurrentPercent = 10;
+                  timerAlarmDisable(timer);
+                  PWMenabled = false;
+                }
                 PowerAdjust(CurrentPercent); // Decrease power
               } else if (TempC <= (TargetTemp - Deviation)) { // Under temperature
                 CurrentPercent += AdjustRate;
                 if (CurrentPercent > 100) CurrentPercent = 100;
+                if (! PWMenabled) {
+                  timerAlarmEnable(timer);
+                  PWMenabled = true;
+                }
                 PowerAdjust(CurrentPercent); // Increase power
               }
             }
