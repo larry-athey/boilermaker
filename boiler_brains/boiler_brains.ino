@@ -33,28 +33,20 @@
 //       their own settings. Also, each slave can have its own 4 slaves as well that will follow
 //       what this controller tells it to do. Think of it like a pyramid scheme. LOL!!!
 //------------------------------------------------------------------------------------------------
-#define DS18B20                  // Use DS18B20 temperature sensor instead of Type-K thermocouple
-//------------------------------------------------------------------------------------------------
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "Preferences.h"         // ESP32 Flash memory read/write library
-#ifdef DS18B20
-  #include "OneWire.h"           // OneWire Network communications library
-  #include "DallasTemperature.h" // Dallas Semiconductor DS18B20 temperature sensor library
-#else
-  #include "max6675.h"           // Adafruit MAX-6675 amplifier library for Type-K thermocouples
-#endif
+#include "OneWire.h"             // OneWire Network communications library
+#include "DallasTemperature.h"   // Dallas Semiconductor DS18B20 temperature sensor library
+#include "max6675.h"             // Adafruit MAX-6675 amplifier library for Type-K thermocouples
 //------------------------------------------------------------------------------------------------
 #define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor)
-//#define SCR_OUT 17             // PWM output to an SCR board (comment out if using an SSR as a simplified PID)
-#ifdef DS18B20
-  #define ONE_WIRE 13            // 1-Wire network pin for the DS18B20 temperature sensor
-#else
-  #define thermoMISO 19          // MAX-6675 SPI data bus
-  #define thermoCS 5             // "                   "
-  #define thermoCLK 18           // "                   "
-#endif
+//#define SCR_OUT 17             // PWM output to an SCR board (comment out if using a zero-crossing SSR)
+#define ONE_WIRE 13              // 1-Wire network pin for the DS18B20 temperature sensor
+#define thermoMISO 19            // MAX-6675 SPI data bus
+#define thermoCS 5               // "                   "
+#define thermoCLK 18             // "                   "
 //------------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
   #include "esp_timer.h"         // High resolution timer library for use with interrupt driven code
@@ -66,12 +58,9 @@
   hw_timer_t *timer = NULL;      // High resolution timer library
 #endif
 //------------------------------------------------------------------------------------------------
-#ifdef DS18B20
-  OneWire oneWire(ONE_WIRE);
-  DallasTemperature DT(&oneWire);
-#else
-  MAX6675 thermocouple(thermoCLK,thermoCS,thermoMISO);
-#endif
+OneWire oneWire(ONE_WIRE);
+DallasTemperature DT(&oneWire);
+MAX6675 thermocouple(thermoCLK,thermoCS,thermoMISO);
 Preferences preferences;
 WiFiServer Server(80);
 //------------------------------------------------------------------------------------------------
@@ -89,6 +78,7 @@ float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is sele
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
 int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
+byte SensorType = 1;             // Selected temperature sensor type: 0=MAX6675, 1=DS18B20
 byte SlavesPinging = 0;          // Shows how many configured slaves are actually online
 byte AdjustRate = 1;             // How much power % change to make when temperature is out of range
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
@@ -165,9 +155,7 @@ void setup() {
   ledcWrite(1,0);
   #endif
  
-  #ifdef DS18B20
   DT.begin();
-  #endif
   pinMode(FAN_OUT,OUTPUT); 
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
@@ -271,6 +259,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   Deviation        = preferences.getFloat("deviation",1.0);
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
+  SensorType       = preferences.getUInt("sensor_type",SensorType);
   #ifndef SCR_OUT
   SSR_PWM          = preferences.getFloat("ssr_pwm",2.5);
   #endif
@@ -300,6 +289,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putFloat("deviation",Deviation);
   preferences.putUInt("change_wait",ChangeWait);
   preferences.putUInt("rest_period",RestPeriod);
+  preferences.putUInt("sensor_type",SensorType);
   #ifndef SCR_OUT
   preferences.putFloat("ssr_pwm",SSR_PWM);
   #endif
@@ -307,13 +297,13 @@ void SetMemory() { // Update flash memory with the current configuration setting
 }
 //------------------------------------------------------------------------------------------------
 void TempUpdate() { // Update the temperature sensor values
-  #ifdef DS18B20
-  DT.requestTemperatures();
-  float Test = DT.getTempCByIndex(0); // Returns -127.00 if the device reading fails
-  if (Test > -127.00) TempC = Test;
-  #else
-  TempC = thermocouple.readCelsius();
-  #endif
+  if (SensorType == 1) {
+    DT.requestTemperatures();
+    float Test = DT.getTempCByIndex(0); // Returns -127.00 if the device reading fails
+    if (Test > -127.00) TempC = Test;
+  } else {
+    TempC = thermocouple.readCelsius();
+  }
   TempC += CorrectionFactor; // CorrectionFactor can be a positive or negative value to calibrate
   TempF = TempC * 9 / 5 + 32;
 }
@@ -494,6 +484,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     } else {
       return "0";
     }
+  } else if (Header == "/get-sensortype") { // Get the current temerature sensor type
+    return String(SensorType);
   } else if (Header == "/get-tempc") { // Get current Temp C reading
     return String(TempC,1);
   } else if (Header == "/get-tempf") { // Get current Temp F reading
@@ -519,6 +511,13 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     CorrectionFactor = Header.toFloat();
     if (CorrectionFactor < -5) CorrectionFactor = -5.0;
     if (CorrectionFactor > 5) CorrectionFactor = 5.0;
+    SetMemory();
+    return jsonSuccess;
+  } else if (Header.indexOf("/?set-sensortype=") == 0) { // Set temperature sensor type
+    Header.remove(0,17);
+    if (Header.toInt() < 0) Header = "0";
+    if (Header.toInt() > 1) Header = "1";
+    SensorType = Header.toInt();
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?set-slaveip1=") == 0) { // Set new slaveIP1 address
