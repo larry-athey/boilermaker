@@ -46,6 +46,8 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/get-runtime** - Returns the total elapsed seconds of the currently active run, or zero if there is no active run.
 
+**/get-sensortyoe** - Returns the selected temperature sensor type. 0=MAX6675, 1=DS18B20
+
 **/get-tempc** - Returns the current measured temperature in Celcius (after correction factor).
 
 **/get-tempf** - Returns the current measured temperature in Fahrenheit (after correction factor).
