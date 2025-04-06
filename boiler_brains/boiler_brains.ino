@@ -25,7 +25,8 @@
 // This controller uses either a DS18B20 temperature sensor or a thermocouple which depends on a
 // MAX-6675/MAX-31855 amplifier module. The DS18B20 is my normal go-to due to their low price and
 // they ore perfectly fine for use in distillation projects since they have an upper temperature
-// limit of 125C/257F. Comment out the DS18B20 constant to use a thermocouple and amplifier setup.
+// limit of 125C/257F. Set the default value of SensorType to 1 to use a thermocouple, or use the
+// necessary Web API call with your web browser to change the temperature sensor type.
 //
 // NOTE: When using these controllers in a master/slave setup, all 4 slaves are ran in constant
 //       power mode which follows the power level of the master controller. They are still able
