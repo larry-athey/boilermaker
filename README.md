@@ -31,4 +31,6 @@ The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system ful
 
 _**NOTE:** The Boilermaker is also handy for turning any cheap electric smoker into one that's a whole lot more reliable and accurate, see the [usage tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) for more information._
 
-<img width="1024" src="https://github.com/user-attachments/assets/6303cf1b-7fc9-481e-a0dc-133c85d81b82">
+<img width="1024" src="https://github.com/user-attachments/assets/4794e40b-f8ef-448d-a893-5d75afe117f9"><br>
+<img width="1024" src="https://github.com/user-attachments/assets/ac8445fc-c412-4a7e-a545-4d7d93b5424f"><br>
+<img width="1024" src="https://github.com/user-attachments/assets/6e2c802c-acc3-427c-b370-b225d249a810">
