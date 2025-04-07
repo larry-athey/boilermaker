@@ -4,4 +4,4 @@ This is designed by [FireflySE](https://github.com/FireflySE) of Sweden, the sam
 
 This board supports both, type-k thermocouple or DS18B20 temperature sensors. As of this time, my 3D models for the case don't support this PCB because I don't have any on-hand. As soon as I have some, I will update the case models to support this PCB as well.
 
-_**NOTE:** You will need to make one minor modification to my source code to work correctly with this PCB. My original code has the FAN_OUT constant pointing to GPIO 16, this PCB has it on GPIO 2. No idea what the reason was for the switch._
+_**NOTE:** You will need to make one minor modification to my source code to work correctly with this PCB. My original code has the FAN_OUT constant pointing to GPIO 16, this PCB has it on GPIO 2. I have no idea what the reason was for the switch._
