@@ -17,7 +17,7 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 
 After dealing with one cheap Chinese SCR power controller after another I decided to combine one person's email suggestion about building a WiFi enabled PID controller and combine it with what I had just finished building for Air Still users. PID controllers have their place, but I think they're better suited for 3D printers, fermenters, ovens, slow cookers, and incubators. The heating element spends more time off than on, bad for distilling.
 
-_**NOTE:** Before you say "but, my PID controller has a manual mode", take the time to learn how the PID algorythm works. Unless you're a math wizard, you do not have a manual mode. You have an SSR controller that has both PID and SCR modes._
+_**NOTE:** Before you say "but, my PID controller has a manual mode", take the time to learn how the PID algorithm works. Unless you're a math wizard, you do not have a manual mode. You have an SSR controller that has both PID and SCR modes._
 
 This controller will run (1) a PWM controlled SCR board, or (2) a voltage controlled SCR board with a [PWM to voltage convertor module](https://www.amazon.com/dp/B0BG2G5FMX) in the middle, or (3) a [zero-crossing trigger solid state relay](https://www.amazon.com/dp/B08FR13GYR) utilizing my custom low speed PWM _(most effective method for heating elements)_. My invention works like a PWM SCR controller slowed down to less than 1/1000 the speed and runs heating elements much more effectively.
 
