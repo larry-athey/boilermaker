@@ -357,6 +357,7 @@ void RunState(byte State) { // Toggle the active heating run state
     UpdateAllSlaves("/stop-run");
     #ifndef SCR_OUT
     timerAlarmDisable(timer);
+    gpio_set_level(SSR_OUT,0);
     PWMenabled = false;
     #endif
   }
@@ -700,6 +701,7 @@ void loop() {
                 if (CurrentPercent < 10) {
                   CurrentPercent = 10;
                   timerAlarmDisable(timer);
+                  gpio_set_level(SSR_OUT,0);
                   PWMenabled = false;
                 }
                 PowerAdjust(CurrentPercent); // Decrease power
