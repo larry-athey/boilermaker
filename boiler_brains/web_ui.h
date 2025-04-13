@@ -157,7 +157,7 @@ String InfoLine(String Title,String Data) { // Formats a line of text in a card
 //------------------------------------------------------------------------------------------------
 String PageHeader() { // HTML page header with custom CSS configuration
   String Content = "";
-  Content += "<!-- " + AppIcon + " -->";
+  //Content += "<!-- " + AppIcon + " -->";
   Content += "<!DOCTYPE html>\n";
   Content += "<html lang=\"en\">\n";
   Content += "<head>\n";
