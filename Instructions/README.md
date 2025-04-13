@@ -1,6 +1,6 @@
 # Instructions
 
-_**IMPORTANT:** Please keep in mind that where you put your temperature sensor matters! No matter what you are using your Boilermaker for, you absolutely DO NOT want to be reading the temperature of your heating element! You need to be monitoring what you are boiling or the air around what you are smoking/roasting. The only exception would be if you are controlling an oil jacketed boiler, you would want to be reading the temperature of the oil in that case instead._
+_**IMPORTANT:** Please keep in mind that where you put your temperature sensor matters! No matter what you are using your Boilermaker for, you absolutely DO NOT want to be reading the temperature of your heating element! You need to be monitoring what you are boiling or the air around what you are smoking/roasting._
 
 Unlike other WiFi enabled ESP32 powered devices, the Boilermaker does not default as a WiFi access point in order to configure it. I'm already using nearly 75% of the available code space, I don't want to waste the remaining 25% on a one-time-use feature. I'm reserving that 25% for future features and enhancements, so the WiFi configuration and a few other things are configured over a USB cable and a plain old terminal program. Windows doesn't include one by default anymore, but [PuTTY](https://www.putty.org/) is still free and open source.
 
