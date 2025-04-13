@@ -2,8 +2,6 @@
 
 WiFi enabled and ESP32 driven  power controller and temperature regulator for distillation boilers. Multiple units can be combined in a master/slave configuration.
 
-_**This project began on December 9, 2024 and does not yet have a first official release.**_
-
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
 
