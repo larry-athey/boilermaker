@@ -3,8 +3,27 @@
 //------------------------------------------------------------------------------------------------
 String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
 String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
+String AppIcon = "";
 //------------------------------------------------------------------------------------------------
 // Utility functions
+//------------------------------------------------------------------------------------------------
+String fetchBase64AppIcon() { // Experimental
+  HTTPClient http;
+  String base64Data = "";
+
+  String url = "https://panhandleponics.com/wp-content/plugins/github-api/bm.php?version=" + Version;
+  http.begin(url);
+  int httpCode = http.GET();
+
+  if (httpCode == HTTP_CODE_OK) {
+    base64Data = http.getString();
+  } else {
+    if (Serial) Serial.println("Failed to fetch app icon: " + String(httpCode));
+  }
+
+  http.end();
+  return base64Data;
+}
 //------------------------------------------------------------------------------------------------
 String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) { // Refreshes data in a card on a random timed basis
   String Content = "";
@@ -138,6 +157,7 @@ String InfoLine(String Title,String Data) { // Formats a line of text in a card
 //------------------------------------------------------------------------------------------------
 String PageHeader() { // HTML page header with custom CSS configuration
   String Content = "";
+  Content += "<!-- " + AppIcon + " -->";
   Content += "<!DOCTYPE html>\n";
   Content += "<html lang=\"en\">\n";
   Content += "<head>\n";
@@ -148,6 +168,11 @@ String PageHeader() { // HTML page header with custom CSS configuration
   Content +=   "<script src=\"https://code.iconify.design/2/2.0.3/iconify.min.js\"></script>\n";
   Content +=   "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js\"></script>\n";
   Content +=   "<link rel=\"icon\" href=\"https://panhandleponics.com/wp-content/uploads/2024/12/boilermaker.png?v=1.1\">\n";
+  //if (AppIcon.length() > 0) {
+  //  Content += "<link rel=\"icon\" href=\"data:image/png;base64," + AppIcon + "\" type=\"image/png\">\n";
+  //} else {
+  //  Content += "<link rel=\"icon\" href=\"/default.ico\" type=\"image/x-icon\">\n"; // Fallback
+  //}
   Content +=   "\n<style type=\"text/css\">\n";
   Content +=   "  @-webkit-keyframes blinker {\n";
   Content +=   "    from {opacity: 1.0;}\n";
