@@ -30,7 +30,7 @@ If you find that your boiler tends to run hot after the fallback and the Boilerm
 
 When using the Boilermaker with the [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) you can duplicate the functionality of the Airhead's operating Mode 3 _(progressive temperature over time)_. Once you enable Boilermaker support, go back to **Management->Configure Heating**, then set the **Fixed Temperature** drop-down to **No**, and set the **Time Spread** value to however many hours you expect your run to take. This is how long the run is expected to take **after** your boiler has reached the program's minimum operating temperature.
 
-The way this works is that the boiler temperature range of your program is divided up so there are 4 equal temperature jumps per hour. If you set the **Time Spread** to 3 hours, then this temperature range is divided by 12 and every 15 minutes that factor is added to the target temperature. You can see this change in the dashboard and the Boilermaker WebUI.
+The way this works is that the boiler temperature range of your program is divided up so there are 12 equal temperature jumps per hour. If you set the **Time Spread** to 3 hours, then this temperature range is divided by total number of jumps and every 5 minutes that factor is added to the target temperature. You can see this change in the dashboard and the Boilermaker WebUI.
 
 ### Using Your Boilermaker For Fermentation
 
