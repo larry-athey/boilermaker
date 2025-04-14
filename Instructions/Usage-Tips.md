@@ -1,5 +1,7 @@
 # Boilermaker Usage Tips
 
+_**NOTE:** This information only applies to Boilermakers using an SSR and the low speed PWM, not an SCR controller._
+
 Although the Boilermaker adds temperature control automation to your boiler, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
 
 Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
