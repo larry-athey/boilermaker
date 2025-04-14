@@ -700,15 +700,17 @@ void loop() {
                 CurrentPercent -= AdjustRate;
                 if (CurrentPercent < 10) {
                   CurrentPercent = 10;
-                  timerAlarmDisable(timer);
-                  gpio_set_level(SSR_OUT,0);
-                  PWMenabled = false;
+                  if (TargetTemp < 38) { // Fermentation temperature selected, stop the PWM
+                    timerAlarmDisable(timer);
+                    gpio_set_level(SSR_OUT,0);
+                    PWMenabled = false;
+                  }
                 }
                 PowerAdjust(CurrentPercent); // Decrease power
               } else if (TempC <= (TargetTemp - Deviation)) { // Under temperature
                 CurrentPercent += AdjustRate;
                 if (CurrentPercent > 100) CurrentPercent = 100;
-                if (! PWMenabled) {
+                if (! PWMenabled) { // Restart the PWM if a fermentation temperature overage shut it down
                   timerAlarmEnable(timer);
                   PWMenabled = true;
                 }
