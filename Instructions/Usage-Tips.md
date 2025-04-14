@@ -32,7 +32,7 @@ When using the Boilermaker with the [RPi Smart Still](https://github.com/larry-a
 
 The way this works is that the boiler temperature range of your program is divided up so there are 4 equal temperature jumps per hour. If you set the **Time Spread** to 3 hours, then this temperature range is divided by 12 and every 15 minutes that factor is added to the target temperature. You can see this change in the dashboard and the Boilermaker WebUI.
 
-### Using Your Boiler For Fermentation
+### Using Your Boilermaker For Fermentation
 
 Some people ferment on the grain and may also distill on the grain if they have a boiler with a motorized stirring paddle. Your Boilermaker can maintain fermentation temperatures by using the following settings. The reason this works is because if your wash/mash ever goes over temperature and your power level is at 10%, the PWM completely shuts off.
 
