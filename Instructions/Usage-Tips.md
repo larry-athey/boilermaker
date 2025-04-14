@@ -32,7 +32,17 @@ When using the Boilermaker with the [RPi Smart Still](https://github.com/larry-a
 
 The way this works is that the boiler temperature range of your program is divided up so there are 4 equal temperature jumps per hour. If you set the **Time Spread** to 3 hours, then this temperature range is divided by 12 and every 15 minutes that factor is added to the target temperature. You can see this change in the dashboard and the Boilermaker WebUI.
 
-_**NOTE:** While the progressive temperature over time is a standard feature in the [Airhead](https://github.com/larry-athey/airhead) controller, it has not been added to the Boilermaker since most home distillers would never use it and it would just chew up valuable ESP32 code space. This can be easily accomplished with a looping script running on any computer on the same network as the Boilermaker if a person really wants it. I've found that most home distillers are more hands-on oriented, especially if they put a lot of time and money into building a big fancy still full of fine-tuning features._
+### Using Your Boiler For Fermentation
+
+Some people ferment on the grain and may also distill on the grain if they have a boiler with a motorized stirring paddle. Your Boilermaker can maintain fermentation temperatures by using the following settings. The reason this works is because if your wash/mash ever goes over temperature and your power level is at 10%, the PWM cmpletely shuts off.
+
+- Target Temperature: 32.2C/90.0F
+- Startup Power: 10%
+- Fallback Power: 10%
+- Adjustment Rate: 1%
+- Deviation Rate: 0.5C
+- Change Wait: 30 seconds
+- Rest Period: 30 seconds
 
 ### Controlling An Electric Smoker
 
