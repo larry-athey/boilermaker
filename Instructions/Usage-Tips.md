@@ -36,7 +36,7 @@ The way this works is that the boiler temperature range of your program is divid
 
 ### Using Your Boilermaker For Fermentation
 
-Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the following settings. The reason this works is because if you set a target temperature below 38C/100.4F and your wash/mash ever exceeds your target temperature after your your power level has fallen back to 10%, the PWM completely shuts off. Once the mash/wash temperature drops to 0.5C below the target temperature, the PWM will be enabled again and this cycle repeats until you stop the Boilermaker.
+Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the following settings. The reason this works is because if you set a target temperature below 38C/100.4F and your wash/mash ever exceeds your target temperature after your your power level has fallen back to 10%, the PWM completely shuts off. Once the mash/wash temperature drops below the target temperature, the PWM will be enabled again and this cycle will repeat until you stop the Boilermaker.
 
 - Target Temperature: 32.2C/90.0F
 - Startup Power: 10%
