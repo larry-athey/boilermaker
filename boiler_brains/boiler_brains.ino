@@ -1,6 +1,9 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
 //
+// You must be using a v2.x ESP32 library to compile this code. It appears that v3.x libraries do
+// not contain compatible headers for certain legacy libraries that I rely on.
+//
 // The project is based on the 38 pin ESP32 WROOM-DA (Dual Antenna) or similar. If yours doesn't
 // have an onboard LED attached to GPIO 2, you can compile for the WROOM-DA and solder a 220 ohm
 // resistor and LED in series between GPIO 2 and any ground pin. This provides a visual indicator
