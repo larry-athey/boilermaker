@@ -4,7 +4,7 @@ _**NOTE:** This information only applies to Boilermakers using an SSR and the lo
 
 Although the Boilermaker adds temperature control automation to your boiler, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
 
-Keep in mind that since I work on a small scale here, I always work with a 12% ro 15% ABV wash, or even higher if I'm making gin or redistilling something to clean it up. Anythin significantly lower than 12% will result in higher boiling temperatures required to puch the ethanol out of the wash, such as when you do a stripping run.
+Keep in mind that since I work on a small scale here, I always work with a 12% ro 15% ABV wash, or even higher if I'm making gin or redistilling something to clean it up. Anything significantly lower than 12% will result in higher boiling temperatures required to push ethanol up out of the wash, such as when you are doing a stripping run.
 
 Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
 - Target Temperature: 80.0C/176.0F
