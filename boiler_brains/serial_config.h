@@ -1,7 +1,9 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
+//
+// Inline functions used for modular unit organization
 //------------------------------------------------------------------------------------------------
-void ShowConfig() { // Send an ANSI clear screen sequence and display all configuration settings
+inline void ShowConfig() { // Send an ANSI clear screen sequence and display all configuration settings
   Serial.write("\033[2J\033[H\n\n");
   Serial.println("DeviceName: " + DeviceName);
   if (WiFi.status() == WL_CONNECTED) {
@@ -31,7 +33,7 @@ void ShowConfig() { // Send an ANSI clear screen sequence and display all config
   Serial.println("");
 }
 //------------------------------------------------------------------------------------------------
-void ConfigMenu() { // Display the configuration menu
+inline void ConfigMenu() { // Display the configuration menu
   Serial.println("Boilermaker Configuration Menu:");
   Serial.println("  0. Set Device Name");
   Serial.println("  1. Set SSID");
@@ -49,11 +51,11 @@ void ConfigMenu() { // Display the configuration menu
   Serial.print("Choose an option: ");
 }
 //------------------------------------------------------------------------------------------------
-void PurgeBuffer() { // Purge anything waiting in the receive buffer
+inline void PurgeBuffer() { // Purge anything waiting in the receive buffer
   while (Serial.available()) Serial.read();
 }
 //------------------------------------------------------------------------------------------------
-String ReadInput() { // Read from the serial port until the user presses the ENTER key
+inline String ReadInput() { // Read from the serial port until the user presses the ENTER key
   String input = "";
   char c;
   // Teminal program should have ANSI emulation enabled, VT100 may not handle backspaces correctly
@@ -77,17 +79,17 @@ String ReadInput() { // Read from the serial port until the user presses the ENT
   }
 }
 //------------------------------------------------------------------------------------------------
-void get_wifiSSID() { // Get the WiFi SSID (network name)
+inline void get_wifiSSID() { // Get the WiFi SSID (network name)
   Serial.print("Enter WiFi SSID: ");
   wifiSSID = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_wifiPassword() { // Get the WiFi password
+inline void get_wifiPassword() { // Get the WiFi password
   Serial.print("Enter WiFi Password: ");
   wifiPassword = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_wifiMode() { // Get the WiFi IP address mode (DHCP or Static IP)
+inline void get_wifiMode() { // Get the WiFi IP address mode (DHCP or Static IP)
   Serial.print("Enter 0 for DHCP or 1 for Static IP: ");
   wifiMode = ReadInput().toInt();
   if (wifiMode > 0) {
@@ -103,44 +105,44 @@ void get_wifiMode() { // Get the WiFi IP address mode (DHCP or Static IP)
   }
 }
 //------------------------------------------------------------------------------------------------
-void get_DeviceName() { // Get the device name (hostname)
+inline void get_DeviceName() { // Get the device name (hostname)
   Serial.print("Enter Device Name: ");
   DeviceName = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP1() { // Get the IP address for slave unit 1
+inline void get_SlaveIP1() { // Get the IP address for slave unit 1
   Serial.print("Enter Slave 1 IP Address: ");
   slaveIP1 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP2() { // Get the IP address for slave unit 2
+inline void get_SlaveIP2() { // Get the IP address for slave unit 2
   Serial.print("Enter Slave 2 IP Address: ");
   slaveIP2 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP3() { // Get the IP address for slave unit 3
+inline void get_SlaveIP3() { // Get the IP address for slave unit 3
   Serial.print("Enter Slave 3 IP Address: ");
   slaveIP3 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_SlaveIP4() { // Get the IP address for slave unit 4
+inline void get_SlaveIP4() { // Get the IP address for slave unit 4
   Serial.print("Enter Slave 4 IP Address: ");
   slaveIP4 = ReadInput();
 }
 //------------------------------------------------------------------------------------------------
-void get_CorrectionFactor() { // Get the correction factor for the temperature sensor
+inline void get_CorrectionFactor() { // Get the correction factor for the temperature sensor
   Serial.print("Enter Correction Factor (-5.0 to 5.0): ");
   CorrectionFactor = ReadInput().toFloat();
 }
 //------------------------------------------------------------------------------------------------
 #ifndef SCR_OUT
-void get_SSR_PWM() { // Get the duty width of the SSR PWM in seconds
+inline void get_SSR_PWM() { // Get the duty width of the SSR PWM in seconds
   Serial.print("Enter SSR PWM duty width in seconds (1.0 to 5.0): ");
   SSR_PWM = ReadInput().toFloat();
 }
 #endif
 //------------------------------------------------------------------------------------------------
-bool isValidIP(String ip) {
+inline bool isValidIP(String ip) {
   // Convert String to std::string for easier manipulation
   std::string ipStr = ip.c_str();
 

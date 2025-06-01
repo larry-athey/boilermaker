@@ -1,13 +1,15 @@
 //------------------------------------------------------------------------------------------------
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
+//
+// Inline functions used for modular unit organization
 //------------------------------------------------------------------------------------------------
-String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
-String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
-String AppIcon = "";
+inline String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
+inline String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
+inline String AppIcon = "";
 //------------------------------------------------------------------------------------------------
 // Utility functions
 //------------------------------------------------------------------------------------------------
-String fetchBase64AppIcon() { // Experimental
+inline String fetchBase64AppIcon() { // Experimental
   HTTPClient http;
   String base64Data = "";
 
@@ -25,7 +27,7 @@ String fetchBase64AppIcon() { // Experimental
   return base64Data;
 }
 //------------------------------------------------------------------------------------------------
-String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) { // Refreshes data in a card on a random timed basis
+inline String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) { // Refreshes data in a card on a random timed basis
   String Content = "";
   Content += "\n<script type=\"text/javascript\">\n";
   Content += "  jQuery(document).ready(function() {\n";
@@ -42,11 +44,11 @@ String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) { // Refreshes
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String CreateLink(String LinkText,String FormTitle,String FormID) { // Creates a link for editing a setting
+inline String CreateLink(String LinkText,String FormTitle,String FormID) { // Creates a link for editing a setting
   return "<a href=\"javascript:void(0);\" onClick=\"LoadForm('" + FormTitle + "','" + FormID + "')\"><span class=\"text-info\">" + LinkText + "</span></a>";
 }
 //------------------------------------------------------------------------------------------------
-String CreateModal() { // Bootstrap modal used as a popover container for forms
+inline String CreateModal() { // Bootstrap modal used as a popover container for forms
   String Content = "";
   Content += "<div class=\"modal fade\" id=\"dynamicModal\" tabindex=\"-1\" aria-labelledby=\"dynamicModalLabel\" aria-hidden=\"true\">";
   Content +=   "<div class=\"modal-dialog\">";
@@ -68,7 +70,7 @@ String CreateModal() { // Bootstrap modal used as a popover container for forms
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) { // Plots a Bootstrap card
+inline String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) { // Plots a Bootstrap card
   String Content = "";
   if (DoAjax) Content += AjaxRefreshJS(AjaxID,Query,"4000");
   Content += "<div class=\"card\" style=\"width: 100%;margin-top: 0.5em;margin-bottom: 0.5em;margin-left: 0.5em;margin-right: 0.5em;\">";
@@ -82,7 +84,7 @@ String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) { // Plots a
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String formatMillis(unsigned long millisValue) { // Converts a timestamp to a HH:MM:SS formated time
+inline String formatMillis(unsigned long millisValue) { // Converts a timestamp to a HH:MM:SS formated time
   unsigned long seconds = millisValue / 1000; // Convert milliseconds to seconds
   unsigned long minutes = seconds / 60;       // Convert seconds to minutes
   unsigned long hours = minutes / 60;         // Convert minutes to hours
@@ -97,7 +99,7 @@ String formatMillis(unsigned long millisValue) { // Converts a timestamp to a HH
   return String(buffer);
 }
 //------------------------------------------------------------------------------------------------
-String get_Form(byte WhichOne) { // Dynamically creates the form for the specified setting
+inline String get_Form(byte WhichOne) { // Dynamically creates the form for the specified setting
   String Content = "";
   String Label,Value,Step,Min,Max;
 
@@ -149,13 +151,13 @@ String get_Form(byte WhichOne) { // Dynamically creates the form for the specifi
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String InfoLine(String Title,String Data) { // Formats a line of text in a card
+inline String InfoLine(String Title,String Data) { // Formats a line of text in a card
   return "<div class=\"row\"><div class=\"col-5\" style=\"padding: 2px;\"><p class=\"fw-bolder text-success mb-0\">" + Title + ":</p></div><div class=\"col-7\" style=\"padding: 2px;\"><p class=\"fw-bolder mb-0\" style=\"text-align: right;\">" + Data + "</p></div></div>";
 }
 //------------------------------------------------------------------------------------------------
 // Homepage generation functions
 //------------------------------------------------------------------------------------------------
-String PageHeader() { // HTML page header with custom CSS configuration
+inline String PageHeader() { // HTML page header with custom CSS configuration
   String Content = "";
   //Content += "<!-- " + AppIcon + " -->";
   Content += "<!DOCTYPE html>\n";
@@ -194,7 +196,7 @@ String PageHeader() { // HTML page header with custom CSS configuration
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String PageFooter() { // HTML page footer with custom Javascript to handle settings
+inline String PageFooter() { // HTML page footer with custom Javascript to handle settings
   String Content = "";
   Content += "<div id=\"hiddenDiv\" style=\"display: none;\"></div>\n";
   Content += "\n<script type=\"text/javascript\">\n";
@@ -241,7 +243,7 @@ String PageFooter() { // HTML page footer with custom Javascript to handle setti
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String StaticData() {
+inline String StaticData() {
   String Content = "";
   Content += InfoLine("Name",DeviceName);
   Content += InfoLine("Slave&nbsp;Units",String(SlaveTotal()) + " (" + String(SlavesPinging) + " online)");
@@ -250,7 +252,7 @@ String StaticData() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String LiveData() {
+inline String LiveData() {
   String Content = "";
   String Temp = "";
   if (ActiveRun) {
@@ -268,7 +270,7 @@ String LiveData() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String SettingsData() {
+inline String SettingsData() {
   String Content = "";
   String Temp = "";
   if (OpMode == 0) {
@@ -294,7 +296,7 @@ String SettingsData() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-String HomePage() {
+inline String HomePage() {
   String Content = "";
   Content += PageHeader();
   Content += CreateModal();
