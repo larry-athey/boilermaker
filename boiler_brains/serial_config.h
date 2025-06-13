@@ -66,11 +66,12 @@ inline String ReadInput() { // Read from the serial port until the user presses 
       Serial.print(c);
       if (c == '\r' || c == '\n') { // Check if it's a newline
         return input; // Return the collected input when Enter is pressed
-      } else if (c == '\b' && input.length() > 0) { // Handle backspace
+      } else if ((c == '\b' || c == 0x7F) && input.length() > 0) { // Handle backspace
         // Remove the last character from input
         input.remove(input.length() - 1);
         // Clear the last character from the display
-        Serial.print("\b \b"); // Backspace, space, backspace
+        //Serial.print("\b \b"); // Backspace, space, backspace
+        Serial.print("\b\033[K"); // Backspace + Ye old ANSI CLREOL
       } else {
         // Append the character to the input string
         input += c;
