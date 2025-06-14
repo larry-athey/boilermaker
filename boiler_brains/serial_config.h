@@ -2,6 +2,18 @@
 // Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
 //
 // Inline functions used for modular unit organization
+//
+// Use picocom to configure under Linux
+// picocom /dev/ttyUSB0 -b 9600
+//
+// While there are many other terminal programs out there for Linux, I can only recommend picocom
+// because that's what I use. You could just as easily use minicom, but I've found that it doesn't
+// handle backspace keypresses well.
+//
+// Windows and Mac OS users should use their favorite search engine to find guides for connecting
+// to an ESP32 with a serial terminal program. ChatGPT and Grok are even better options for this.
+// You may also wish to find options for using your cell phone with a serial terminal connection.
+//
 //------------------------------------------------------------------------------------------------
 inline void ShowConfig() { // Send an ANSI clear screen sequence and display all configuration settings
   Serial.write("\033[2J\033[H\n\n");
