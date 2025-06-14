@@ -70,8 +70,8 @@ inline String ReadInput() { // Read from the serial port until the user presses 
         // Remove the last character from input
         input.remove(input.length() - 1);
         // Clear the last character from the display
-        //Serial.print("\b \b"); // Backspace, space, backspace
-        Serial.print("\b\033[K"); // Backspace + Ye old ANSI CLREOL
+        Serial.print("\b \b"); // Backspace, space, backspace
+        //Serial.print("\b\033[K"); // Backspace + Ye old ANSI CLREOL
       } else {
         // Append the character to the input string
         input += c;
