@@ -265,7 +265,11 @@ inline String LiveData() {
   Content += InfoLine("Runtime",Runtime);
   Temp = String(TempC,1) + "C / " + String(TempF,1) + "F";
   Content += InfoLine("Temperature",Temp);
-  Content += InfoLine("Power&nbsp;Level",String(round(0.392156863 * PowerLevel),0) + "%");
+  if ((ActiveRun) && (! PWMenabled)) {
+    Content += InfoLine("Power&nbsp;Level","PWM Idle");
+  } else {
+    Content += InfoLine("Power&nbsp;Level",String(round(0.392156863 * PowerLevel),0) + "%");
+  }
 
   return Content;
 }
