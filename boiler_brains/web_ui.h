@@ -201,7 +201,7 @@ inline String PageFooter() { // HTML page footer with custom Javascript to handl
   Content += "<div id=\"hiddenDiv\" style=\"display: none;\"></div>\n";
   Content += "\n<script type=\"text/javascript\">\n";
   Content += "function ToggleRun() {\n";
-  Content += "  if (confirm('Are you sure that you change the current run state?')) {\n";
+  Content += "  if (confirm('Are you sure you want to change the current run state?')) {\n";
   Content += "    jQuery('#hiddenDiv').load('./toggle-run');\n";
   Content += "  };\n";
   Content += "};\n\n";
