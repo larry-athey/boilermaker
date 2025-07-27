@@ -732,8 +732,10 @@ void loop() {
       bool PingTest = Ping.ping(wifiGateway.c_str(),2);
       if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
         WiFi.disconnect();
-        delay(500);
-        if ((wifiSSID != "none") && (wifiPassword != "")) ConnectWiFi();
+        if ((wifiSSID != "none") && (wifiPassword != "")) {
+          delay(500);
+          ConnectWiFi();
+        }
       }
       SlavesPinging = PingAllSlaves();
       wifiCheckCounter = 0;
