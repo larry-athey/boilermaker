@@ -61,7 +61,7 @@ inline String CreateModal() { // Bootstrap modal used as a popover container for
   Content +=         "<div id=\"form-content\">Loading...</div>";
   Content +=       "</div>";
   Content +=       "<div class=\"modal-footer\" style=\"vertical-align: bottom;\">";
-  Content +=         "<button type=\"button\" class=\"btn btn-sm btn-success\" id=\"submit_button\">&nbsp;Save&nbsp;</button>";
+  Content +=         "<button type=\"button\" class=\"btn btn-sm btn-success fw-bolder\" id=\"submit_button\">&nbsp;Save&nbsp;</button>";
   Content +=       "</div>";
   Content +=     "</div>";
   Content +=   "</div>";
