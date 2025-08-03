@@ -115,6 +115,12 @@ inline void get_wifiMode() { // Get the WiFi IP address mode (DHCP or Static IP)
     wifiGateway = ReadInput();
     Serial.print("\nEnter DNS Resolver: ");
     wifiDNS = ReadInput();
+  } else {
+    wifiMode = 0;
+    wifiIP = "";
+    wifiMask = "";
+    wifiGateway = "";
+    wifiDNS = "";
   }
 }
 //------------------------------------------------------------------------------------------------
