@@ -643,7 +643,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 //------------------------------------------------------------------------------------------------
 void loop() {
   int CurrentPercent = round(0.392156863 * PowerLevel);
-  long CurrentTime = millis();
+  unsigned long CurrentTime = millis();
   Uptime = formatMillis(CurrentTime);
   wifiCheckCounter ++;
   if (CurrentTime > 4200000000) {
