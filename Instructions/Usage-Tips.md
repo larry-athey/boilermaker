@@ -36,7 +36,7 @@ When using the Boilermaker with the [RPi Smart Still](https://github.com/larry-a
 
 The way this works is that the boiler temperature range of your program is divided up so there are 12 equal temperature jumps per hour. If you set the **Time Spread** to 3 hours, then this temperature range is divided by 36 and every 5 minutes that factor is added to the target temperature. You can see this change in the activity tracker in the Boilermaker dashboard.
 
-### Using Your Boilermaker For Fermentation
+### Using Your Boilermaker For Brewing and Fermentation
 
 Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the **Brewing/Fermentation** operating mode. This turns the Boilermaker into an actual PID controller. This document isn't intended to be a tutorial on PID controllers, I would recommend that you follow YouTube tutorial videos that explain these.
 
