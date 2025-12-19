@@ -65,21 +65,6 @@ inline String DrawCard(String Body,String AjaxID,String Query,bool DoAjax) { // 
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-inline String formatMillis(unsigned long millisValue) { // Converts a timestamp to a HH:MM:SS formated time
-  unsigned long seconds = millisValue / 1000; // Convert milliseconds to seconds
-  unsigned long minutes = seconds / 60;       // Convert seconds to minutes
-  unsigned long hours = minutes / 60;         // Convert minutes to hours
-
-  // Calculate the remaining seconds, minutes after accounting for hours and minutes
-  seconds %= 60;
-  minutes %= 60;
-
-  char buffer[10]; // Enough space for "HH:MM:SS" + null terminator
-  snprintf(buffer,sizeof(buffer),"%02ld:%02ld:%02ld",hours,minutes,seconds);
-
-  return String(buffer);
-}
-//------------------------------------------------------------------------------------------------
 inline String get_Form(byte WhichOne) { // Dynamically creates the form for the specified setting
   String Content = "";
   String Label,Value,Step,Min,Max;
@@ -128,8 +113,8 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
     }
     Content += "<select style=\"width: 100%;\" size=\"1\" class=\"form-control form-select fw-bolder\" id=\"data_0\" name=\"data_0\">";
     Content += "<option " + S0 + " value=\"0\">Constant Power</option>";
-    Content += "<option " + S1 + " value=\"1\">Distilling Temperature</option>";
-    Content += "<option " + S2 + " value=\"2\">Brew/Ferment Temperature</option>";
+    Content += "<option " + S1 + " value=\"1\">Temperature Cruise</option>";
+    Content += "<option " + S2 + " value=\"2\">Brewing/Fermentation</option>";
     Content += "</select>";
   } else {
     Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
@@ -263,9 +248,9 @@ inline String SettingsData() {
   if (OpMode == 0) {
     Temp = "Constant Power";
   } else if (OpMode == 1) {
-    Temp = "Distilling Temp";
+    Temp = "Temperature Cruise";
   } else {
-    Temp = "Brew/Ferment Temp";
+    Temp = "Brewing/Fermentation";
   }
 
   if (! ActiveRun) {
@@ -298,7 +283,23 @@ inline String SettingsData() {
     Content += InfoLine("Change&nbsp;Wait",CreateLink(String(ChangeWait) + " secs","Change Wait Time (seconds)","6"));
     Content += InfoLine("Rest&nbsp;Period",CreateLink(String(RestPeriod) + " secs","Rest Period (seconds)","7"));
   } else {
-
+    if (! ActiveRun) {
+      Content += InfoLine("Proportional&nbsp;Gain",CreateLink(String(Kp,1),"Proportional Gain","8"));
+      Content += InfoLine("Integral&nbsp;Gain",CreateLink(String(Ki,2),"Integral Gain","9"));
+      Content += InfoLine("Derivative&nbsp;Gain",CreateLink(String(Kd,1),"Derivative Gain","10"));
+      Content += InfoLine("Sample&nbsp;Time",CreateLink(String(sampleTime) + " secs","Sample Time (secs)","11"));
+      #ifndef SCR_OUT
+      Content += InfoLine("PWM&nbsp;Duty&nbsp;Time",CreateLink(String(SSR_PWM,1) + " secs","PWM Duty Time (secs)","12"));
+      #endif
+    } else {
+      Content += InfoLine("Proportional&nbsp;Gain",String(Kp,1));
+      Content += InfoLine("Integral&nbsp;Gain",String(Ki,2));
+      Content += InfoLine("Derivative&nbsp;Gain",String(Kd,1));
+      Content += InfoLine("Sample&nbsp;Time",String(sampleTime) + " secs");
+      #ifndef SCR_OUT
+      Content += InfoLine("PWM&nbsp;Duty&nbsp;Time",String(SSR_PWM,1) + " secs");
+      #endif
+    }
   }
 
   return Content;

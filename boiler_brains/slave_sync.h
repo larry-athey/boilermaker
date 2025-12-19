@@ -3,6 +3,21 @@
 //
 // Inline functions used for modular unit organization
 //------------------------------------------------------------------------------------------------
+inline String formatMillis(unsigned long millisValue) { // Converts a timestamp to a HH:MM:SS formated time
+  unsigned long seconds = millisValue / 1000; // Convert milliseconds to seconds
+  unsigned long minutes = seconds / 60;       // Convert seconds to minutes
+  unsigned long hours = minutes / 60;         // Convert minutes to hours
+
+  // Calculate the remaining seconds, minutes after accounting for hours and minutes
+  seconds %= 60;
+  minutes %= 60;
+
+  char buffer[10]; // Enough space for "HH:MM:SS" + null terminator
+  snprintf(buffer,sizeof(buffer),"%02ld:%02ld:%02ld",hours,minutes,seconds);
+
+  return String(buffer);
+}
+//------------------------------------------------------------------------------------------------
 inline byte SlaveTotal() { // Returns the total number of configured slave units
   byte Total = 0;
   if (slaveIP1 != "") Total ++;

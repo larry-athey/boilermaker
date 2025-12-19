@@ -83,6 +83,7 @@ float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
 float CorrectionFactor = 0;      // How much to correct temp sensor C readings (positive or negative)
 float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is selected
+float SavedTarget = 80;          // Used to restore the TargetTemp setting at the end of a progressive temp run
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
 int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
@@ -91,8 +92,8 @@ byte SlavesPinging = 0;          // Shows how many configured slaves are actuall
 byte AdjustRate = 1;             // How much power % change to make when temperature is out of range
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
 byte StartupPercent = 50;        // Power % to start at or target power in OpMode 0
-byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
-byte OpMode = 1;                 // Operation mode, 0 = Constant Power, 1 = Distilling Temperature, 2 = Brew/Ferment Temperature
+byte PowerLevel = 0;             // Current power level 0-255
+byte OpMode = 1;                 // Operation mode, 0 = Constant Power, 1 = Temperature Cruise, 2 = Brewing/Fermentation
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once per minute
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
 String wifiSSID = "none";        // WiFi network SSID
@@ -108,7 +109,19 @@ String slaveIP4 = "";            // Slave unit 4 IPV4 address
 String DeviceName;               // Network host name and device name to be displayed in the web UI
 String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
-String Version = "1.0.1";        // Current release version of the project
+String Version = "1.0.2";        // Current release version of the project
+//------------------------------------------------------------------------------------------------
+// v1.0.2 add-on to provide PID control in OpMode 2
+float pidOutput = 0.0;           // PID Computed PWM percentage (0-100)
+float Kp = 2.0;                  // PID Proportional gain (0.1 to 10.0)
+float Ki = 0.05;                 // PID Integral gain (0.001 to 0.5)
+float Kd = 0.1;                  // PID Derivative gain (0.0 to 2.0)
+byte sampleTime = 10;            // PID Sample time (5 to 30 seconds)
+QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
+               QuickPID::pMode::pOnError,
+               QuickPID::dMode::dOnMeas,
+               QuickPID::iAwMode::iAwCondition,
+               QuickPID::Action::direct);
 //------------------------------------------------------------------------------------------------
 #include "slave_sync.h"          // Library for configuring and synchronizing slave units
 #include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
@@ -154,7 +167,6 @@ void setup() {
   timer = timerBegin(0,80,true); // Timer at 1 MHz, count up
   timerAttachInterrupt(timer,&onTimer,true); // Attach the PWM toggle function
   timerAlarmWrite(timer,SSR_PWM * 100000,true); // Timer trigger set to 2.5 seconds by default
-  // timerAlarmEnable(timer); // Now enable the low speed pulse width modulator
   #else
   // Assign the SCR controller output pin to a PWM channel
   // For heating elements, 1 KHz to 3 KHz is used, adjust as necessary
@@ -163,6 +175,10 @@ void setup() {
   ledcWrite(1,0);
   #endif
  
+  myPID.SetOutputLimits(0,100);
+  myPID.SetSampleTimeUs(sampleTime * 1000000); // 10 second sample time (adjustable from 5 to 30 seconds)
+  myPID.SetMode(myPID.Control::automatic);
+
   DT.begin();
   pinMode(FAN_OUT,OUTPUT); 
   digitalWrite(FAN_OUT,LOW);
@@ -349,12 +365,15 @@ void RunState(byte State) { // Toggle the active heating run state
     timerAlarmEnable(timer);
     PWMenabled = true;
     #endif
+    SavedTarget = TargetTemp;
     StartTime = millis();
     ActiveRun = true;
     UpToTemp  = false;
     digitalWrite(FAN_OUT,HIGH);
     UpdateAllSlaves("/?data_0=0");
     UpdateAllSlaves("/start-run");
+    myPID.SetTunings(Kp,Ki,Kd);
+    myPID.SetSampleTimeUs(sampleTime * 1000000);
     PowerAdjust(StartupPercent);
   } else {
     Runtime = "00:00:00";
@@ -362,6 +381,8 @@ void RunState(byte State) { // Toggle the active heating run state
     digitalWrite(FAN_OUT,LOW);
     PowerAdjust(0);
     UpdateAllSlaves("/stop-run");
+    TargetTemp = SavedTarget;
+    SetMemory();
     #ifndef SCR_OUT
     timerAlarmDisable(timer);
     gpio_set_level(SSR_OUT,0);
@@ -575,6 +596,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     SSR_PWM = Header.toFloat();
     if (SSR_PWM < 1) SSR_PWM = 1.0;
     if (SSR_PWM > 5) SSR_PWM = 5.0;
+    if (! PWMenabled) timerAlarmWrite(timer,SSR_PWM * 100000,true);
     SetMemory();
     return jsonSuccess;
   #endif
@@ -630,13 +652,6 @@ void HandleSerialInput() { // Handle user configuration via the serial console
     if (CorrectionFactor < -5) CorrectionFactor = -5.0;
     if (CorrectionFactor > 5) CorrectionFactor = 5.0;
   }
-  #ifndef SCR_OUT
-  else if (Option == "10" ) {
-    get_SSR_PWM();
-    if (SSR_PWM < 1) SSR_PWM = 1.0;
-    if (SSR_PWM > 5) SSR_PWM = 5.0;
-  }
-  #endif
   SetMemory();
   ShowConfig();
   ConfigMenu();
@@ -683,14 +698,14 @@ void loop() {
     TempUpdate();
     if (ActiveRun) {
       Runtime = formatMillis(CurrentTime - StartTime);
-      if (OpMode == 1) { // OpMode 1 is distillation temperature management
-        if (! UpToTemp) {
+      if (OpMode == 1) {  // OpMode 1 is temperature cruise mode (this works like a car's cruise control)
+        if (! UpToTemp) { // As with the Airhead, this method must be tuned to the boiler's wattage and volume
           if (TempC >= TargetTemp) { // Target temperature has been reached
             UpToTemp = true;
             FallBackTime = millis();
             CurrentPercent = FallBackPercent;
             PowerAdjust(CurrentPercent);
-          } else { // Progrssively increase power until target temperature has been reached
+          } else { // Progressively increase power until target temperature has been reached
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               CurrentPercent += AdjustRate;
               if (CurrentPercent > 100) CurrentPercent = 100;
@@ -699,7 +714,6 @@ void loop() {
           }
         } else {
           if (CurrentTime - FallBackTime >= (RestPeriod * 1000)) {
-            // You can equate this temperature management method to the operation of a car's cruise control
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               if (TempC >= (TargetTemp + Deviation)) { // Over temperature
                 CurrentPercent -= AdjustRate;
@@ -713,8 +727,8 @@ void loop() {
             }
           }
         }
-      } else if (OpMode == 2) { // OpMode 2 is brewing/fermentation temperature management (PID)
-
+      } else if (OpMode == 2) { // OpMode 2 is brewing/fermentation temperature mode (PID controller)
+        if (myPID.Compute()) PowerAdjust(round(pidOutput));
       } else { // OpMode 0 is constant power, no temperature management
 
       }
@@ -736,6 +750,7 @@ void loop() {
 }
 //------------------------------------------------------------------------------------------------
 /*
+// https://x.com/i/grok/share/MsbPKOqgTDsRv92gGUd6BaJme
 // Create & run a new sketch with the following code to fully erase the flash memory of an ESP32
 
 #include <nvs_flash.h>
