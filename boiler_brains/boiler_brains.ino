@@ -47,6 +47,7 @@
 #include "OneWire.h"             // OneWire Network communications library
 #include "DallasTemperature.h"   // Dallas Semiconductor DS18B20 temperature sensor library
 #include "max6675.h"             // Adafruit MAX-6675 amplifier library for Type-K thermocouples
+#include "QuickPID.h"            // PID calculation library from https://github.com/Dlloydev/QuickPID
 //------------------------------------------------------------------------------------------------
 #define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor) [The PCB has this on GPIO 2, so the onboard WiFi activity LED no longer works]
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using a zero-crossing SSR)
@@ -91,7 +92,7 @@ byte AdjustRate = 1;             // How much power % change to make when tempera
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
 byte StartupPercent = 50;        // Power % to start at or target power in OpMode 0
 byte PowerLevel = 0;             // Current power level 0-255, (100/255) * PowerLevel = % Power
-byte OpMode = 1;                 // Operation mode, 0 = Constant Power, 1 = Constant Temperature
+byte OpMode = 1;                 // Operation mode, 0 = Constant Power, 1 = Distilling Temperature, 2 = Brew/Ferment Temperature
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once per minute
 byte wifiMode = 0;               // DHCP (0) or manual configuration (1)
 String wifiSSID = "none";        // WiFi network SSID
@@ -384,7 +385,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
       Header.remove(0,9);
       OpMode = Header.toInt();
       if (OpMode < 0) OpMode = 0;
-      if (OpMode > 1) OpMode = 1;
+      if (OpMode > 2) OpMode = 2;
       SetMemory();
       return jsonSuccess;
     }
@@ -398,7 +399,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
   } else if (Header.indexOf("/?data_2=") == 0) { // Set Startup Power
     Header.remove(0,9);
     StartupPercent = Header.toInt();
-    if (StartupPercent < 10) StartupPercent = 10;
+    if (StartupPercent < 1) StartupPercent = 1;
     if (StartupPercent > 100) StartupPercent = 100;
     SetMemory();
     if ((OpMode == 0) && (ActiveRun)) PowerAdjust(StartupPercent);
@@ -406,7 +407,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
   } else if (Header.indexOf("/?data_3=") == 0) { // Set Fallback Power
     Header.remove(0,9);
     FallBackPercent = Header.toInt();
-    if (FallBackPercent < 10) FallBackPercent = 10;
+    if (FallBackPercent < 1) FallBackPercent = 1;
     if (FallBackPercent > 100) FallBackPercent = 100;
     SetMemory();
     return jsonSuccess;
@@ -505,7 +506,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump
     if ((ActiveRun) && (OpMode == 0)) {
       Header.remove(0,8);
-      if (Header.toInt() < 10) Header = "10";
+      if (Header.toInt() < 1) Header = "1";
       if (Header.toInt() > 100) Header = "100";
       PowerAdjust(Header.toInt());
       return jsonSuccess;
@@ -682,7 +683,7 @@ void loop() {
     TempUpdate();
     if (ActiveRun) {
       Runtime = formatMillis(CurrentTime - StartTime);
-      if (OpMode == 1) { // OpMode 1 is constant temperature management
+      if (OpMode == 1) { // OpMode 1 is distillation temperature management
         if (! UpToTemp) {
           if (TempC >= TargetTemp) { // Target temperature has been reached
             UpToTemp = true;
@@ -699,31 +700,21 @@ void loop() {
         } else {
           if (CurrentTime - FallBackTime >= (RestPeriod * 1000)) {
             // You can equate this temperature management method to the operation of a car's cruise control
-            // Unlike a PID controller, the heating element is always forcing some amount of heat upward
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               if (TempC >= (TargetTemp + Deviation)) { // Over temperature
                 CurrentPercent -= AdjustRate;
-                if (CurrentPercent < 10) {
-                  CurrentPercent = 10;
-                  if (TargetTemp < 38) { // Fermentation temperature selected, stop the PWM
-                    timerAlarmDisable(timer);
-                    gpio_set_level(SSR_OUT,0);
-                    PWMenabled = false;
-                  }
-                }
+                if (CurrentPercent < 0) CurrentPercent = 0;
                 PowerAdjust(CurrentPercent); // Decrease power
               } else if (TempC <= (TargetTemp - Deviation)) { // Under temperature
                 CurrentPercent += AdjustRate;
                 if (CurrentPercent > 100) CurrentPercent = 100;
-                if (! PWMenabled) { // Restart the PWM if a fermentation temperature overage shut it down
-                  timerAlarmEnable(timer);
-                  PWMenabled = true;
-                }
                 PowerAdjust(CurrentPercent); // Increase power
               }
             }
           }
         }
+      } else if (OpMode == 2) { // OpMode 2 is brewing/fermentation temperature management (PID)
+
       } else { // OpMode 0 is constant power, no temperature management
 
       }
