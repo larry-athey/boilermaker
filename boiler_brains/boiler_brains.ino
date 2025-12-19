@@ -380,6 +380,7 @@ void RunState(byte State) { // Toggle the active heating run state
     digitalWrite(FAN_OUT,HIGH);
     UpdateAllSlaves("/?data_0=0");
     UpdateAllSlaves("/start-run");
+    myPID.Reset();
     myPID.SetTunings(Kp,Ki,Kd);
     myPID.SetSampleTimeUs(sampleTime * 1000000);
     PowerAdjust(StartupPercent);
