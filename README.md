@@ -18,7 +18,7 @@ After dealing with one cheap Chinese SCR power controller after another I decide
 The Boilermaker has 3 different operating modes.
 
 1. Constant Power
-2. Temperature Cruise (works like a car's cruise control, always some power active)
+2. Temperature Cruise (works like a car's cruise control, there's always some level of power)
 3. Brewing/Fermentation (PID controller)
 
 This controller will run (1) a PWM controlled SCR board, or (2) a voltage controlled SCR board with a [PWM to voltage convertor module](https://www.amazon.com/dp/B0BG2G5FMX) in the middle, or (3) a [zero-crossing trigger solid state relay](https://www.amazon.com/dp/B08FR13GYR) utilizing my custom low speed PWM _(most effective method for heating elements)_. My invention works like a PWM SCR controller slowed down to less than 1/1000 the speed and runs heating elements much more effectively.
