@@ -116,7 +116,7 @@ float pidOutput = 0.0;           // PID Computed PWM percentage (0-100)
 float Kp = 2.0;                  // PID Proportional gain (0.1 to 10.0)
 float Ki = 0.05;                 // PID Integral gain (0.001 to 0.5)
 float Kd = 0.1;                  // PID Derivative gain (0.0 to 2.0)
-byte sampleTime = 10;            // PID Sample time (5 to 30 seconds)
+float sampleTime = 10.0;         // PID Sample time (5 to 30 seconds)
 QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
                QuickPID::pMode::pOnError,
                QuickPID::dMode::dOnMeas,
@@ -476,6 +476,16 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return get_Form(6);
   } else if (Header == "/form-7") { // Get Form: Rest Period
     return get_Form(7);
+  } else if (Header == "/form-8") { // Get Form: PID Kp gain
+    return get_Form(8);
+  } else if (Header == "/form-9") { // Get Form: PID Ki gain
+    return get_Form(9);
+  } else if (Header == "/form-10") { // Get Form: PID Kd gain
+    return get_Form(10);
+  } else if (Header == "/form-11") { // Get Form: PID sample time
+    return get_Form(11);
+  } else if (Header == "/form-12") { // Get Form: SSR_PWM time
+    return get_Form(12);
   } else if (Header == "/get-correctionfactor") { // Get the CorrectionFactor value
     return String(CorrectionFactor);
   } else if (Header == "/get-power") { // Get current power percentage
