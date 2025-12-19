@@ -2,7 +2,7 @@
 
 _**NOTE:** This information only applies to Boilermakers using an SSR and the low speed PWM, not an SCR controller._
 
-Although the Boilermaker adds temperature control automation to your boiler, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
+Although the Boilermaker adds temperature control automation to your boiler using both the **Temperature Cruise** and **Brewing/Fermentation** operating modes, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
 
 Keep in mind that since I work on a small scale here, I always work with a 12% ro 15% ABV wash, or even higher if I'm making gin or redistilling something to clean it up. Anything significantly lower than 12% will result in higher boiling temperatures required to push ethanol up out of the wash, such as when you are doing a stripping run.
 
@@ -23,7 +23,7 @@ Still Spirits T500: 6 gallons, 1500 watt 120 volt element running at 120 volts.
 - Adjustment Rate: 1%
 - Deviation Rate: 0.5C
 - Change Wait: 30 seconds
-- Rest Period: 30 seconds
+- Rest Period: 60 seconds
 - SSR PWM Duty: 1 second
 
 Once they both do the fallback and stabilize, the Air Still will hover between 10% and 13%, the Still Spirits T500 will hover between 18% and 20%. Yes, they will actually work downward when targeting a temperature below the liquid's boiling point. These numbers will slightly vary when you have ethanol in the boiler and depending on your altitude. The Air Still will do its fallback well before hitting 100% power, the Still Spirits T500 will work up to 100% and stay there for about an hour before doing its fallback.
@@ -38,7 +38,7 @@ The way this works is that the boiler temperature range of your program is divid
 
 ### Using Your Boilermaker For Fermentation
 
-Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the **Brew/Fermentation** operating mode.
+Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the **Brewing/Fermentation** operating mode. This turns the Boilermaker into an actual PID controller. This document isn't intended to be an actual tutorial on PID controllers, I would recommend that you follow YouTube tutorial videos that explain these.
 
 ### Controlling An Electric Smoker
 
