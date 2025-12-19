@@ -5,27 +5,8 @@
 //------------------------------------------------------------------------------------------------
 inline String jsonSuccess = "{\"status\": \"success\",\"message\": \"Operation completed successfully\"}";
 inline String jsonFailure = "{\"status\": \"error\",\"message\": \"Operation failed\"}";
-inline String AppIcon = "";
 //------------------------------------------------------------------------------------------------
 // Utility functions
-//------------------------------------------------------------------------------------------------
-inline String fetchBase64AppIcon() { // Experimental
-  HTTPClient http;
-  String base64Data = "";
-
-  String url = "https://panhandleponics.com/wp-content/plugins/github-api/bm.php?version=" + Version;
-  http.begin(url);
-  int httpCode = http.GET();
-
-  if (httpCode == HTTP_CODE_OK) {
-    base64Data = http.getString();
-  } else {
-    if (Serial) Serial.println("Failed to fetch app icon: " + String(httpCode));
-  }
-
-  http.end();
-  return base64Data;
-}
 //------------------------------------------------------------------------------------------------
 inline String AjaxRefreshJS(String AjaxID,String Query,String RefreshMS) { // Refreshes data in a card on a random timed basis
   String Content = "";
@@ -110,10 +91,10 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
     Step = ".1"; Min = "0"; Max = "260"; Value = String(TargetTemp,1);
   } else if (WhichOne == 2) {
     Label = "10% to 100%";
-    Step = "1"; Min = "10"; Max = "100"; Value = String(StartupPercent);
+    Step = "1"; Min = "1"; Max = "100"; Value = String(StartupPercent);
   } else if (WhichOne == 3) {
     Label = "10% to 100%";
-    Step = "1"; Min = "10"; Max = "100"; Value = String(FallBackPercent);
+    Step = "1"; Min = "1"; Max = "100"; Value = String(FallBackPercent);
   } else if (WhichOne == 4) {
     Label = "1% to 100%";
     Step = "1"; Min = "1"; Max = "100"; Value = String(AdjustRate);
@@ -131,17 +112,24 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
   Content += "<form id=\"modalForm\" onsubmit=\"return false;\">";
   Content +=   "<label for=\"data_" + String(WhichOne) + "\" class=\"form-label\">" + Label + "</label>";
   if (WhichOne == 0) {
-    String S0,S1;
+    String S0,S1,S2;
     if (OpMode == 0) {
       S0 = "selected";
       S1 = "";
-    } else {
+      S2 = "";
+    } else if (OpMode == 1) {
       S0 = "";
       S1 = "selected";
+      S2 = "";
+    } else {
+      S0 = "";
+      S1 = "";
+      S2 = "selected";
     }
     Content += "<select style=\"width: 100%;\" size=\"1\" class=\"form-control form-select fw-bolder\" id=\"data_0\" name=\"data_0\">";
     Content += "<option " + S0 + " value=\"0\">Constant Power</option>";
-    Content += "<option " + S1 + " value=\"1\">Constant Temperature</option>";
+    Content += "<option " + S1 + " value=\"1\">Distilling Temperature</option>";
+    Content += "<option " + S2 + " value=\"2\">Brew/Ferment Temperature</option>";
     Content += "</select>";
   } else {
     Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
@@ -159,7 +147,6 @@ inline String InfoLine(String Title,String Data) { // Formats a line of text in 
 //------------------------------------------------------------------------------------------------
 inline String PageHeader() { // HTML page header with custom CSS configuration
   String Content = "";
-  //Content += "<!-- " + AppIcon + " -->";
   Content += "<!DOCTYPE html>\n";
   Content += "<html lang=\"en\">\n";
   Content += "<head>\n";
@@ -171,11 +158,6 @@ inline String PageHeader() { // HTML page header with custom CSS configuration
   Content +=   "<script src=\"https://code.iconify.design/2/2.0.3/iconify.min.js\"></script>\n";
   Content +=   "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js\"></script>\n";
   Content +=   "<link rel=\"icon\" href=\"https://panhandleponics.com/wp-content/uploads/2024/12/boilermaker.png?v=1.1\">\n";
-  //if (AppIcon.length() > 0) {
-  //  Content += "<link rel=\"icon\" href=\"data:image/png;base64," + AppIcon + "\" type=\"image/png\">\n";
-  //} else {
-  //  Content += "<link rel=\"icon\" href=\"/default.ico\" type=\"image/x-icon\">\n"; // Fallback
-  //}
   Content +=   "\n<style type=\"text/css\">\n";
   Content +=   "  @-webkit-keyframes blinker {\n";
   Content +=   "    from {opacity: 1.0;}\n";
@@ -280,23 +262,44 @@ inline String SettingsData() {
   String Temp = "";
   if (OpMode == 0) {
     Temp = "Constant Power";
+  } else if (OpMode == 1) {
+    Temp = "Distilling Temp";
   } else {
-    Temp = "Constant Temp";
+    Temp = "Brew/Ferment Temp";
   }
+
   if (! ActiveRun) {
     Content += InfoLine("Current&nbsp;Mode",CreateLink(Temp,"Device Management","0"));
   } else {
     Content += InfoLine("Current&nbsp;Mode",Temp);
   }
+
   Temp = String(TargetTemp,1) + "C / " + String(TargetTemp * 9 / 5 + 32,1) + "F";
-  Content += InfoLine("Target&nbsp;Temp",CreateLink(Temp,"Target Temperature","1"));
-  Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
-  Content += InfoLine("Fallback&nbsp;Power",CreateLink(String(FallBackPercent) + "%","Fallback Power Level","3"));
-  Content += InfoLine("Adjustment&nbsp;Rate",CreateLink(String(AdjustRate) + "%","Adjustment Power Rate","4"));
-  Temp = String(Deviation,1) + "C / " + String(Deviation * 1.8,1) + "F";
-  Content += InfoLine("Deviation&nbsp;Rate",CreateLink("&plusmn; " + Temp,"Deviation Rate (C)","5"));
-  Content += InfoLine("Change&nbsp;Wait",CreateLink(String(ChangeWait) + " secs","Change Wait Time (seconds)","6"));
-  Content += InfoLine("Rest&nbsp;Period",CreateLink(String(RestPeriod) + " secs","Rest Period (seconds)","7"));
+  if (OpMode > 0) {
+    Content += InfoLine("Target&nbsp;Temp",CreateLink(Temp,"Target Temperature","1"));
+  } else {
+    Content += InfoLine("Target&nbsp;Temp",Temp);
+  }
+
+  if (OpMode < 2) Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
+
+  if (OpMode == 0) {
+    Content += InfoLine("Fallback&nbsp;Power",String(FallBackPercent) + "%");
+    Content += InfoLine("Adjustment&nbsp;Rate",String(AdjustRate) + "%");
+    Temp = String(Deviation,1) + "C / " + String(Deviation * 1.8,1) + "F";
+    Content += InfoLine("Deviation&nbsp;Rate","&plusmn; " + Temp);
+    Content += InfoLine("Change&nbsp;Wait",String(ChangeWait) + " secs");
+    Content += InfoLine("Rest&nbsp;Period",String(RestPeriod) + " secs");
+  } else if (OpMode == 1) {
+    Content += InfoLine("Fallback&nbsp;Power",CreateLink(String(FallBackPercent) + "%","Fallback Power Level","3"));
+    Content += InfoLine("Adjustment&nbsp;Rate",CreateLink(String(AdjustRate) + "%","Adjustment Power Rate","4"));
+    Temp = String(Deviation,1) + "C / " + String(Deviation * 1.8,1) + "F";
+    Content += InfoLine("Deviation&nbsp;Rate",CreateLink("&plusmn; " + Temp,"Deviation Rate (C)","5"));
+    Content += InfoLine("Change&nbsp;Wait",CreateLink(String(ChangeWait) + " secs","Change Wait Time (seconds)","6"));
+    Content += InfoLine("Rest&nbsp;Period",CreateLink(String(RestPeriod) + " secs","Rest Period (seconds)","7"));
+  } else {
+
+  }
 
   return Content;
 }
