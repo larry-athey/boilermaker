@@ -38,13 +38,15 @@ The way this works is that the boiler temperature range of your program is divid
 
 ### Using Your Boilermaker For Fermentation
 
-Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the **Brewing/Fermentation** operating mode. This turns the Boilermaker into an actual PID controller. This document isn't intended to be an actual tutorial on PID controllers, I would recommend that you follow YouTube tutorial videos that explain these.
+Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the **Brewing/Fermentation** operating mode. This turns the Boilermaker into an actual PID controller. This document isn't intended to be a tutorial on PID controllers, I would recommend that you follow YouTube tutorial videos that explain these.
+
+Keep in mind that you have a lot of suspended solids in brewing and fermentation, and a PID controller will start out at 100% power. This will almost always result in scorching. It's recommended that you first warm up your mash/wort in **Constant Power** mode at 10% power and then switch to **Brewing/Fermentation** mode.
 
 ### Controlling An Electric Smoker
 
 Aside from controlling boilers, another great use for the Boilermaker is turning any absolutely cheap bottom of the line electric smoker into a WiFi enabled **reliable and accurate** electric smoker. My first digital smoker got taken out by a lightning strike and I replaced it with a cheap [Masterbuilt steam smoker](https://www.amazon.com/gp/product/B07VRJQXGL/) and a $25 PID controller. Let's just say that PID controllers have their place, but they're really not the best option for a smoker since the heating element spends more time off than on.
 
-With a PID controller, the heating element barely stays on long enough to get your wood chips smoldering. Whereas with the Boilermaker, the power level never drops below 10%, so there is always some amount of heat coming from the heating element. Even with the default 2.5 second PWM duty, 50% power means the heating element runs for 1.25 seconds before resting for 1.25 seconds, which is actually plenty enough heat to cause the wood chips to start smoldering. 10% is still enough to keep them going
+With a PID controller, the heating element barely stays on long enough to get your wood chips smoldering. Whereas with the Boilermaker in **Temperature Cruise** mode, the power level usually never drops below 10%, so there is always some amount of heat coming from the heating element. Even with the default 2.5 second PWM duty, 50% power means the heating element runs for 1.25 seconds before resting for 1.25 seconds, which is actually plenty enough heat to cause the wood chips to start smoldering. 10% is still enough to keep them going
 
 Since a smoker can reach much higher temperatures than a boiler, you will definitely need to use a Type-K thermocouple rather than a DS18B20 temperature sensor or you'll never know when it gets above 125/257F in the smoker. Generally, this wouldn't be a problem with a smoker since people usually slow cook things between 107C/225F and 121C/250F. However, even I have had the random fire flare up in the smoker because grease caught on fire when it dripped onto the red hot heating element.
 
