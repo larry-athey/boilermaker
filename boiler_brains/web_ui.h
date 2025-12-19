@@ -92,6 +92,21 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
   } else if (WhichOne == 7) {
     Label = "1 to 1000";
     Step = "1"; Min = "1"; Max = "1000"; Value = String(RestPeriod);
+  } else if (WhichOne == 8) {
+    Label = "0.1 to 10";
+    Step = ".1"; Min = ".1"; Max = "10"; Value = String(Kp,1);
+  } else if (WhichOne == 9) {
+    Label = "0.001 to 0.5";
+    Step = ".001"; Min = ".001"; Max = "0.5"; Value = String(Ki,3);
+  } else if (WhichOne == 10) {
+    Label = "0.0 to 2.0";
+    Step = ".1"; Min = "0"; Max = "2"; Value = String(Kd,1);
+  } else if (WhichOne == 11) {
+    Label = "5 to 30";
+    Step = ".1"; Min = "5"; Max = "30"; Value = String(sampleTime,1);
+  } else if (WhichOne == 12) {
+    Label = "1 to 5";
+    Step = ".1"; Min = "1"; Max = "5"; Value = String(SSR_PWM,1);
   }
 
   Content += "<form id=\"modalForm\" onsubmit=\"return false;\">";
@@ -285,17 +300,17 @@ inline String SettingsData() {
   } else {
     if (! ActiveRun) {
       Content += InfoLine("Proportional&nbsp;Gain",CreateLink(String(Kp,1),"Proportional Gain","8"));
-      Content += InfoLine("Integral&nbsp;Gain",CreateLink(String(Ki,2),"Integral Gain","9"));
+      Content += InfoLine("Integral&nbsp;Gain",CreateLink(String(Ki,3),"Integral Gain","9"));
       Content += InfoLine("Derivative&nbsp;Gain",CreateLink(String(Kd,1),"Derivative Gain","10"));
-      Content += InfoLine("Sample&nbsp;Time",CreateLink(String(sampleTime) + " secs","Sample Time (secs)","11"));
+      Content += InfoLine("Sample&nbsp;Time",CreateLink(String(sampleTime,1) + " secs","Sample Time (secs)","11"));
       #ifndef SCR_OUT
       Content += InfoLine("PWM&nbsp;Duty&nbsp;Time",CreateLink(String(SSR_PWM,1) + " secs","PWM Duty Time (secs)","12"));
       #endif
     } else {
       Content += InfoLine("Proportional&nbsp;Gain",String(Kp,1));
-      Content += InfoLine("Integral&nbsp;Gain",String(Ki,2));
+      Content += InfoLine("Integral&nbsp;Gain",String(Ki,3));
       Content += InfoLine("Derivative&nbsp;Gain",String(Kd,1));
-      Content += InfoLine("Sample&nbsp;Time",String(sampleTime) + " secs");
+      Content += InfoLine("Sample&nbsp;Time",String(sampleTime,1) + " secs");
       #ifndef SCR_OUT
       Content += InfoLine("PWM&nbsp;Duty&nbsp;Time",String(SSR_PWM,1) + " secs");
       #endif
