@@ -34,7 +34,9 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_7=** - Primarily used by the WebUI to set the Rest Period of the Boilermaker. The value passed here must be a whole number between 1 and 1000 (seconds). Adjusting this value during an active Constant Temp run will only work if the Boilermaker hasn't yet reached the target temperature.
 
-**/form-0** through **/form-7** - Used by the WebUI to dynamically generate the various settings editor forms.
+**/?data_12=** - Set the SSR low speed PWM duty time. The value here is a whole or floating point number between 1 and 5 _(seconds)_. The magic number for your system depends on the wattage and intended supply voltage of your heating element(s). If you are using a 1000 watt 240 volt element running on 120 volts, you would likely be better off with a 2.5 second duty time due to the slower reaction time of the element. If it's a 1000 watt 120 volt element at 120 volts, then you'll probably want a 1 second duty width. The slower the reaction time, the wider the duty time should be. If using this code with an SCR controller, this is not a valid API call. You will need to restart your run to make this setting take effect.
+
+**/form-0** through **/form-12** - Used by the WebUI to dynamically generate the various settings editor forms.
 
 **/get-correctionfactor** - Returns the current temperature sensor correction factor in Celcius.
 
@@ -65,8 +67,6 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/?set-sensortype=** - Set a new temperature sensor type. 0=MAX-6675/MAX-31855, 1=DS18B20
 
 **/?set-slaveip1=** through **/?set-slaveip4=** - Set the IP address of the 4 possible slave units. This can be either IPV4 or IPV6 format. Setting a slave's IP to **0.0.0.0** will unassign that memory slot.
-
-**/?set-ssrpwm=** - Set the SSR low speed PWM duty width. The value here is a whole or floating point number between 1 and 5 _(seconds)_. The magic number for your system depends on the wattage and intended supply voltage of your heating element(s). If you are using a 1000 watt 240 volt element running on 120 volts, you would likely be better off with a 2.5 second duty width due to the slower reaction time of the element. If it's a 1000 watt 120 volt element at 120 volts, then you'll probably want a 1 second duty width. The slower the reaction time, the wider the duty width should be. If using this code with an SCR controller, this is not a valid API call.
 
 **/start-run** - Used to start a run.
 
