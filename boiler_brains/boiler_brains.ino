@@ -284,6 +284,10 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
   SensorType       = preferences.getUInt("sensor_type",SensorType);
+  Kp               = preferences.getFloat("pid_kp",2.0);
+  Ki               = preferences.getFloat("pid_ki",0.05);
+  Kd               = preferences.getFloat("pid_kd",0.1);
+  sampleTime       = preferences.getFloat("pid_sampletime",10.0);
   #ifndef SCR_OUT
   SSR_PWM          = preferences.getFloat("ssr_pwm",2.5);
   #endif
@@ -314,6 +318,10 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("change_wait",ChangeWait);
   preferences.putUInt("rest_period",RestPeriod);
   preferences.putUInt("sensor_type",SensorType);
+  preferences.putFloat("pid_kp",Kp);
+  preferences.putFloat("pid_ki",Ki);
+  preferences.putFloat("pid_kd",Kd);
+  preferences.putFloat("pid_sampletime",sampleTime);
   #ifndef SCR_OUT
   preferences.putFloat("ssr_pwm",SSR_PWM);
   #endif
@@ -460,6 +468,48 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     if (RestPeriod > 1000) RestPeriod = 1000;
     SetMemory();
     return jsonSuccess;
+  } else if (Header.indexOf("/?data_8=") == 0) { // PID Kp gain
+    Header.remove(0,9);
+    Kp = Header.toFloat();
+    if (Kp < 0.1) Kp = 0.1;
+    if (Kp > 10) Kp = 10;
+    SetMemory();
+    if (! ActiveRun) myPID.SetTunings(Kp,Ki,Kd);
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_9=") == 0) { // PID Ki gain
+    Header.remove(0,9);
+    Ki = Header.toFloat();
+    if (Ki < 0.001) Ki = 0.001;
+    if (Ki > 0.5) Ki = 0.5;
+    SetMemory();
+    if (! ActiveRun) myPID.SetTunings(Kp,Ki,Kd);
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_10=") == 0) { // PID Kd gain
+    Header.remove(0,10);
+    Kd = Header.toFloat();
+    if (Kd < 0.001) Kd = 0.001;
+    if (Kd > 0.5) Kd = 0.5;
+    SetMemory();
+    if (! ActiveRun) myPID.SetTunings(Kp,Ki,Kd);
+    return jsonSuccess;
+  } else if (Header.indexOf("/?data_11=") == 0) { // PID sample time
+    Header.remove(0,10);
+    sampleTime = Header.toFloat();
+    if (sampleTime < 0.001) sampleTime = 0.001;
+    if (sampleTime > 0.5) sampleTime = 0.5;
+    SetMemory();
+    if (! ActiveRun) myPID.SetSampleTimeUs(sampleTime * 1000000);
+    return jsonSuccess;
+  #ifndef SCR_OUT
+  } else if (Header.indexOf("/?data_12=") == 0) { // Set new SSR_PWM value
+    Header.remove(0,10);
+    SSR_PWM = Header.toFloat();
+    if (SSR_PWM < 1) SSR_PWM = 1.0;
+    if (SSR_PWM > 5) SSR_PWM = 5.0;
+    SetMemory();
+    if (! PWMenabled) timerAlarmWrite(timer,SSR_PWM * 100000,true);
+    return jsonSuccess;
+  #endif
   } else if (Header == "/form-0") { // Get Form: Operation Mode
     return get_Form(0);
   } else if (Header == "/form-1") { // Get Form: Target Temperature
@@ -600,16 +650,6 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     } else {
       return jsonFailure;
     }
-  #ifndef SCR_OUT
-  } else if (Header.indexOf("/?set-ssrpwm=") == 0) { // Set new SSR_PWM value (requires reboot)
-    Header.remove(0,13);
-    SSR_PWM = Header.toFloat();
-    if (SSR_PWM < 1) SSR_PWM = 1.0;
-    if (SSR_PWM > 5) SSR_PWM = 5.0;
-    if (! PWMenabled) timerAlarmWrite(timer,SSR_PWM * 100000,true);
-    SetMemory();
-    return jsonSuccess;
-  #endif
   } else if (Header == "/start-run") { // Start a heating run
     if (! ActiveRun) RunState(1);
     return jsonSuccess;
