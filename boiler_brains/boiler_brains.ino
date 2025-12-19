@@ -113,9 +113,9 @@ String Version = "1.0.2";        // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide PID control in OpMode 2
 float pidOutput = 0.0;           // PID Computed PWM percentage (0-100)
-float Kp = 2.0;                  // PID Proportional gain (0.1 to 10.0)
-float Ki = 0.05;                 // PID Integral gain (0.001 to 0.5)
-float Kd = 0.1;                  // PID Derivative gain (0.0 to 2.0)
+float Kp = 1.0;                  // PID Proportional gain (0.1 to 10.0)
+float Ki = 0.005;                // PID Integral gain (0.001 to 0.5)
+float Kd = 1.0;                  // PID Derivative gain (0.0 to 2.0)
 float sampleTime = 10.0;         // PID Sample time (5 to 30 seconds)
 QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
                QuickPID::pMode::pOnError,
@@ -284,9 +284,9 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
   SensorType       = preferences.getUInt("sensor_type",SensorType);
-  Kp               = preferences.getFloat("pid_kp",2.0);
-  Ki               = preferences.getFloat("pid_ki",0.05);
-  Kd               = preferences.getFloat("pid_kd",0.1);
+  Kp               = preferences.getFloat("pid_kp",1.0);
+  Ki               = preferences.getFloat("pid_ki",0.005);
+  Kd               = preferences.getFloat("pid_kd",1.0);
   sampleTime       = preferences.getFloat("pid_sampletime",10.0);
   #ifndef SCR_OUT
   SSR_PWM          = preferences.getFloat("ssr_pwm",2.5);
@@ -488,7 +488,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     Header.remove(0,10);
     Kd = Header.toFloat();
     if (Kd < 0.001) Kd = 0.001;
-    if (Kd > 0.5) Kd = 0.5;
+    if (Kd > 2.0) Kd = 2.0;
     SetMemory();
     if (! ActiveRun) myPID.SetTunings(Kp,Ki,Kd);
     return jsonSuccess;
