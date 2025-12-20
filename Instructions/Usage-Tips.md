@@ -34,11 +34,7 @@ Once they both do the fallback and stabilize, the Air Still will hover between 1
 
 If you have a well insulated boiler or a jacketed boiler, you shouldn't be surprised to see the Boilermaker hover at 10% and stay there. The power level will never drop below 1% because this constant amount of at least some heat rising up through the boiler helps prevent suspended solids from falling out of solution and scorching to the bottom or your heating element. This was the primary problem that I was intending to cure when I came up with the [Airhead](https://github.com/larry-athey/airhead) project.
 
-If you find that your boiler tends to run hot after the fallback and the Boilermaker always bottoms out to 10% power, reduce the SSR PWM duty width. If you find that the boiler just takes forever to stabilize the temperature after fallback, increase the SSR PWM duty width. You can set this with the USB serial connection or by issuing WebAPI calls with your web browser. Just remember to reboot your Boilermaker after making any changes to this setting since this is only initialized at startup.
-
-When using the Boilermaker with the [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) you can duplicate the functionality of the Airhead's operating Mode 3 _(progressive temperature over time)_. Once you enable Boilermaker support, go back to **Management->Configure Heating**, then set the **Fixed Temperature** drop-down to **No**, and set the **Time Spread** value to however many hours you expect your run to take. This is how long the run is expected to take **after** your boiler has reached the program's minimum operating temperature.
-
-The way this works is that the boiler temperature range of your program is divided up so there are 12 equal temperature jumps per hour. If you set the **Time Spread** to 3 hours, then this temperature range is divided by 36 and every 5 minutes that factor is added to the target temperature. You can see this change in the activity tracker in the Boilermaker dashboard.
+If you find that your boiler tends to run hot after the fallback and the Boilermaker always bottoms out to 1% power, reduce the SSR PWM duty time. If you find that the boiler just takes forever to stabilize the temperature after fallback, increase the SSR PWM duty time. 
 
 ### Using Your Boilermaker For Brewing and Fermentation
 
