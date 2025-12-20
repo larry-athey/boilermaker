@@ -112,12 +112,12 @@ String Version = "1.0.2";        // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
 bool ProgressEnabled = false;    // True if progressive temperature is enabled
-bool TargetReached = false;      // True if the original target temperature has been reached
+bool ProgressStarted = false;    // True if the original target temperature has been reached
 float SavedTarget = 0;           // Used to restore the TargetTemp setting at the end of a progressive temp run
 float ProgressFactor = 0.0;      // How much to increase the target temperature every 15 minutes
 byte ProgressHours = 4;          // How many hours to spread ProgressTarget over
 byte ProgressTarget = 10;        // How many degrees C to increase TargetTemp over the course of ProgressHours
-long pTimer = 0;                 // 15 minute timer placeholder
+int pTimer = 0;                  // 15 minute (900 second) timer placeholder
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide PID control in OpMode 2 (Brewing/Fermentation)
 float pidOutput = 0.0;           // PID Computed PWM percentage (0-100)
@@ -387,10 +387,13 @@ void RunState(byte State) { // Toggle the active heating run state
     timerAlarmEnable(timer);
     PWMenabled = true;
     #endif
-    SavedTarget = TargetTemp;
     StartTime = millis();
     ActiveRun = true;
     UpToTemp  = false;
+    SavedTarget = TargetTemp;
+    ProgressStarted = false;
+    ProgressFactor = float(ProgressTarget) / float(ProgressHours * 4);
+    pTimer = 0;
     digitalWrite(FAN_OUT,HIGH);
     UpdateAllSlaves("/?data_0=0");
     UpdateAllSlaves("/start-run");
@@ -764,6 +767,20 @@ void loop() {
     TempUpdate();
     if (ActiveRun) {
       Runtime = formatMillis(CurrentTime - StartTime);
+      if ((ProgressEnabled) && (OpMode > 0)) {
+        if (TempC >= TargetTemp) ProgressStarted = true; // Progressive temperature begins when TargetTemp is first reached
+        if (ProgressStarted) {
+          pTimer ++;
+          if (pTimer == 900) { // TargetTemp increases happen every 15 minutes
+            pTimer = 0;
+            if (TargetTemp < (SavedTarget + ProgressTarget)) {
+              TargetTemp += ProgressFactor;
+              SetMemory();
+              if (OpMode == 2) myPID.Reset();
+            }
+          }
+        }
+      }
       if (OpMode == 1) {  // OpMode 1 is temperature cruise mode (this works like a car's cruise control)
         if (! UpToTemp) { // As with the Airhead, this method must be tuned to the boiler's wattage and volume
           if (TempC >= TargetTemp) { // Target temperature has been reached
