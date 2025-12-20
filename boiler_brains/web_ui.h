@@ -320,9 +320,13 @@ inline String SettingsData() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
-inline String TimerData() {
+inline String ProgressData() {
   String Content = "";
+  if (OpMode > 0) {
 
+  }
+
+  return Content;
 }
 //------------------------------------------------------------------------------------------------
 inline String HomePage() {
@@ -343,7 +347,7 @@ inline String HomePage() {
   Content +=    DrawCard(SettingsData(),"SettingsData","ajax-settings",true);
   Content +=   "</div>\n";
   Content +=   "<div class=\"row\">";
-  Content +=    DrawCard(TimerData(),"TimerData","ajax-timer",true);
+  Content +=    DrawCard(ProgressData(),"ProgressData","ajax-progress",true);
   Content +=   "</div>\n";
   Content += "</div>\n";
   Content += PageFooter();
