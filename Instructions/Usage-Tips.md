@@ -20,8 +20,8 @@ Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
 Still Spirits T500: 6 gallons, 1500 watt 120 volt element running at 120 volts.
 - Operation Mode: Temperature Cruise
 - Target Temperature: 80.0C/176.0F
-- Startup Power: 90%
-- Fallback Power: 40%
+- Startup Power: 75%
+- Fallback Power: 25%
 - Adjustment Rate: 1%
 - Deviation Rate: 0.5C
 - Change Wait: 30 seconds
