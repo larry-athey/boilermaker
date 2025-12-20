@@ -260,7 +260,11 @@ inline String LiveData() {
   String Content = "";
   String Temp = "";
   if (ActiveRun) {
-    Temp = "<span class=\"text-danger blink\">Active</span>";
+    if (ProgressStarted) {
+      Temp = "<span class=\"text-danger blink\">Progressive</span>";
+    } else {
+      Temp = "<span class=\"text-danger blink\">Active</span>";
+    }
   } else {
     Temp = "<span class=\"text-warning\">Inactive</span>";
   }
@@ -351,11 +355,11 @@ inline String ProgressData() {
       Temp = "No";
     }
     if (! ActiveRun) {
-      Content += InfoLine("Progressive&nbsp;Temp",CreateLink(Temp,"Progressive Temperature","13"));
+      Content += InfoLine("Progressive&nbsp;Run",CreateLink(Temp,"Progressive Temperature","13"));
       Content += InfoLine("Progress&nbsp;Range",CreateLink("+ " + String(float(ProgressRange),1) + "C / " + String(float(ProgressRange * 1.8),1) + "F","Progress Temp Range","14"));
       Content += InfoLine("Progress&nbsp;Time",CreateLink(String(ProgressHours) + " hour(s)","Progress Time","15"));
     } else {
-      Content += InfoLine("Progressive&nbsp;Temp",Temp);
+      Content += InfoLine("Progressive&nbsp;Run",Temp);
       Content += InfoLine("Progress&nbsp;Range","+ " + String(float(ProgressRange),1) + "C / " + String(float(ProgressRange * 1.8),1) + "F");
       Content += InfoLine("Progress&nbsp;Time",String(ProgressHours) + " hour(s)");
     }
