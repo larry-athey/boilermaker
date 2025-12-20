@@ -40,7 +40,7 @@ If you find that your boiler tends to run hot after the fallback and the Boilerm
 
 Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the **Brewing/Fermentation** operating mode. This turns the Boilermaker into an actual PID controller with very strict tuning, which means that this is much slower than the **Temperature Cruise** mode.
 
-_**NOTE:** This document isn't intended to be a tutorial on PID controllers, I would recommend that you follow YouTube tutorial videos that explain these._
+_**NOTE:** This document isn't intended to be a tutorial on PID controllers, I recommend that you follow YouTube tutorial videos that explain these._
 
 Keep in mind that you have a lot of suspended solids in brewing and fermentation. A PID controller may start out at 100% power depending on the current and target temperatures. This will almost always result in scorching. It's recommended that you first warm up your mash/wort in **Constant Power** mode at a low power and then switch to **Brewing/Fermentation** mode once you are about half way there.
 
