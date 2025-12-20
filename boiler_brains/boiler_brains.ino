@@ -286,13 +286,13 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   OpMode           = preferences.getUInt("op_mode",1);
   TargetTemp       = preferences.getFloat("target_temp",80.0);
   StartupPercent   = preferences.getUInt("startup_percent",50);
-  FallBackPercent  = preferences.getUInt("fb_percent",50); // Cannot use the word "fallback" for some reason
+  FallBackPercent  = preferences.getUInt("fb_percent",50);
   AdjustRate       = preferences.getUInt("adjust_rate",1);
   Deviation        = preferences.getFloat("deviation",1.0);
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
   SensorType       = preferences.getUInt("sensor_type",SensorType);
-  ProgressEnabled  = preferences.getBool("progressive_temp",false);
+  ProgressEnabled  = preferences.getBool("prog_enabled",false);
   ProgressHours    = preferences.getUInt("progress_hours",4);
   ProgressRange    = preferences.getUInt("progress_range",10);
   Kp               = preferences.getFloat("pid_kp",1.0);
@@ -323,13 +323,13 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("op_mode",OpMode);
   preferences.putFloat("target_temp",TargetTemp);
   preferences.putUInt("startup_percent",StartupPercent);
-  preferences.putUInt("fb_percent",FallBackPercent); // Cannot use the word "fallback" for some reason
+  preferences.putUInt("fb_percent",FallBackPercent);
   preferences.putUInt("adjust_rate",AdjustRate);
   preferences.putFloat("deviation",Deviation);
   preferences.putUInt("change_wait",ChangeWait);
   preferences.putUInt("rest_period",RestPeriod);
   preferences.putUInt("sensor_type",SensorType);
-  preferences.putBool("progressive_temp",ProgressEnabled);
+  preferences.putBool("prog_enabled",ProgressEnabled);
   preferences.putUInt("progress_hours",ProgressHours);
   preferences.putUInt("progress_range",ProgressRange);
   preferences.putFloat("pid_kp",Kp);
