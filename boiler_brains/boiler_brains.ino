@@ -425,6 +425,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return LiveData();
   } else if (Header == "/ajax-settings") { // Web UI update, settings card
     return SettingsData();
+  } else if (Header == "/ajax-progress") { // Web UI update, progressive temperature card
+    return ProgressData();
   } else if (Header.indexOf("/?data_0=") == 0) { // Set Operation Mode
     if (ActiveRun) {
       return jsonFailure;
