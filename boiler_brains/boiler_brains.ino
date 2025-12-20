@@ -83,7 +83,6 @@ float TempC = 0;                 // Current temperature reading C
 float TempF = 0;                 // Current temperature reading F
 float CorrectionFactor = 0;      // How much to correct temp sensor C readings (positive or negative)
 float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is selected
-float SavedTarget = 80;          // Used to restore the TargetTemp setting at the end of a progressive temp run
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
 int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
@@ -111,6 +110,15 @@ String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
 String Version = "1.0.2";        // Current release version of the project
 //------------------------------------------------------------------------------------------------
+// v1.0.2 add-on to provide Airhead style progressive temperature control
+bool ProgressEnabled = false;    // True if progressive temperature is enabled
+bool TargetReached = false;      // True if the original target temperature has been reached
+float SavedTarget = 0;           // Used to restore the TargetTemp setting at the end of a progressive temp run
+float ProgressFactor = 0.0;      // How much to increase the target temperature every 15 minutes
+byte ProgressHours = 4;          // How many hours to spread ProgressTarget over
+byte ProgressTarget = 10;        // How many degrees C to increase TargetTemp over the course of ProgressHours
+long pTimer = 0;                 // 15 minute timer placeholder
+//------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide PID control in OpMode 2 (Brewing/Fermentation)
 float pidOutput = 0.0;           // PID Computed PWM percentage (0-100)
 float Kp = 1.0;                  // PID Proportional gain (0.1 to 10.0)
@@ -118,7 +126,7 @@ float Ki = 0.005;                // PID Integral gain (0.001 to 0.5)
 float Kd = 1.0;                  // PID Derivative gain (0.0 to 2.0)
 float sampleTime = 10.0;         // PID Sample time (5 to 30 seconds)
 QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
-               QuickPID::pMode::pOnMeas, // was pOnError
+               QuickPID::pMode::pOnMeas,
                QuickPID::dMode::dOnMeas,
                QuickPID::iAwMode::iAwCondition,
                QuickPID::Action::direct);
