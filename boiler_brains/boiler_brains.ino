@@ -292,7 +292,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
   SensorType       = preferences.getUInt("sensor_type",SensorType);
-  ProgressEnabled  = preferences.getBool("progress_enabled",false);
+  ProgressEnabled  = preferences.getBool("progressive_temp",true);
   ProgressHours    = preferences.getUInt("progress_hours",4);
   ProgressRange    = preferences.getUInt("progress_range",10);
   Kp               = preferences.getFloat("pid_kp",1.0);
@@ -329,7 +329,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("change_wait",ChangeWait);
   preferences.putUInt("rest_period",RestPeriod);
   preferences.putUInt("sensor_type",SensorType);
-  preferences.putBool("progress_enabled",ProgressEnabled);
+  preferences.putBool("progressive_temp",ProgressEnabled);
   preferences.putUInt("progress_hours",ProgressHours);
   preferences.putUInt("progress_range",ProgressRange);
   preferences.putFloat("pid_kp",Kp);
@@ -531,6 +531,41 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     if (! PWMenabled) timerAlarmWrite(timer,SSR_PWM * 100000,true);
     return jsonSuccess;
   #endif
+  } else if (Header.indexOf("/?data_13=") == 0) { // Progressive temperature on/off
+    if (ActiveRun) {
+      return jsonFailure;
+    } else {
+      Header.remove(0,10);
+      if (Header.toInt() == 1) {
+        ProgressEnabled = true;
+      } else {
+        ProgressEnabled = false;
+      }
+      SetMemory();
+      return jsonSuccess;
+    }
+  } else if (Header.indexOf("/?data_14=") == 0) { // Progressive temperature range
+    if (ActiveRun) {
+      return jsonFailure;
+    } else {
+      Header.remove(0,10);
+      ProgressRange = Header.toInt();
+      if (ProgressRange < 1) ProgressRange = 1;
+      if (ProgressRange > 50) ProgressRange = 50;
+      SetMemory();
+      return jsonSuccess;
+    }
+  } else if (Header.indexOf("/?data_15=") == 0) { // Progressive temperature time
+    if (ActiveRun) {
+      return jsonFailure;
+    } else {
+      Header.remove(0,10);
+      ProgressHours = Header.toInt();
+      if (ProgressHours < 1) ProgressHours = 1;
+      if (ProgressHours > 50) ProgressHours = 24;
+      SetMemory();
+      return jsonSuccess;
+    }
   } else if (Header == "/form-0") { // Get Form: Operation Mode
     return get_Form(0);
   } else if (Header == "/form-1") { // Get Form: Target Temperature
@@ -557,6 +592,12 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return get_Form(11);
   } else if (Header == "/form-12") { // Get Form: SSR_PWM time
     return get_Form(12);
+  } else if (Header == "/form-13") { // Get Form: Progressive temp on/off
+    return get_Form(13);
+  } else if (Header == "/form-14") { // Get Form: Progressive temp range
+    return get_Form(14);
+  } else if (Header == "/form-15") { // Get Form: Progressive temp time
+    return get_Form(15);
   } else if (Header == "/get-correctionfactor") { // Get the CorrectionFactor value
     return String(CorrectionFactor);
   } else if (Header == "/get-power") { // Get current power percentage
@@ -777,6 +818,7 @@ void loop() {
             pTimer = 0;
             if (TargetTemp < (SavedTarget + ProgressRange)) {
              TargetTemp += ProgressFactor;
+             if (TargetTemp > 260) TargetTemp = 260;
              SetMemory();
               if (OpMode == 2) myPID.Reset();
             }
