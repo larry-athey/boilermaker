@@ -320,6 +320,11 @@ inline String SettingsData() {
   return Content;
 }
 //------------------------------------------------------------------------------------------------
+inline String TimerData() {
+  String Content = "";
+
+}
+//------------------------------------------------------------------------------------------------
 inline String HomePage() {
   String Content = "";
   Content += PageHeader();
@@ -336,6 +341,9 @@ inline String HomePage() {
   Content +=   "</div>\n";
   Content +=   "<div class=\"row\">";
   Content +=    DrawCard(SettingsData(),"SettingsData","ajax-settings",true);
+  Content +=   "</div>\n";
+  Content +=   "<div class=\"row\">";
+  Content +=    DrawCard(TimerData(),"TimerData","ajax-timer",true);
   Content +=   "</div>\n";
   Content += "</div>\n";
   Content += PageFooter();
