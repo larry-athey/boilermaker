@@ -115,8 +115,8 @@ bool ProgressEnabled = false;    // True if progressive temperature is enabled
 bool ProgressStarted = false;    // True if the original target temperature has been reached
 float SavedTarget = 0;           // Used to restore the TargetTemp setting at the end of a progressive temp run
 float ProgressFactor = 0.0;      // How much to increase the target temperature every 15 minutes
-byte ProgressHours = 4;          // How many hours to spread ProgressTarget over
-byte ProgressTarget = 10;        // How many degrees C to increase TargetTemp over the course of ProgressHours
+byte ProgressHours = 4;          // How many hours to spread ProgressRange over
+byte ProgressRange = 10;         // How many degrees C to increase TargetTemp over the course of ProgressHours
 int pTimer = 0;                  // 15 minute (900 second) timer placeholder
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide PID control in OpMode 2 (Brewing/Fermentation)
@@ -294,7 +294,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   SensorType       = preferences.getUInt("sensor_type",SensorType);
   ProgressEnabled  = preferences.getBool("progress_enabled",false);
   ProgressHours    = preferences.getUInt("progress_hours",4);
-  ProgressTarget   = preferences.getUInt("progress_target",10);
+  ProgressRange    = preferences.getUInt("progress_range",10);
   Kp               = preferences.getFloat("pid_kp",1.0);
   Ki               = preferences.getFloat("pid_ki",0.005);
   Kd               = preferences.getFloat("pid_kd",1.0);
@@ -331,7 +331,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("sensor_type",SensorType);
   preferences.putBool("progress_enabled",ProgressEnabled);
   preferences.putUInt("progress_hours",ProgressHours);
-  preferences.putUInt("progress_target",ProgressTarget);
+  preferences.putUInt("progress_range",ProgressRange);
   preferences.putFloat("pid_kp",Kp);
   preferences.putFloat("pid_ki",Ki);
   preferences.putFloat("pid_kd",Kd);
@@ -392,7 +392,7 @@ void RunState(byte State) { // Toggle the active heating run state
     UpToTemp  = false;
     SavedTarget = TargetTemp;
     ProgressStarted = false;
-    ProgressFactor = float(ProgressTarget) / float(ProgressHours * 4);
+    ProgressFactor = float(ProgressRange) / float(ProgressHours * 4);
     pTimer = 0;
     digitalWrite(FAN_OUT,HIGH);
     UpdateAllSlaves("/?data_0=0");
@@ -775,9 +775,9 @@ void loop() {
           pTimer ++;
           if (pTimer == 900) { // TargetTemp increases happen every 15 minutes
             pTimer = 0;
-            if (TargetTemp < (SavedTarget + ProgressTarget)) {
-              TargetTemp += ProgressFactor;
-              SetMemory();
+            if (TargetTemp < (SavedTarget + ProgressRange)) {
+             TargetTemp += ProgressFactor;
+             SetMemory();
               if (OpMode == 2) myPID.Reset();
             }
           }
