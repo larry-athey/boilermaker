@@ -28,7 +28,7 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 
 **Power Level:** Shows the current power level during an active run.
 
-### Third WebUI Data Card
+### Third WebUI Data Card (first two operation modes)
 
 The third WebUI card displays all of the user configurable settings. These values are also updated on a random time basis since the Boilermaker has a complete HTTP API which allows it to be remotely configured by another device on the network. Tapping/clicking on any of the values shown in light blue will make a popup form appear so you can edit these as you choose. Keep in mind that the ESP32 is only a 240 MHz computer, its web server is a bit laggy. Sometimes it takes a couple seconds for the form to display.
 
