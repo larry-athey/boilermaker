@@ -44,7 +44,13 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_12=** - Set the SSR low speed PWM duty time. The value here is a whole or floating point number between 1 and 5 _(seconds)_. The magic number for your system depends on the wattage and intended supply voltage of your heating element(s). If you are using a 1000 watt 240 volt element running on 120 volts, you would likely be better off with a 2.5 second duty time due to the slower reaction time of the element. If it's a 1000 watt 120 volt element at 120 volts, then you'll probably want a 1 second duty width. The slower the reaction time, the wider the duty time should be. If using this code with an SCR controller, this is not a valid API call. You will need to restart your run to make this setting take effect.
 
-**/form-0** through **/form-12** - Used by the WebUI to dynamically generate the various settings editor forms.
+**/?data_13=** - Primarily used by the web UI to set the progressive temperature feature on or off. The value passed here must be a whole number between 0 and 1 and will be rejected if there is an active run.
+
+**/?data_14=** - Primarily used by the web UI to set the progressive temperature range. The value passed here must be a whole number between 1 and 50 for degrees celcius to add to the target temperature and will be rejected if there is an active run.
+
+**/?data_15=** - Primarily used by the web UI to set the progressive temperature time. The value passed here must be a whole number between 1 and 24 hours and will be rejected if there is an active run.
+
+**/form-0** through **/form-15** - Used by the WebUI to dynamically generate the various settings editor forms.
 
 **/get-correctionfactor** - Returns the current temperature sensor correction factor in Celcius.
 
