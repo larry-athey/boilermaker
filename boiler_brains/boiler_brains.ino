@@ -292,6 +292,9 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
   SensorType       = preferences.getUInt("sensor_type",SensorType);
+  ProgressEnabled  = preferences.getBool("progress_enabled",false);
+  ProgressHours    = preferences.getUInt("progress_hours",4);
+  ProgressTarget   = preferences.getUInt("progress_target",10);
   Kp               = preferences.getFloat("pid_kp",1.0);
   Ki               = preferences.getFloat("pid_ki",0.005);
   Kd               = preferences.getFloat("pid_kd",1.0);
@@ -326,6 +329,9 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putUInt("change_wait",ChangeWait);
   preferences.putUInt("rest_period",RestPeriod);
   preferences.putUInt("sensor_type",SensorType);
+  preferences.putBool("progress_enabled",ProgressEnabled);
+  preferences.putUInt("progress_hours",ProgressHours);
+  preferences.putUInt("progress_target",ProgressTarget);
   preferences.putFloat("pid_kp",Kp);
   preferences.putFloat("pid_ki",Ki);
   preferences.putFloat("pid_kd",Kd);
