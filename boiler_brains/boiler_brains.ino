@@ -844,7 +844,7 @@ void loop() {
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               if (TempC >= (TargetTemp + Deviation)) { // Over temperature
                 CurrentPercent -= AdjustRate;
-                if (CurrentPercent < 0) CurrentPercent = 0;
+                if (CurrentPercent < 1) CurrentPercent = 1;
                 PowerAdjust(CurrentPercent); // Decrease power
               } else if (TempC <= (TargetTemp - Deviation)) { // Under temperature
                 CurrentPercent += AdjustRate;
