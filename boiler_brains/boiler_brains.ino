@@ -292,7 +292,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
   SensorType       = preferences.getUInt("sensor_type",SensorType);
-  ProgressEnabled  = preferences.getBool("progressive_temp",true);
+  ProgressEnabled  = preferences.getBool("progressive_temp",false);
   ProgressHours    = preferences.getUInt("progress_hours",4);
   ProgressRange    = preferences.getUInt("progress_range",10);
   Kp               = preferences.getFloat("pid_kp",1.0);
@@ -877,7 +877,6 @@ void loop() {
 }
 //------------------------------------------------------------------------------------------------
 /*
-// https://x.com/i/grok/share/MsbPKOqgTDsRv92gGUd6BaJme
 // Create & run a new sketch with the following code to fully erase the flash memory of an ESP32
 
 #include <nvs_flash.h>
