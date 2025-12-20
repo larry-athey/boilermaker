@@ -34,7 +34,7 @@ Once they both do the fallback and stabilize, the Air Still will hover between 1
 
 If you have a well insulated boiler or a jacketed boiler, you shouldn't be surprised to see the Boilermaker hover at 10% and stay there. The power level will never drop below 1% because this constant amount of at least some heat rising up through the boiler helps prevent suspended solids from falling out of solution and scorching to the bottom or your heating element. This was the primary problem that I was intending to cure when I came up with the [Airhead](https://github.com/larry-athey/airhead) project.
 
-If you find that your boiler tends to run hot after the fallback and the Boilermaker always bottoms out to 1% power, reduce the SSR PWM duty time. If you find that the boiler just takes forever to stabilize the temperature after fallback, increase the SSR PWM duty time. 
+If you find that your boiler tends to run hot after the fallback and the Boilermaker always bottoms out to 1% power, reduce the PWM duty time. If you find that the boiler just takes forever to stabilize the temperature after fallback, increase the PWM duty time. 
 
 ### Using Your Boilermaker For Brewing and Fermentation
 
