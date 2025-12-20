@@ -107,6 +107,14 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
   } else if (WhichOne == 12) {
     Label = "1 to 5";
     Step = ".1"; Min = "1"; Max = "5"; Value = String(SSR_PWM,1);
+  } else if (WhichOne == 13) {
+    Label = "Enable Progressive Temperature";
+  } else if (WhichOne == 14) {
+    Label = "1 to 50 degrees C";
+    Step = "1"; Min = "1"; Max = "50"; Value = String(ProgressRange);
+  } else if (WhichOne == 15) {
+    Label = "1 to 24 hours";
+    Step = "1"; Min = "1"; Max = "24"; Value = String(ProgressHours);
   }
 
   Content += "<form id=\"modalForm\" onsubmit=\"return false;\">";
@@ -131,8 +139,21 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
     Content += "<option " + S1 + " value=\"1\">Temperature Cruise</option>";
     Content += "<option " + S2 + " value=\"2\">Brewing/Fermentation</option>";
     Content += "</select>";
+  } else if (WhichOne == 13) {
+    String S0,S1;
+    if (! ProgressEnabled) {
+      S0 = "selected";
+      S1 = "";
+    } else {
+      S0 = "";
+      S1 = "selected";
+    }
+    Content += "<select style=\"width: 100%;\" size=\"1\" class=\"form-control form-select fw-bolder\" id=\"data_13\" name=\"data_13\">";
+    Content += "<option " + S0 + " value=\"0\">No</option>";
+    Content += "<option " + S1 + " value=\"1\">Yes</option>";
+    Content += "</select>";
   } else {
-    Content +=   "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
+    Content += "<input type=\"number\" step=\"" + Step + "\" min=\"" + Min + "\" max=\"" + Max + "\" class=\"form-control\" id=\"data_" + String(WhichOne) + "\" name=\"data_" + String(WhichOne) + "\" value=\"" + Value + "\">";
   }
   Content += "</form>";
 
