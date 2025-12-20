@@ -817,9 +817,9 @@ void loop() {
           if (pTimer == 900) { // TargetTemp increases happen every 15 minutes
             pTimer = 0;
             if (TargetTemp < (SavedTarget + ProgressRange)) {
-             TargetTemp += ProgressFactor;
-             if (TargetTemp > 260) TargetTemp = 260;
-             SetMemory();
+              TargetTemp += ProgressFactor;
+              if (TargetTemp > 260) TargetTemp = 260;
+              SetMemory();
               if (OpMode == 2) myPID.Reset();
             }
           }
