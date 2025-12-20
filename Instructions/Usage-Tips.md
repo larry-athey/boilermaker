@@ -6,8 +6,6 @@ Although the Boilermaker adds temperature control automation to your boiler usin
 
 By default, the low speed PWM is set to a 2.5 second duty time. You will need to adjust this to match your heating element(s). You can find this setting near the bottom of the page when the **Brewing/Fermentation** mode is selected. The more efficient your heating element(s), the lower the duty time should be. The range is adjustable from 1 to 5 seconds. As you can see in the examples below, the Air Still's 700 watt element is very inefficient and requires a longer PWM duty time.
 
-Keep in mind that since I work on a small scale here, I always work with a 12% ro 15% ABV wash, or even higher if I'm making gin or redistilling something to clean it up. Anything significantly lower than 12% will result in higher boiling temperatures required to push ethanol up out of the wash, such as when you are doing a stripping run.
-
 Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
 - Operation Mode: Temperature Cruise
 - Target Temperature: 80.0C/176.0F
