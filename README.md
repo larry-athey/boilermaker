@@ -21,6 +21,8 @@ The Boilermaker has 3 different operating modes.
 2. Temperature Cruise (works like a car's cruise control, there's always some level of heating power)
 3. Brewing/Fermentation (PID controller, heating power can be completely turned off at times)
 
+_**NOTE:** Mode 2 is the same temperature control method used in the [Airhead](https://github.com/larry-athey/airhead) upgrade for Air Stills. The progressive temperature feature is also implemented here and can be used in modes 2 and 3. The only difference is that the Boilermaker doesn't turn off at the end of the progression._
+
 This controller will run (1) a PWM controlled SCR board, or (2) a voltage controlled SCR board with a [PWM to voltage convertor module](https://www.amazon.com/dp/B0BG2G5FMX) in the middle, or (3) a [zero-crossing trigger solid state relay](https://www.amazon.com/dp/B08FR13GYR) utilizing my custom low speed PWM _(most effective method for heating elements)_. My invention works like a PWM SCR controller slowed down to less than 1/1000 the speed and runs heating elements much more effectively.
 
 Heating elements have a slow reaction time, they take time to warm up. An SCR controller divides your AC power sine wave into anywhere from 1000 to 20000 slices and then determines which back-to-back slices are on and which ones are off. Granted, this "works" for heating elements, but it's wasteful and never lets the heating element run at its full potential unless it's at 100%. Anything less just results in a lot of energy wasted by warming up the SCRs instead of the heating element. Exactly what benefit are hot SCRs providing?
