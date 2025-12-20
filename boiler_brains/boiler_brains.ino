@@ -36,9 +36,9 @@
 //
 // NOTE: When using these controllers in a master/slave setup, all 4 slaves are ran in constant
 //       power mode which follows the power level of the master controller. They are still able
-//       to run independently in constant power or constant temperature mode, and will maintain
+//       to run independently in constant power or temperature managed modes, and will maintain
 //       their own settings. Also, each slave can have its own 4 slaves as well that will follow
-//       what this controller tells it to do. Think of it like a pyramid scheme. LOL!!!
+//       what this controller tells it to do. Think of it like an Amway pyramid scheme. LOL!!!
 //------------------------------------------------------------------------------------------------
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
