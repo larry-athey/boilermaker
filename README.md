@@ -13,7 +13,7 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 <img width="1024" src="https://github.com/user-attachments/assets/28a96f4a-670e-46cb-8502-e2bf2e2e060c"><br>
 ---
 
-After dealing with one cheap Chinese SCR power controller after another I decided to combine one person's email suggestion about building a WiFi enabled PID controller and mash it up with what I had just finished building for Air Still users. PID controllers have their place, but I think they're better suited for 3D printers, fermenters, ovens, slow cookers, and incubators. The heating element spends more time off than on and that is horribly bad for distilling because there's almost nil upward thermal velocity happening in your boiler.
+After dealing with one cheap Chinese SCR power controller after another I decided to combine one person's email suggestion about building a WiFi enabled PID controller and mash it up with what I had just finished building for Air Still users. PID controllers have their place, but I think they're better suited for 3D printers, fermenters, brew pots, ovens, incubators, etc. The heating element spends more time off than on and that is horribly bad for distilling because there's almost nil upward thermal velocity happening in your boiler.
 
 The Boilermaker has 3 different operating modes.
 
