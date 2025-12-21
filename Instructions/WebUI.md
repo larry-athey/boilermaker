@@ -78,6 +78,6 @@ In **Constant Power** mode, you naturally have a progressive temperature ramp wh
 
 **Progressive Run:** This is the on/off switch for the progressive temperature function.
 
-**Progress Range:** This setting determines how much temperature increase that you want to add after the target temperature. You can add 1 to 50 degrees celcius to the target temperature. Keep in mind that every degree in celcius equals 1.8F.
+**Progress Range:** This setting determines how much temperature increase that you want to add after the target temperature. You can add 1 to 50 degrees celcius to the target temperature. Keep in mind that every degree in celcius equals 1.8 degrees fahrenheit.
 
-**Progress Time:** This setting determines how many hours that you want to spread the temperature increase. This timer only starts after the boiler has reached the target temperature from 1 to 24 hours. The **Run State** line will change from "Active" to "Progressive" once this timer begins.
+**Progress Time:** This setting determines how many hours that you want to spread the temperature increase. This timer only starts after the boiler has reached the target temperature and can be any value from 1 to 24 hours. The **Run State** line will change from "Active" to "Progressive" once this timer begins.
