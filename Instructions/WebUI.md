@@ -2,6 +2,8 @@
 
 <img width="1024" src="https://github.com/user-attachments/assets/22ccf069-72a3-448a-a401-ce791ff3c5ee"><br>
 
+_**NOTE:** The Boilermaker uses a fully text mode user interface rather than a fancy graphics based interface because it doesn't rely on a centralized server like other mobile apps do._
+
 The WebUI is designed for cell phone screens in vertical/portrait mode. It will still work on desktop/laptop/tablet screens, but will appear stretched out. I would add more code to fine tune it to be more friendly to larger screen sizes, but I'm working with a limited amount of code space in the ESP32 and I already have it 75% full. If you must use it on a desktop PC, use Firefox and switch it into mobile app view by pressing **CTRL+Shift+M** _(or **Command+Option+M** if you are using a Mac)_.
 
 The Boilermaker code is derived from the [Airhead](https://github.com/larry-athey/airhead), which is a port of PHP to C++ from my [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) boiler management routines. What I've done with the Boilermaker is make various static variables in the Airhead code, user configurable options in the WebUI. The Air Still is a 700 watt heating element coupled with a 1 gallon boiler vessel. The default settings here are the Airhead parameters scaled up to work with a 7 gallon Still Spirits boiler. This should help you adjust the settings to match your boiler.
