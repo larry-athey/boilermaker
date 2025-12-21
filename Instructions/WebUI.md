@@ -52,6 +52,6 @@ The third WebUI card displays all of the user configurable settings. These value
 
 ### Third Operation Mode
 
-The third WebUI data card has a completely different collection of settings. The **Brewing/Fermentation** mode turns the Boilermaker into a PID controller.
+The third WebUI data card has a completely different collection of settings in the third operation mode. The **Brewing/Fermentation** mode turns the Boilermaker into a PID controller.
 
 ### Fourth WebUI Data Card
