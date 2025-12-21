@@ -58,4 +58,6 @@ The PID controller code used in the Boilermaker is provided by an open source li
 
 _**PRO TIP:** PID controllers with boilers work best if you start them when the contents are already close to the target temperature._
 
+**Target Temp:** The target temperature in this mode works exactly the same way as it does in **Temperature Cruise** mode.
+
 ### Fourth WebUI Data Card
