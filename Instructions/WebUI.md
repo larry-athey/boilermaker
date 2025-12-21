@@ -48,6 +48,6 @@ The third WebUI card displays all of the user configurable settings. These value
 
 **Rest Period:** After your boiler has reached **Target Temp**, the power decreases to **Fallback Power**, then the Boilermaker rests for a period of time to allow any turbulence in the boiler die down. This allows the temperature sensor to start gathering stable readings before the temperature management routines kick in. One minute works fine in most cases, but the larger the boiler, the longer the rest period will need to be. Yet another setting that you will need to tinker with to find your magic number.
 
-<img width="1024" src="https://github.com/user-attachments/assets/0eebfa70-599a-41ce-99ad-7d69383108ea"><br>
+<br><img width="1024" src="https://github.com/user-attachments/assets/0eebfa70-599a-41ce-99ad-7d69383108ea"><br><br>
 
 ### Third Operation Mode (and the fourth WebUI card)
