@@ -66,4 +66,6 @@ _**PRO TIP:** PID controllers with boilers work best if you start them when the 
 
 **Derivative Gain:** This is the "D" in PID, the default setting is 1.0 in a new Boilermaker.
 
+**Sample Time:** This tunes the PID controller's number of calculations per minute, the default setting is 10 seconds in a new Boilermaker. Higher powered heating elements or multiple heating elements would warrant a lower number. Slower heating elements or larger boiler volumes would warrant a higher number. The default is best suited for things like a 10 gallon DigiBoil or a 7 gallon Still Spirits T-500 boiler that run between 1500 and 1800 watts on a 120 volt supply.
+
 ### Fourth WebUI Data Card
