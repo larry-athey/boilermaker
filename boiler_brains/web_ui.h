@@ -75,10 +75,10 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
     Label = "0.0 to 260.0 (C)";
     Step = ".1"; Min = "0"; Max = "260"; Value = String(TargetTemp,1);
   } else if (WhichOne == 2) {
-    Label = "10% to 100%";
+    Label = "1% to 100%";
     Step = "1"; Min = "1"; Max = "100"; Value = String(StartupPercent);
   } else if (WhichOne == 3) {
-    Label = "10% to 100%";
+    Label = "1% to 100%";
     Step = "1"; Min = "1"; Max = "100"; Value = String(FallBackPercent);
   } else if (WhichOne == 4) {
     Label = "1% to 100%";
