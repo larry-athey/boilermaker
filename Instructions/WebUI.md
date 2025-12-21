@@ -72,4 +72,4 @@ _**PRO TIP:** PID controllers with boilers work best if you start them when the 
 
 ### Fourth WebUI Data Card
 
-The last WebUI data card is only populated in **Temperature Cruise** and **Brewing/Fermentation** mode. These settings allow you to do progressive temperature runs like the [Airhead](https://github.com/larry-athey/airhead) provides in Mode 3 with the only difference being that the Boilermaker doesn't shut down at the end of the progression.
+The last WebUI data card is only populated in **Temperature Cruise** and **Brewing/Fermentation** mode. These settings allow you to do progressive temperature runs like the [Airhead](https://github.com/larry-athey/airhead) provides in Mode 3 with the only difference being that the Boilermaker doesn't shut down at the end of the progression. This progressively increases the target temperature every 15 minutes and resets back to the original target temperature when you stop the run.
