@@ -71,3 +71,5 @@ _**PRO TIP:** PID controllers with boilers work best if you start them when the 
 **PWM Duty Time:** This tunes the low speed PWM that the Boilermaker uses to drive a solid state relay. This also works the same way as the **Sample Time** setting in the sense that the more efficient the heating element(s), the lower the number should be. But less efficient elements or larger boiler volumes will warrant a higher value. The default setting is 2.5 seconds in a new Boilermaker and should be adjusted to suit your boiler. Refer to the [Usage Tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) guide for more information.
 
 ### Fourth WebUI Data Card
+
+The last WebUI data card is only populated in **Temperature Cruise** and **Brewing/Fermentation** mode. These settings allow you to do progressive temperature runs like the [Airhead](https://github.com/larry-athey/airhead) provides in Mode 3 with the only difference being that the Boilermaker doesn't shut down at the end of the progression.
