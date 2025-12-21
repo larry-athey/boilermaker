@@ -56,4 +56,6 @@ The third WebUI data card has a completely different collection of settings in t
 
 The PID controller code used in the Boilermaker is provided by an open source library called QuickPID which has been developed and refined since January 2021. This was implemented in Boilermaker v1.0.2 in order to add a strict PID controller mode by request from numerous people wanting the Boilermaker to support beer brewing and fermentation temperature management.
 
+_**PRO TIP:** PID controllers with boilers work best if you start them when the contents are already close to the target temperature._
+
 ### Fourth WebUI Data Card
