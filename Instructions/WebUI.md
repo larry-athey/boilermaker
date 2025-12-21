@@ -60,4 +60,10 @@ _**PRO TIP:** PID controllers with boilers work best if you start them when the 
 
 **Target Temp:** The target temperature in this mode works exactly the same way as it does in **Temperature Cruise** mode.
 
+**Proportional Gain:** This is the "P" in PID, the default setting is 1.0 in a new Boilermaker.
+
+**Integral Gain:** This is the "I" in PID, the default setting is 0.005 in a new Boilermaker.
+
+**Derivative Gain:** This is the "D" in PID, the default setting is 1.0 in a new Boilermaker.
+
 ### Fourth WebUI Data Card
