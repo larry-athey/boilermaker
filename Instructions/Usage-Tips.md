@@ -2,7 +2,7 @@
 
 _**NOTE:** This information only applies to Boilermakers using an SSR and the low speed PWM, not an SCR controller._
 
-Although the Boilermaker adds temperature control automation to your boiler using both the **Temperature Cruise** and **Brewing/Fermentation** operating modes, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
+Although the Boilermaker adds temperature control to your boiler using both the **Temperature Cruise** and **Brewing/Fermentation** operating modes, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
 
 By default, the low speed PWM is set to a 2.5 second duty time. You will need to adjust this to match your heating element(s). You can find this setting near the bottom of the page when the **Brewing/Fermentation** mode is selected. The more efficient your heating element(s), the lower the duty time should be. The range is adjustable from 1 to 5 seconds. As you can see in the examples below, the Air Still's 700 watt element is very inefficient and requires a longer PWM duty time.
 
