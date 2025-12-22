@@ -22,7 +22,7 @@ The Boilermaker has 3 different operating modes.
 2. Temperature Cruise (works like a car's cruise control, heating behaves more like an open fire)
 3. Brewing/Fermentation (PID controller, slow and easy heating with an extreme level of accuracy)
 
-_**NOTE:** Mode 2 is the same temperature control method used in the [Airhead](https://github.com/larry-athey/airhead) upgrade for Air Stills. The progressive temperature feature is also implemented here and can be used in modes 2 and 3. The only difference here is that the Boilermaker doesn't turn off at the end of the progression._
+_**NOTE:** Mode 2 is the same temperature control method used in my [Airhead](https://github.com/larry-athey/airhead) upgrade for Air Stills. The progressive temperature feature is also implemented here and can be used in modes 2 and 3. The only difference here is that the Boilermaker doesn't turn off at the end of the progression._
 
 This controller was designed to run a [zero-crossing trigger solid state relay](https://www.amazon.com/dp/B08FR13GYR) utilizing my custom low speed PWM _(most effective method for heating elements)_. My custom low speed PWM works like an SCR controller slowed down to less than 1/1000 the speed and runs heating elements much more effectively. This controller can also be used with an existing PWM controlled SCR board or a voltage controlled SCR board with a [PWM to voltage convertor module](https://www.amazon.com/dp/B0BG2G5FMX) in the middle.
 
