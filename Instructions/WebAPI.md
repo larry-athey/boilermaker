@@ -18,6 +18,8 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/ajax-settings** - Used by the WebUI to update the third data card on the screen.
 
+**/ajax-progress** - Used by the WebUI to update the fourth data card on the screen.
+
 **/?data_0=** - Primarily used by the WebUI to set the Operation Mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Temperature Cruise, 2 sets it to Brewing/Fermentation. If you have slaves configured, all slaves will be switched to Constant Power mode when a run starts and will follow all power adjustments made by the master. Changes to this will not be honored if there is an active run.
 
 **/?data_1=** - Primarily used by the WebUI to set the Target Temperature of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0 and 260. If you are using this Boilermaker with the **RPi Smart Still** controller system, this value will be set lower boiler range temperature of your program when you start a run, and will be dynamically adjusted upward if you have the Progressive Temperature feature enabled.
