@@ -18,7 +18,7 @@ After dealing with one cheap Chinese SCR power controller after another I decide
 
 The Boilermaker has 3 different operating modes.
 
-1. Constant Power (similar to an SCR controller, but it's not an SCR controller)
+1. Constant Power (similar to an SCR controller, but leaps and bounds better than an SCR controller)
 2. Temperature Cruise (works like a car's cruise control, there's always some level of heating power)
 3. Brewing/Fermentation (PID controller, heating power can be completely turned off at times)
 
