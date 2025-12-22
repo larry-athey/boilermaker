@@ -8,7 +8,7 @@ By default, the low speed PWM is set to a 2.5 second duty time. You will need to
 
 The examples below use the **Temperature Cruise** mode. To understand this mode, look at it like the cruise control in a car while you traveling down a road with a lot of hills. As you go down a hill, the cruise control will ease up on the gas pedal and may actually ease up on it completely. Even in that case, your engine is still running and still providing some forward power. The cruise control doesn't ever use your brakes to slow you down.
 
-Air Still: 1 gallon, 700 watt 240 volt element running at 120 volts.
+Air Still: 1 gallon, 700 watt 120 volt element running at 120 volts.
 - Operation Mode: Temperature Cruise
 - Target Temperature: 80.0C/176.0F
 - Startup Power: 50%
@@ -58,7 +58,7 @@ Since a smoker can reach much higher temperatures than a boiler, you will might 
 
 I do have plans for making a WiFi enabled ESP32 powered temperature probe and timer unit for the Boilermaker and my [CZ Pellet Stove Controller](https://github.com/larry-athey/climate-czar/tree/main/CZ_Pellet_Stove_Controller_v2) with multiple temperature probes. I just have a few other programming projects that I need to tie up first. But I think it would be handy to have the capability to connect up to 4 probes and a timer to control the things and have it able to do an emergency shutdown if a fire is detected in the smoker. I'll get to this eventually, I'm just not exactly sure when that will happen.
 
-Masterbuilt Steam Smoker Settings: 1800 watt 240 volt element running at 120 volts.
+Masterbuilt Steam Smoker Settings: 1800 watt 120 volt element running at 120 volts.
 - Operation Mode: Temperature Cruise
 - Target Temperature: 107.2C/225.0F
 - Startup Power: 90%
