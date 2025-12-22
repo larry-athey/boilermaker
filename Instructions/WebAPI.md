@@ -52,7 +52,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_15=** - Primarily used by the web UI to set the progressive temperature time. The value passed here must be a whole number between 1 and 24 hours and will be rejected if there is an active run.
 
-**/form-0** through **/form-15** - Used by the WebUI to dynamically generate the various settings editor forms.
+**/form-0** through **/form-15** - Used by the WebUI to dynamically generate the various settings editor forms for the **/?data_*=** hooks.
 
 **/get-correctionfactor** - Returns the current temperature sensor correction factor in Celcius.
 
@@ -64,7 +64,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/get-ssrpwm** - If using this code with an SSR and low speed PWM, this returns the duty width of the PWM in seconds. If using this code with an SCR controller, this is not a valid API call.
 
-**/get-sensortyoe** - Returns the selected temperature sensor type. 0=MAX-6675/MAX-31855, 1=DS18B20
+**/get-sensortype** - Returns the selected temperature sensor type. 0=MAX-6675/MAX-31855, 1=DS18B20
 
 **/get-tempc** - Returns the current measured temperature in Celcius (after correction factor).
 
