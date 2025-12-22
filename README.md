@@ -20,7 +20,7 @@ The Boilermaker has 3 different operating modes.
 
 1. Constant Power (similar to an SCR controller, but leaps and bounds better than an SCR controller)
 2. Temperature Cruise (works like a car's cruise control, there's always some level of heating power)
-3. Brewing/Fermentation (PID controller, heating power can be completely turned off at times)
+3. Brewing/Fermentation (PID controller, slow and easy heating with an extreme level of accuracy)
 
 _**NOTE:** Mode 2 is the same temperature control method used in the [Airhead](https://github.com/larry-athey/airhead) upgrade for Air Stills. The progressive temperature feature is also implemented here and can be used in modes 2 and 3. The only difference here is that the Boilermaker doesn't turn off at the end of the progression._
 
