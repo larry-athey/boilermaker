@@ -44,7 +44,7 @@ _**NOTE:** This document isn't meant to be a tutorial on PID controllers, I reco
 
 Keep in mind that you have a lot of suspended solids in brewing and fermentation. A PID controller may quickly work up to 100% power depending on the current and target temperatures. This will almost always result in scorching. It's recommended that you first warm up your mash/wort in **Constant Power** mode at a low power and then switch to **Brewing/Fermentation** mode once you are somewhat close to the target temperature.
 
-The placement of your temperature sensor also makes a major difference, mid-height of the boiler vessel is the best location.
+The placement of your temperature sensor also makes a major difference, mid-height of the boiler vessel is the best location. Too close to the bottom and the system will think that it's up to temperature before anything above it is. Too close to the top and you will likely end up scorching stuff at the bottom. Circulation pumps or motorized mixing paddles are an absolute necessity when you have a lot of solids.
 
 _**PRO TIP:** PID controllers with boilers work best if you start them when the contents are already close to the target temperature._
 
