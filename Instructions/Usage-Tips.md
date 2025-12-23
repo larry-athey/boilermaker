@@ -6,7 +6,7 @@ Although the Boilermaker adds temperature control to your boiler using both the 
 
 By default, the low speed PWM is set to a 2.5 second duty time. You will need to adjust this to match your heating element(s). You can find this setting near the bottom of the page when the **Brewing/Fermentation** mode is selected. The more efficient your heating element(s), the lower the duty time should be. The range is adjustable from 1 to 5 seconds. As you can see in the examples below, the Air Still's 700 watt element is very inefficient and requires a longer PWM duty time.
 
-The examples below use the **Temperature Cruise** mode. To understand this mode, look at it like an old analog cruise control in a car while traveling down a road with a lot of hills. As you go down a hill, the cruise control will ease up on the gas pedal and may actually ease up on it completely. Even in that case, your engine is still running and still providing some forward power. The cruise control only relies on inertia loss to slow you down, no imposed resistance.
+The examples below use the **Temperature Cruise** mode. To understand this mode, look at it like an old analog cruise control in a car while traveling down a road with a lot of hills. As you go down a hill, the cruise control will ease up on the gas pedal and may actually ease up on it completely. Even in that case, your engine is still running and still providing some forward power. The cruise control only relies on inertia loss to slow you down, no imposed resistance beyond the weight of the vehicle going up the next hill.
 
 Air Still: 1 gallon, 700 watt 120 volt element running at 120 volts.
 - Operation Mode: Temperature Cruise
