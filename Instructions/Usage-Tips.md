@@ -42,7 +42,9 @@ Some people ferment on the grain and some also distill on the grain if they have
 
 _**NOTE:** This document isn't meant to be a tutorial on PID controllers, I recommend that you follow YouTube tutorial videos that explain them._
 
-Keep in mind that you have a lot of suspended solids in brewing and fermentation. A PID controller may quickly work up to 100% power depending on the current and target temperatures. This will almost always result in scorching. It's recommended that you first warm up your mash/wort in **Constant Power** mode at a low power and then switch to **Brewing/Fermentation** mode once you are somewhat close to the target temperature. The placement of your temperature sensor also makes a major difference, mid-height of the boiler vessel is the best location.
+Keep in mind that you have a lot of suspended solids in brewing and fermentation. A PID controller may quickly work up to 100% power depending on the current and target temperatures. This will almost always result in scorching. It's recommended that you first warm up your mash/wort in **Constant Power** mode at a low power and then switch to **Brewing/Fermentation** mode once you are somewhat close to the target temperature.
+
+The placement of your temperature sensor also makes a major difference, mid-height of the boiler vessel is the best location.
 
 _**PRO TIP:** PID controllers with boilers work best if you start them when the contents are already close to the target temperature._
 
