@@ -78,7 +78,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/reboot** - Reboots the Boilermaker. _(Any surprise there?)_ If you use **/get-uptime** and see that the Boilermaker has been running anywhere near 49 days, you should reboot it before starting a run because the internal code could reboot the unit in the middle of your run if you hit its maximum allowed uptime of 49.7 days.
 
-**/?set-correctionfactor=** - Set a new temperature sensor correction factor. The value passed here is a temperature in Celcius and must be a whole or floating point number between -5 and 5.
+**/?set-correctionfactor=** - Set a new temperature sensor correction factor. The value passed here is a temperature in Celcius and must be a whole or floating point number between -5 and 5. If you are using a sensor mounted outside of the boiler, such as when the sensor is mounted to the bottom like an Air Still. You will need to use a positive correction factor since it will be reading lower than the actual contents of the boiler. For example, the Airhead uses a +5 correction factor in most cases.
 
 **/?set-sensortype=** - Set a new temperature sensor type. 0=MAX-6675/MAX-31855, 1=DS18B20
 
