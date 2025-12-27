@@ -52,9 +52,9 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_15=** - Primarily used by the web UI to set the progressive temperature time. The value passed here must be a whole number between 1 and 24 hours and will be rejected if there is an active run.
 
-**/?data_16=** -
+**/?data_16=** - Primarily used by the web UI to set the countdown timer feature on or off. The value passed here must be a whole number between 0 and 1 and will be rejected if there is an active run.
 
-**/?data_17=** -
+**/?data_17=** - Primarily used by the web UI to set the countdown timer run time. The value passed here must be a whole number between 1 and 1440 minutes and will be rejected if there is an active run.
 
 **/form-0** through **/form-17** - Used by the WebUI to dynamically generate the various settings editor forms for the **/?data_*=** hooks.
 
