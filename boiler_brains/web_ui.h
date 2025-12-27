@@ -120,24 +120,33 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
   Content += "<form id=\"modalForm\" onsubmit=\"return false;\">";
   Content +=   "<label for=\"data_" + String(WhichOne) + "\" class=\"form-label\">" + Label + "</label>";
   if (WhichOne == 0) {
-    String S0,S1,S2;
+    String S0,S1,S2,S3;
     if (OpMode == 0) {
       S0 = "selected";
       S1 = "";
       S2 = "";
+      S3 = "";
     } else if (OpMode == 1) {
       S0 = "";
       S1 = "selected";
       S2 = "";
-    } else {
+      S3 = "";
+    } else if (OpMode == 2) {
       S0 = "";
       S1 = "";
       S2 = "selected";
+      S3 = "";
+    } else {
+      S0 = "";
+      S1 = "";
+      S2 = "";
+      S3 = "selected";
     }
     Content += "<select style=\"width: 100%;\" size=\"1\" class=\"form-control form-select fw-bolder\" id=\"data_0\" name=\"data_0\">";
     Content += "<option " + S0 + " value=\"0\">Constant Power</option>";
     Content += "<option " + S1 + " value=\"1\">Temperature Cruise</option>";
     Content += "<option " + S2 + " value=\"2\">Brewing/Fermentation</option>";
+    Content += "<option " + S3 + " value=\"3\">Cruise Then Brew</option>";
     Content += "</select>";
   } else if (WhichOne == 13) {
     String S0,S1;
@@ -289,8 +298,10 @@ inline String SettingsData() {
     Temp = "Constant Power";
   } else if (OpMode == 1) {
     Temp = "Temperature Cruise";
-  } else {
+  } else if (OpMode == 2) {
     Temp = "Brewing/Fermentation";
+  } else {
+    Temp = "Cruise Then Brew";
   }
 
   if (! ActiveRun) {
@@ -315,7 +326,7 @@ inline String SettingsData() {
     Content += InfoLine("Deviation&nbsp;Rate","&plusmn; " + Temp);
     Content += InfoLine("Change&nbsp;Wait",String(ChangeWait) + " secs");
     Content += InfoLine("Rest&nbsp;Period",String(RestPeriod) + " secs");
-  } else if (OpMode == 1) {
+  } else if ((OpMode == 1) || (OpMode == 3)) {
     Content += InfoLine("Fallback&nbsp;Power",CreateLink(String(FallBackPercent) + "%","Fallback Power Level","3"));
     Content += InfoLine("Adjustment&nbsp;Rate",CreateLink(String(AdjustRate) + "%","Adjustment Power Rate","4"));
     Temp = String(Deviation,1) + "C / " + String(Deviation * 1.8,1) + "F";

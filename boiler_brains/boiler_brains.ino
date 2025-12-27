@@ -400,7 +400,7 @@ void RunState(byte State) { // Toggle the active heating run state
     myPID.Reset();
     myPID.SetTunings(Kp,Ki,Kd);
     myPID.SetSampleTimeUs(sampleTime * 1000000);
-    PowerAdjust(StartupPercent);
+    if (OpMode != 2) PowerAdjust(StartupPercent);
   } else {
     Runtime = "00:00:00";
     ActiveRun = false;
@@ -434,7 +434,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
       Header.remove(0,9);
       OpMode = Header.toInt();
       if (OpMode < 0) OpMode = 0;
-      if (OpMode > 2) OpMode = 2;
+      if (OpMode > 3) OpMode = 3;
       SetMemory();
       return jsonSuccess;
     }
@@ -600,6 +600,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return get_Form(15);
   } else if (Header == "/get-correctionfactor") { // Get the CorrectionFactor value
     return String(CorrectionFactor);
+  } else if (Header == "/get-opmode") { // Get current operation mode
+    return String(OpMode);
   } else if (Header == "/get-power") { // Get current power percentage
     return String(round(0.392156863 * PowerLevel),0);
   } else if (Header == "/get-slaveip1") { // Get slave 1 IP address
@@ -825,13 +827,14 @@ void loop() {
           }
         }
       }
-      if (OpMode == 1) {  // OpMode 1 is temperature cruise mode (this works like a car's cruise control)
+      if ((OpMode == 1) || (OpMode == 3)) { // OpMode 1 is temperature cruise mode, OpMode 3 jumps to OpMode 2 after the power fallback
         if (! UpToTemp) { // As with the Airhead, this method must be tuned to the boiler's wattage and volume
           if (TempC >= TargetTemp) { // Target temperature has been reached
             UpToTemp = true;
             FallBackTime = millis();
             CurrentPercent = FallBackPercent;
             PowerAdjust(CurrentPercent);
+            if (OpMode == 3) OpMode = 2;
           } else { // Progressively increase power until target temperature has been reached
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               CurrentPercent += AdjustRate;
