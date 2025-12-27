@@ -884,8 +884,12 @@ void loop() {
             UpToTemp = true;
             FallBackTime = millis();
             CurrentPercent = FallBackPercent;
-            PowerAdjust(CurrentPercent);
-            if (OpMode == 3) OpMode = 2;
+            if (OpMode == 3) {
+              PowerAdjust(0);
+              OpMode = 2;
+            } else {
+              PowerAdjust(CurrentPercent);
+            }
           } else { // Progressively increase power until target temperature has been reached
             if (CurrentTime - LastAdjustment >= (ChangeWait * 1000)) {
               CurrentPercent += AdjustRate;
