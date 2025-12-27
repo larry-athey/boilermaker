@@ -317,7 +317,7 @@ inline String SettingsData() {
     Content += InfoLine("Target&nbsp;Temp",Temp);
   }
 
-  if (OpMode < 2) Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
+  if (OpMode != 2) Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
 
   if (OpMode == 0) {
     Content += InfoLine("Fallback&nbsp;Power",String(FallBackPercent) + "%");
