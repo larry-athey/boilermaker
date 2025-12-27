@@ -48,7 +48,7 @@ The placement of your temperature sensor also makes a major difference, mid-heig
 
 Keep in mind that this PID controller does not train itself and store any data in flash RAM. Every new run causes it to train itself from scratch. If you were to train the PID controller on plain water and then try to use that saved profile with a beer wort, you would end up scorching the suspended solids to your heating element.
 
-_**TIP:** The operation mode named **Cruise Then Brew** performs the above procedure automatically when the target temperature is reached._
+_**PRO-TIP:** The operation mode named **Cruise Then Brew** performs the above procedure automatically when the target temperature is reached._
 
 ### Controlling An Electric Smoker
 
