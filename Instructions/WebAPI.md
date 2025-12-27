@@ -18,7 +18,9 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/ajax-settings** - Used by the WebUI to update the third data card on the screen.
 
-**/ajax-progress** - Used by the WebUI to update the fourth data card on the screen.
+**/ajax-timer** - Used by the WebUI to update the fourth data card on the screen.
+
+**/ajax-progress** - Used by the WebUI to update the fifth data card on the screen.
 
 **/?data_0=** - Primarily used by the WebUI to set the Operation Mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Temperature Cruise, 2 sets it to Brewing/Fermentation, 3 sets it to Cruise Then Brew. If you have slaves configured, all slaves will be switched to Constant Power mode when a run starts and will follow all power adjustments made by the master. Changes to this will not be honored if there is an active run.
 
