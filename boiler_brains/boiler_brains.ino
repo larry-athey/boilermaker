@@ -75,6 +75,9 @@ WiFiServer Server(80);
 bool ActiveRun = false;          // True if there's an active heating run
 bool UpToTemp = false;           // True if the run startup has reached operating temperature
 bool PWMenabled = false;         // True if the low speed PWM is enabled
+bool TimerEnabled = false;       // True if the countdown timer is enabled;
+bool TimerStarted = false;       // True if the countdown timer has started;
+long Countdown = 0;              // Seconds left on the countdown timer
 long LoopCounter = 0;            // Timekeeper for the loop to eliminate the need to delay it
 long StartTime = 0;              // Start time of the current heating run
 long LastAdjustment = 0;         // Time of the last power adjustment
@@ -85,6 +88,7 @@ float CorrectionFactor = 0;      // How much to correct temp sensor C readings (
 float TargetTemp = 80;           // Target temperature (C) if OpMode = 1 is selected
 float Deviation = 1;             // How many degrees the temperature is allowed to deviate
 int ChangeWait = 120;            // How many seconds to wait between power adjustments
+int CountdownMinutes = 90;       // How many minutes to run the countdown timer
 int RestPeriod = 60;             // Seconds to wait after fall back before temperature management
 byte SensorType = 1;             // Selected temperature sensor type: 0=MAX6675, 1=DS18B20
 byte SlavesPinging = 0;          // Shows how many configured slaves are actually online
@@ -108,6 +112,7 @@ String slaveIP4 = "";            // Slave unit 4 IPV4 address
 String DeviceName;               // Network host name and device name to be displayed in the web UI
 String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
+String TimeLeft = "00:00:00";    // Countdown time remaining
 String Version = "1.0.2";        // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
@@ -282,7 +287,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   slaveIP2         = preferences.getString("slave2","");
   slaveIP3         = preferences.getString("slave3","");
   slaveIP4         = preferences.getString("slave4","");
-  CorrectionFactor = preferences.getFloat("correction_factor",0.0);
+  CorrectionFactor = preferences.getFloat("correction",0.0);
   OpMode           = preferences.getUInt("op_mode",1);
   TargetTemp       = preferences.getFloat("target_temp",80.0);
   StartupPercent   = preferences.getUInt("startup_percent",50);
@@ -291,7 +296,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   Deviation        = preferences.getFloat("deviation",1.0);
   ChangeWait       = preferences.getUInt("change_wait",120);
   RestPeriod       = preferences.getUInt("rest_period",60);
-  SensorType       = preferences.getUInt("sensor_type",SensorType);
+  SensorType       = preferences.getUInt("sensor_type",1);
   ProgressEnabled  = preferences.getBool("prog_enabled",false);
   ProgressHours    = preferences.getUInt("progress_hours",4);
   ProgressRange    = preferences.getUInt("progress_range",10);
@@ -299,6 +304,8 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   Ki               = preferences.getFloat("pid_ki",0.005);
   Kd               = preferences.getFloat("pid_kd",1.0);
   sampleTime       = preferences.getFloat("pid_sampletime",10.0);
+  TimerEnabled     = preferences.getBool("timer_enabled",false);
+  CountdownMinutes = preferences.getUInt("timer_minutes",90);
   #ifndef SCR_OUT
   SSR_PWM          = preferences.getFloat("ssr_pwm",2.5);
   #endif
@@ -319,7 +326,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putString("slave2",slaveIP2);
   preferences.putString("slave3",slaveIP3);
   preferences.putString("slave4",slaveIP4);
-  preferences.putFloat("correction_factor",CorrectionFactor);
+  preferences.putFloat("correction",CorrectionFactor);
   preferences.putUInt("op_mode",OpMode);
   preferences.putFloat("target_temp",TargetTemp);
   preferences.putUInt("startup_percent",StartupPercent);
@@ -336,6 +343,8 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putFloat("pid_ki",Ki);
   preferences.putFloat("pid_kd",Kd);
   preferences.putFloat("pid_sampletime",sampleTime);
+  preferences.putBool("timer_enabled",TimerEnabled);
+  preferences.putUInt("timer_minutes",CountdownMinutes);
   #ifndef SCR_OUT
   preferences.putFloat("ssr_pwm",SSR_PWM);
   #endif
@@ -390,6 +399,8 @@ void RunState(byte State) { // Toggle the active heating run state
     StartTime = millis();
     ActiveRun = true;
     UpToTemp  = false;
+    TimerStarted = false;
+    Countdown = CountdownMinutes * 60;
     SavedTarget = TargetTemp;
     ProgressStarted = false;
     ProgressFactor = float(ProgressRange) / float(ProgressHours * 4);
@@ -425,6 +436,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return LiveData();
   } else if (Header == "/ajax-settings") { // Web UI update, settings card
     return SettingsData();
+  } else if (Header == "/ajax-timer") { // Web UI update, countdown timer card
+    return TimerData();
   } else if (Header == "/ajax-progress") { // Web UI update, progressive temperature card
     return ProgressData();
   } else if (Header.indexOf("/?data_0=") == 0) { // Set Operation Mode
@@ -566,6 +579,30 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
       SetMemory();
       return jsonSuccess;
     }
+  } else if (Header.indexOf("/?data_16=") == 0) { // Countdown timer on/off
+    if (ActiveRun) {
+      return jsonFailure;
+    } else {
+      Header.remove(0,10);
+      if (Header.toInt() == 1) {
+        TimerEnabled = true;
+      } else {
+        TimerEnabled = false;
+      }
+      SetMemory();
+      return jsonSuccess;
+    }
+  } else if (Header.indexOf("/?data_17=") == 0) { // Countdown timer minutes
+    if (ActiveRun) {
+      return jsonFailure;
+    } else {
+      Header.remove(0,10);
+      CountdownMinutes = Header.toInt();
+      if (CountdownMinutes < 1) CountdownMinutes = 1;
+      if (CountdownMinutes > 1440) CountdownMinutes = 1440;
+      SetMemory();
+      return jsonSuccess;
+    }
   } else if (Header == "/form-0") { // Get Form: Operation Mode
     return get_Form(0);
   } else if (Header == "/form-1") { // Get Form: Target Temperature
@@ -598,6 +635,10 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return get_Form(14);
   } else if (Header == "/form-15") { // Get Form: Progressive temp time
     return get_Form(15);
+  } else if (Header == "/form-16") { // Get Form: Countdown timer on/off
+    return get_Form(16);
+  } else if (Header == "/form-17") { // Get Form: Countdown timer minutes
+    return get_Form(17);
   } else if (Header == "/get-correctionfactor") { // Get the CorrectionFactor value
     return String(CorrectionFactor);
   } else if (Header == "/get-opmode") { // Get current operation mode
@@ -810,8 +851,18 @@ void loop() {
   if ((Serial) && (Serial.available())) HandleSerialInput();
   if (CurrentTime - LoopCounter >= 1000) {
     TempUpdate();
+    // Countdown timer, commonly used in brewing, not so much in distillation
+    if (TimerStarted) {
+      Countdown --;
+      TimeLeft = formatMillis(Countdown * 1000);
+      if (Countdown == 0) {
+        TimerStarted = false;
+        RunState(0);
+      }
+    }
     if (ActiveRun) {
       Runtime = formatMillis(CurrentTime - StartTime);
+      if ((TimerEnabled) && ((OpMode == 0) || (TempC >= TargetTemp))) TimerStarted = true; // Timer begins after target temp is met or as soon as Constant Power mode is started
       if ((ProgressEnabled) && (OpMode > 0)) {
         if (TempC >= TargetTemp) ProgressStarted = true; // Progressive temperature begins when TargetTemp is first reached
         if (ProgressStarted) {
