@@ -74,7 +74,11 @@ _**PRO TIP:** PID controllers with boilers work best if you start them when the 
 
 ### Fourth WebUI Data Card
 
+The fourth WebUI data card is used to configure the countdown timer. In **Constant Power** mode, this timer begins as soon as you start your run. In all other modes, it only begins after the target temperature has been reached. This is primarily intended for brewing since a lot of times you need to hold a mash/wort at a specific temperature for a specific amount of time.
 
+**Timer Enabled:** This is the on/off switch for the countdown timer function.
+
+**Run Time:** This is the total number of minutes to run the timer from 1 to 1440 minutes (24 hours).
 
 ### Fifth WebUI Data Card
 
