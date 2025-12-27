@@ -48,6 +48,8 @@ The placement of your temperature sensor also makes a major difference, mid-heig
 
 Keep in mind that this PID controller does not train itself and store any data in flash RAM. Every new run causes it to train itself from scratch. If you were to train the PID controller on plain water and then try to use that saved profile with a beer wort, you would end up scorching the suspended solids to your heating element.
 
+_**TIP:** There is an experimental operation mode called **Cruise Then Brew** that performs the above procedure automatically._
+
 ### Controlling An Electric Smoker
 
 Aside from controlling boilers, another great use for the Boilermaker is turning any absolutely cheap bottom of the line electric smoker into a WiFi enabled **reliable and accurate** electric smoker. My first digital smoker got taken out by a lightning strike and I replaced it with a cheap [Masterbuilt steam smoker](https://www.amazon.com/gp/product/B07VRJQXGL/) and a $25 PID controller. Let's just say that PID controllers have their place, but they're really not the best option for a smoker since the heating element spends more time off than on.
