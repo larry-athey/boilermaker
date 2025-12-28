@@ -26,6 +26,8 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 
 **Runtime:** This shows how long the current run has been active.
 
+**Countdown:** Only visible when the timer is active. Shows the amount of runtime remaining.
+
 **Temperature:** Shows the current temperature whether or not there is an active run.
 
 **Power Level:** Shows the current power level during an active run.
