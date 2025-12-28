@@ -36,7 +36,7 @@ If you have a well insulated boiler or a jacketed boiler, you shouldn't be surpr
 
 If you find that your boiler tends to run hot after the fallback and the Boilermaker always bottoms out to 1% power, reduce the PWM duty time. If you find that the boiler just takes forever to stabilize the temperature after fallback, increase the PWM duty time. 
 
-### Using Your Boilermaker For Brewing and Fermentation
+## Using Your Boilermaker For Brewing and Fermentation
 
 Some people ferment on the grain and some also distill on the grain if they have a boiler with a motorized paddle. Your Boilermaker can actually maintain fermentation temperatures by using the **Brewing/Fermentation** operating mode. This turns the Boilermaker into an actual PID controller with very strict tuning, which means that this is much slower than the **Temperature Cruise** mode.
 
@@ -52,7 +52,7 @@ Unlike some units on the market, this PID controller does not train itself and s
 
 _**PRO-TIP:** The operation mode **Cruise Then Brew** performs the above procedure automatically when the target temperature is reached._
 
-### Controlling An Electric Smoker
+## Controlling An Electric Smoker
 
 Aside from controlling boilers, another great use for the Boilermaker is turning any absolutely cheap bottom of the line electric smoker into a WiFi enabled **reliable and accurate** electric smoker. My first digital smoker got taken out by a lightning strike and I replaced it with a cheap [Masterbuilt steam smoker](https://www.amazon.com/gp/product/B07VRJQXGL/) and a $25 PID controller. Let's just say that PID controllers have their place, but they're really not the best option for a smoker since the heating element spends more time off than on.
 
@@ -73,7 +73,7 @@ Masterbuilt Steam Smoker Settings: 1800 watt 120 volt element running at 120 vol
 - Rest Period: 60 seconds
 - SSR PWM Duty: 2.5 seconds
 
-### The SCR vs SSR Debate
+## The SCR vs SSR Debate
 
 There really is no sense in trying to prove one is better than the other because they both do the same thing, just at different speeds. SCRs run hotter because they are turning the power on and off 60 times per second in the USA _(50 times per second in most other countries)_. This heat is what eventually leads to the failure of an SCR, moreso than overloading one. An SSR will also fail from too much heat because it's really not any different than an SCR when you look at what's inside of one.
 
