@@ -856,10 +856,7 @@ void loop() {
     if (TimerStarted) {
       Countdown --;
       TimeLeft = formatMillis(Countdown * 1000);
-      if (Countdown == 0) {
-        TimerStarted = false;
-        RunState(0);
-      }
+      if (Countdown == 0) RunState(0);
     }
     if (ActiveRun) {
       Runtime = formatMillis(CurrentTime - StartTime);
