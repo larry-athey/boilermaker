@@ -415,6 +415,7 @@ void RunState(byte State) { // Toggle the active heating run state
   } else {
     Runtime = "00:00:00";
     ActiveRun = false;
+    TimerStarted = false;
     digitalWrite(FAN_OUT,LOW);
     PowerAdjust(0);
     UpdateAllSlaves("/stop-run");
