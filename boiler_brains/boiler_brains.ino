@@ -458,7 +458,6 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     if (TargetTemp < 0) TargetTemp = 0;
     if (TargetTemp > 260) TargetTemp = 260;
     SetMemory();
-    //myPID.Reset();
     return jsonSuccess;
   } else if (Header.indexOf("/?data_2=") == 0) { // Set Startup Power
     Header.remove(0,9);
@@ -871,7 +870,6 @@ void loop() {
               TargetTemp += ProgressFactor;
               if (TargetTemp > 260) TargetTemp = 260;
               SetMemory();
-              //if (OpMode == 2) myPID.Reset();
             }
           }
         }
