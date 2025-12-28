@@ -38,7 +38,7 @@ The third WebUI card displays all of the user configurable settings. These value
 
 **Current Mode:** This will either say "Constant Power", "Temperature Cruise", "Brewing/Fermentation", or "Cruise Then Brew".
 1. **Constant Power** will run the unit like any other SCR power controller, but runs your heating element(s) more effectively.
-2. **Temperature Cruise** will honor a target temperature and manage the power in order to maintain that temperature using high thermal velocity, this is the same temperature management method used in the [Airhead](https://github.com/larry-athey/airhead) upgrade for Air Stills.
+2. **Temperature Cruise** will honor a target temperature and manage the power in order to maintain that temperature using high thermal velocity. This is the same temperature management method used in the [Airhead](https://github.com/larry-athey/airhead) upgrade for Air Stills.
 3. **Brewing/Fermentation** is a strict, yet adjustable, PID controller that is geared by default for slow and steady temperature management, not distillation due to its reduced thermal velocity.
 4. **Cruise Then Brew** is meant to preheat your mash/wort in **Temperature Cruise** mode and then automatically switch to **Brewing/Fermentation** mode after it reaches the target temperature. Refer to the [Usage Tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) guide for more information on the reasoning for this feature.
 
