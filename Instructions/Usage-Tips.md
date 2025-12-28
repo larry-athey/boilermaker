@@ -48,7 +48,7 @@ _**Remember,** the liquid at the bottom of your boiler is hotter than the top an
 
 The placement of your temperature sensor also makes a major difference, mid-height of the boiler vessel is the best location. Too close to the bottom and the system will think that it's up to temperature before anything above it is. Too close to the top and you will likely end up scorching stuff at the bottom. Circulation pumps or motorized mixing paddles are an absolute necessity when you have a lot of solids.
 
-Keep in mind that this PID controller does not train itself and store any data in flash RAM. Every new run causes it to train itself from scratch. If you were to train the PID controller on plain water and then try to use that saved profile with a beer wort, you would end up scorching the suspended solids to your heating element.
+Unlike some units on the market, this PID controller does not train itself and store any profile data in flash RAM. Every new run causes it to train itself from scratch. If you were to train the PID controller on plain water and then try to use that saved profile with a beer wort, you would end up scorching the suspended solids to your heating element.
 
 _**PRO-TIP:** The operation mode **Cruise Then Brew** performs the above procedure automatically when the target temperature is reached._
 
