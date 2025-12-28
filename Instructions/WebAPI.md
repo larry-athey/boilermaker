@@ -10,7 +10,7 @@ The `-s` option silences the network traffic progress that **curl** normally pri
 
 _**NOTE:** This API only returns JSON objects for success or failure when setting values. Requested values are returned as-is, plain text. The ESP32 has limited code space and storing text strings eats up more space than plain old evaluation code. If I was dealing with unlimited code space like you have on any actual server running PHP, I'd be telling a different story here._
 
-### Boilermaker API Call Listing
+## Boilermaker API Call Listing
 
 Not passing any API call or making an invalid API call will return the entire home page of the WebUI.
 
