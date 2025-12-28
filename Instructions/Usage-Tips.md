@@ -75,7 +75,7 @@ Masterbuilt Steam Smoker Settings: 1800 watt 120 volt element running at 120 vol
 
 ## The SCR vs SSR Debate
 
-There really is no sense in trying to prove one is better than the other because they both do the same thing, just at different speeds. SCRs run hotter because they are turning the power on and off 60 times per second in the USA _(50 times per second in most other countries)_. This heat is what eventually leads to the failure of an SCR, moreso than overloading one. An SSR will also fail from too much heat because it's really not any different than an SCR when you look at what's inside of one.
+There really is no sense in trying to prove one is better than the other because they both do the same thing, just at different speeds. SCRs run hotter because they are turning the power on and off 120 times per second in the USA _(100 times per second in most other countries)_. This heat is what eventually leads to the failure of an SCR, moreso than overloading one. An SSR will also fail from too much heat because it's really not any different than an SCR when you look at what's inside of one.
 
 The main complaint I see about SSRs is that the cheap Chinese ones are misrepresented, claims that some SSR-40DA units are actually only 15 amps. Even if that's the case, the only way that it will fail is if its triac gets too hot because it'll burn itself open. If you attach it to a large enough heatsink and use a fan to remove heat from it, they'll handle 40 amps just fine. The problem comes from them being attached to one of those tiny heatsinks or none at all, and having no fan cooling. Don't abuse it by overheating it, and it won't burn up.
 
