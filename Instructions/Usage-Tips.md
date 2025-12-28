@@ -1,6 +1,6 @@
 # Boilermaker Usage Tips
 
-_**NOTE:** This information only applies to Boilermakers using an SSR and the low speed PWM, not an SCR board. Secondly, no boiler controller can magically save you from yourself. If you don't have a basic understanding of thermo dynamics and fluid dynamics, you will always blame the boiler and/or controller for your unrealistic expectations._
+_**NOTE:** This information only applies to Boilermakers using an SSR and the low speed PWM, not an SCR board. Secondly, no boiler controller can magically save you from yourself. If you don't have a basic understanding of thermo dynamics and fluid dynamics, you will always blame the boiler and/or controller for your unrealistic expectations. Lastly, even the best controller can be operated incorrectly._
 
 Although the Boilermaker adds temperature control to your boiler using both the **Temperature Cruise** and **Brewing/Fermentation** operating modes, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
 
