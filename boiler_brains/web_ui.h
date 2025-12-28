@@ -281,7 +281,11 @@ inline String LiveData() {
   String Temp = "";
   if (ActiveRun) {
     if (ProgressStarted) {
-      Temp = "<span class=\"text-danger blink\">Progressive</span>";
+      if (TargetTemp < (SavedTarget + ProgressRange)) {
+        Temp = "<span class=\"text-danger blink\">Progressive</span>";
+      } else {
+        Temp = "<span class=\"text-danger blink\">* Active</span>";
+      }
     } else {
       Temp = "<span class=\"text-danger blink\">Active</span>";
     }
