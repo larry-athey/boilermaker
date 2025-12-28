@@ -8,7 +8,7 @@ The WebUI is designed for cell phone screens in vertical/portrait mode. It will 
 
 The Boilermaker code is derived from the [Airhead](https://github.com/larry-athey/airhead), which is a port of PHP to C++ from my [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) boiler management routines. What I've done with the Boilermaker is make various static variables in the Airhead code, user configurable options in the WebUI. The Air Still is a 700 watt heating element coupled with a 1 gallon boiler vessel. The default settings here are the Airhead parameters scaled up to work with a 7 gallon Still Spirits boiler. This should help you adjust the settings to match your boiler.
 
-### First WebUI Data Card
+## First WebUI Data Card
 
 In the first card at the top of the WebUI, you see the device name and the number of configured slave units. Remember, the device name is also its network host name. If you are using DHCP configuration for your WiFi and your router assigns your Boilermaker a new IP address, you will want to look for this name in your router's admin page where it shows the connected 2.4 GHz devices. To avoid this problem, you should assign your Boilermaker a static IP address outside of the router's DHCP pool, or have your router create an IP reservation for your Boilermaker.
 
@@ -16,7 +16,7 @@ The second line here that shows how many configured slave units you have, also s
 
 _**NOTE:** The start/stop button has an immediate effect on the Boilermaker, but you may not see the run status change on your screen for 4 or 5 seconds. There is not a constant data stream between your web browser and the Boilermaker, it uses random timed Ajax refresh calls. If you have slave units configured, this update will take even longer because your Boilermaker needs to make API calls to all of the slaves to start and stop them and set their power level. Don't get impatient and repeatedly press the start/stop button!_
 
-### Second WebUI Data Card
+## Second WebUI Data Card
 
 The second WebUI card displays live data from the Boilermaker. This data in the following two WebUI cards is updated at a random time period anywhere from 4.5 to 5.5 seconds. There is not an actual continuous data stream between your cell phone and the Boilermaker, your phone only requests data updates from it at random times.
 
@@ -30,7 +30,7 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 
 **Power Level:** Shows the current power level during an active run.
 
-### Third WebUI Data Card (first two operation modes)
+## Third WebUI Data Card (first two operation modes)
 
 The third WebUI card displays all of the user configurable settings. These values are also updated on a random time basis since the Boilermaker has a complete HTTP API which allows it to be remotely configured by another device on the network. Tapping/clicking on any of the values shown in light blue will make a popup form appear so you can edit these as you choose. Keep in mind that the ESP32 is only a 240 MHz computer, its web server is a bit laggy. Sometimes it takes a couple seconds for the form to display.
 
@@ -52,7 +52,7 @@ The third WebUI card displays all of the user configurable settings. These value
 
 <br><img width="1024" src="https://github.com/user-attachments/assets/0eebfa70-599a-41ce-99ad-7d69383108ea"><br><br>
 
-### Third Operation Mode
+## Third Operation Mode
 
 The third WebUI data card has a completely different collection of settings in the third operation mode. The **Brewing/Fermentation** mode turns the Boilermaker into a PID controller. If you are unfamiliar with the P, I, and D parameters of a PID controller, then I would recommend looking up tutorial videos on YouTube that explain how PID controllers work. This is quite a complex topic and far beyond the scope of this document. Let's just say that they are extremely precise and this procedure is much slower.
 
@@ -72,7 +72,7 @@ _**PRO TIP:** PID controllers with boilers work best if you start them when the 
 
 **PWM Duty Time:** This tunes the low speed PWM that the Boilermaker uses to drive a solid state relay. This also works the same way as the **Sample Time** setting in the sense that the more efficient the heating element(s), the lower the number should be. But less efficient elements or larger boiler volumes will warrant a higher value. The default setting is 2.5 seconds in a new Boilermaker and should be adjusted to suit your boiler. Refer to the [Usage Tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) guide for more information.
 
-### Fourth WebUI Data Card
+## Fourth WebUI Data Card
 
 The fourth WebUI data card is used to configure the countdown timer. In **Constant Power** mode, this timer begins as soon as you start your run. In all other modes, it only begins after the target temperature has been reached. This is primarily intended for brewing since a lot of times you need to hold a mash/wort at a specific temperature for a specific amount of time.
 
@@ -80,7 +80,7 @@ The fourth WebUI data card is used to configure the countdown timer. In **Consta
 
 **Run Time:** This is the total number of minutes to run the timer from 1 to 1440 minutes (24 hours).
 
-### Fifth WebUI Data Card
+## Fifth WebUI Data Card
 
 The last WebUI data card is only populated in **Temperature Cruise**, **Brewing/Fermentation**, and **Cruise Then Brew** modes. These settings allow you to do progressive temperature runs like the [Airhead](https://github.com/larry-athey/airhead) provides in Mode 3 with the only difference being that the Boilermaker doesn't shut down at the end of the progression. This progressively increases the target temperature every 15 minutes and resets back to the original target temperature when you stop the run.
 
