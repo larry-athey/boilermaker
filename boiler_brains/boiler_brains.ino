@@ -879,7 +879,7 @@ void loop() {
         }
       }
       if ((OpMode == 1) || (OpMode == 3)) { // OpMode 1 is temperature cruise mode, OpMode 3 jumps to OpMode 2 after the power fallback
-        if (! UpToTemp) { // As with the Airhead, this method must be tuned to the boiler's wattage and volume
+        if (! UpToTemp) {
           if (TempC >= TargetTemp) { // Target temperature has been reached
             UpToTemp = true;
             FallBackTime = millis();
