@@ -42,7 +42,7 @@ Some people ferment on the grain and some also distill on the grain if they have
 
 _**NOTE:** This document isn't meant to be a tutorial on PID controllers, I recommend that you follow YouTube tutorial videos that explain them._
 
-Keep in mind that you have a lot of suspended solids in brewing and fermentation. A PID controller may quickly work up to 100% power depending on the current and target temperatures. This will almost always result in scorching. It's recommended that you first warm up your mash/wort in **Temperature Cruise** mode at a 25% Startup Power, 1-2 minute Change Wait, and a 1% Fallback Power. You would then switch to **Brewing/Fermentation** mode after the fallback. This guarantees no scorching and no over-shoot.
+Keep in mind that you have a lot of suspended solids in brewing and fermentation. A PID controller may quickly wind up to 100% power depending on the current and target temperatures. This will almost always result in scorching. It's recommended that you first warm up your mash/wort in **Temperature Cruise** mode at a 25% Startup Power, 1-2 minute Change Wait, and a 1% Fallback Power. You would then switch to **Brewing/Fermentation** mode after the fallback. This guarantees no scorching and no over-shoot.
 
 _**Remember,** the liquid at the bottom of your boiler is hotter than the top any time that the heating element is running. You may want to under-shoot your target temperature and allow stratification to happen before you increase your target temperature. For example, if your goal is 82.2C/180F, set your target temperature to 80C/176F and wait for stratificacion to rise to your goal, then increase your target temperature._
 
