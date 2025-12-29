@@ -1,6 +1,6 @@
 # Boilermaker Usage Tips
 
-_**NOTE:** Heating from the bottom with any boiler often results in non-uniform temperature distribution—it's rarely linear across all levels due to how heat transfers in liquids. No controller can overcome fundamental physics or poor setup. To get the best results, a basic understanding of thermodynamics and fluid dynamics will help set realistic expectations. Even advanced tools work best when used with care._
+_**NOTE:** Heating any boiler from the bottom often results in non-uniform temperature distribution—it's rarely linear across all levels due to how heat transfers in liquids. No controller can overcome fundamental physics or poor setup. To get the best results, a basic understanding of thermodynamics and fluid dynamics will help set realistic expectations. Even advanced tools work best when used with care._
 
 Although the Boilermaker adds temperature control to your boiler using both the **Temperature Cruise** and **Brewing/Fermentation** operating modes, it still needs to be tuned to your boiler. This isn't anything complicated and is done by simply heating up water to find the magic numbers that work with your setup. Even though an Air Still and a Still Spirits T500 system both accomplish the same end result, their settings are quite different. Compare the two below targeted at 80C/176F.
 
