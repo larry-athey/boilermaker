@@ -9,3 +9,5 @@ If you're looking at this Boilermaker from the front, the power input is on the 
 The main AC power input lines connect to the same places as the Boilermaker's power supply wires. The ground wire from the main AC input cable connects to the third row of the terminal bus bar.
 
 The AC power output to your boiler is on the right side. The hot wire connects to the right terminal of the solid state relay. The neutral wire connects to the second row of the terminal bus bar. The ground wire connects to the fourth row of the terminal bus bar.
+
+_**NOTE:** In the case of a 240 volt setup, you would just use the extra hot line in the place of the neutral line of the 120 volt wiring._
