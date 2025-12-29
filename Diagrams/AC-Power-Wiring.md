@@ -5,3 +5,5 @@
 Pictured above is the inside of a Boilermaker that I'm preparing for an order placed on my website. This is one where a customer ordered it with the 120 volt 12 gauge pigtails. This should help those who  purchased the hard-wired version for a permanent installation, or intend to use it with a 240 volt boiler.
 
 If you're looking at this Boilermaker from the front, the power input is on the left side. The neutral line (N) from the Boilermaker power supply line is connected to the first row of terminal bus bar on the bottom of the case and the hot line (L) is connected to the left AC terminal of the solid state relay.
+
+The main AC power input lines connect to the same places as the Boilermaker's power supply wires. The ground wire from the main AC input cable connects to the third row of the terminal bus bar.
