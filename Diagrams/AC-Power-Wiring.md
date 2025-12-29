@@ -7,3 +7,5 @@ Pictured above is the inside of a Boilermaker that I'm preparing for an order pl
 If you're looking at this Boilermaker from the front, the power input is on the left side. The neutral line (N) from the Boilermaker power supply line is connected to the first row of terminal bus bar on the bottom of the case and the hot line (L) is connected to the left AC terminal of the solid state relay.
 
 The main AC power input lines connect to the same places as the Boilermaker's power supply wires. The ground wire from the main AC input cable connects to the third row of the terminal bus bar.
+
+The AC power output to your boiler is on the right side. The hot wire connects to the right terminal of the solid state relay. The neutral wire connects to the second row of the terminal bus bar. The ground wire connects to the fourth row of the terminal bus bar.
