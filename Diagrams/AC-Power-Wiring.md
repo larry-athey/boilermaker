@@ -12,4 +12,4 @@ The AC power output to your boiler is on the right side. The hot wire connects t
 
 **PRO TIP:** If your temperature sensor stops reading when it comes into contact with your boiler, your hot and neutral lines to the Boilermaker power supply are reversed or you have a defective ground connection. Double check your outlet with a plug-in outlet analyzer to make sure there are no problems with your AC power wiring at the outlet.
 
-_**NOTE:** In the case of a 240 volt setup, you would just use the extra hot line in the place of the neutral line of the 120 volt wiring. The 240 volt neutral wires would just connect where the ground wires connect in the 120 volt wiring._
+_**NOTE:** In the case of a 240 volt setup, you would just use the extra hot line in the place of the neutral line of the 120 volt wiring. The 240 volt neutral wires would just connect where the ground wires connect in the 120 volt wiring. If you happen to be using a 4-conductor cable, the bus bar has an extra pair for your ground wires._
