@@ -1,4 +1,4 @@
-The instructions on this page are for my original prototype, it ain't pretty, but I still have one running my electric smoker. The units that I sell on my website are based on the [Firefly PCB](https://github.com/larry-athey/boilermaker/tree/main/Diagrams/Firefly-PCB).
+The instructions on this page are for my original prototype, it ain't pretty, but I still have one running my electric smoker. The units that I sell on my website are based on the [Firefly PCB](https://github.com/larry-athey/boilermaker/tree/main/Diagrams/Firefly-PCB). This prototype only requires the [Boilermaker-PSU-and-Interface](https://github.com/larry-athey/boilermaker/blob/main/Diagrams/Schematic_Boilermaker-PSU-and-Interface.pdf) schematic to be wired up on a prototype PCB.
 
 <img width="1024" src="./PSU-and-Interface.jpg"><br>
 
