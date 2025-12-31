@@ -1,8 +1,4 @@
-If you are just going to be using this with a small still (1000 watts or less) and a DS18B20 temperature sensor, you can simply use the [PSU and Interface](https://github.com/larry-athey/airhead/tree/main/Diagrams) schematic and PCB for the Airhead project. You can also directly drive a 3.3 volt 50mm fan from the GPIO port if you feel that you want to add a fan to it. A 1000 watt load really won't warm up the SSR heat sink that much.
-
-However, if you're going to be running something heftier than that or you intend to use a Type-K thermocouple and a MAX-6675 amplifier, you'll want to follow the schematic that I've provided here. There's a whole lot of nothing complicated going on with it. Everything is just a few point-to-point connections and a simple transistor switch to run a 5 volt cooling fan.
-
-I don't have any plans to create a PCB for this PSU and interface due to the fact that I could easily build a couple dozen of them at a relaxed pace just using point-to-point prototype boards, as I wait for the 3D printing of the case to finish. As you can see by looking at **PSU-and-Interface.jpg**, there's a whole lot of nothing involved in making these on a small piece of prototype PCB.
+The instructions on this page are for my original prototype, it ain't pretty, but I still have one running my electric smoker.
 
 <img width="1024" src="./PSU-and-Interface.jpg"><br>
 
