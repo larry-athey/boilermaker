@@ -4,6 +4,8 @@ _**IMPORTANT:** Please keep in mind that where you put your temperature sensor m
 
 _**SECONDLY:** If your system appears to stop reading temperature changes when your temperature sensor comes in contact with your boiler, this means that your hot and neutral lines to the Boilermaker's internal power supply or the AC outlet itself are revesed. A quick (however unsafe) solution is to lift the ground connection, but you really should correct the polarity of the hot and neutral wires._
 
+<img width="1024" src="https://github.com/user-attachments/assets/9456aade-36ae-4404-bda9-26b92ea68955"><br>
+
 Unlike other WiFi enabled ESP32 powered devices, the Boilermaker does not default as a WiFi access point in order to configure it. I'm already using nearly 75% of the available code space, I don't want to waste the remaining 25% on a one-time-use feature. I'm reserving that 25% for future features and enhancements, so the WiFi configuration and a few other things are configured over a USB cable and a plain old terminal program. Windows doesn't include one by default anymore, but [PuTTY](https://www.putty.org/) is still free and open source.
 
 [Here's how to use PuTTY under Windows to connect to the Boilermaker.](https://x.com/i/grok/share/i61lGPHt1tv3cxOr8ogD5S6SR)
@@ -13,8 +15,6 @@ Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/
 _**NOTE:** You can also connect to the Boilermaker with your mobile phone [according to Grok](https://x.com/i/grok/share/BJil4zNbj3p3dYd8i8HHYdEaw) but I haven't tried this yet. You can also simply use the serial terminal in the Arduino IDE by pressing CTRL+Shift+M._
 
 Windows and Mac users will also need to download and install the [CP210x driver](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads) so the Boilermaker will appear as a serial port that your terminal program can connect to. Linux users need not bother with this since the driver is already part of the kernel source tree.
-
-<img width="1024" src="https://github.com/user-attachments/assets/9456aade-36ae-4404-bda9-26b92ea68955"><br>
 
 Once your Boilermaker is connected to your computer with a USB data cable _(not just a charging cable)_, it will appear as a serial port and your terminal program will see it. The communications parameters are 9600 baud, 8N1. This is an old standard and shouldn't require any special configuration steps on your part.
 
