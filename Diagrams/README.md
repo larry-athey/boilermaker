@@ -1,6 +1,6 @@
 <img width="1024" src="https://github.com/user-attachments/assets/8f01c76d-e4c6-4d8b-bb70-96b255715c0f"><br>
 
-The instructions on this page are for my original prototype, it ain't pretty, but I still have one running my electric smoker. The units that I sell on my website are based on the [Firefly PCB](https://github.com/larry-athey/boilermaker/tree/main/Diagrams/Firefly-PCB). The prototype model only requires the [Boilermaker-PSU-and-Interface](https://github.com/larry-athey/boilermaker/blob/main/Diagrams/Schematic_Boilermaker-PSU-and-Interface.pdf) to be wired up on a prototype PCB and connected to an ESP32.
+The instructions on this page are for my original prototype, shown in the above. It ain't pretty, but I still have my first one running my electric smoker to this day. The units that I sell on my website are based on the [Firefly PCB](https://github.com/larry-athey/boilermaker/tree/main/Diagrams/Firefly-PCB). The prototype model only requires the [Boilermaker-PSU-and-Interface](https://github.com/larry-athey/boilermaker/blob/main/Diagrams/Schematic_Boilermaker-PSU-and-Interface.pdf) to be wired up on a prototype PCB and connected to an ESP32.
 
 <img width="1024" src="./PSU-and-Interface.jpg"><br>
 
