@@ -15,7 +15,6 @@ _**NOTE:** You can also connect to the Boilermaker with your mobile phone [accor
 Windows and Mac users will also need to download and install the [CP210x driver](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads) so the Boilermaker will appear as a serial port that your terminal program can connect to. Linux users need not bother with this since the driver is already part of the kernel source tree.
 
 <img width="1024" src="https://github.com/user-attachments/assets/9456aade-36ae-4404-bda9-26b92ea68955"><br>
-<img width="1024" src="https://github.com/user-attachments/assets/8f01c76d-e4c6-4d8b-bb70-96b255715c0f"><br>
 
 Once your Boilermaker is connected to your computer with a USB data cable _(not just a charging cable)_, it will appear as a serial port and your terminal program will see it. The communications parameters are 9600 baud, 8N1. This is an old standard and shouldn't require any special configuration steps on your part.
 
