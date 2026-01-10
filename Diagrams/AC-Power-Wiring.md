@@ -10,7 +10,7 @@ The main AC power input lines connect to the same places as the Boilermaker's po
 
 The AC power output to the boiler is on the right side. The hot wire connects to the right terminal of the solid state relay. The neutral wire connects to the second row of the terminal bus bar. The ground wire connects to the fourth row of the terminal bus bar.
 
-A person can just as easily switch things around and use the right side as the power input, it doesn't matter which side of the solid state relay is used as the input.
+A person can just as easily switch things around and use the right side as the power input, it doesn't matter which side of the solid state relay is used as the input or output.
 
 **PRO TIP:** If your temperature sensor stops reading when it comes into contact with your boiler, your hot and neutral lines to the Boilermaker power supply are reversed or you have a defective ground connection. Double check your outlet with a plug-in outlet analyzer to make sure there are no problems with your AC power wiring at the outlet.
 
