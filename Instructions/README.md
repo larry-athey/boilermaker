@@ -22,6 +22,8 @@ Once you are connected, press your Enter key to refresh the screen and you will 
 
 ![Serial Configuration Menu](https://github.com/user-attachments/assets/d612be73-193b-4cfc-8d32-baa44cb02adb)
 
+_**IMPORTANT:** Since this project relies on ESP32 v2.14 to v2.17 board libraries, it only supports WPA2 WiFi networks. While it might connect to a WPA3 network at startup, it will repeatedly fall offline and attempt to reconnect every minute. If your router cannot be switched to WPA2 mode, you will need a separate WiFi access point (not an additional router) for the Boilermaker to connect to._
+
 The menu options are as follows:
 
 **0. Set Device Name** - This is where you give your Boilermaker a personalized name. This will be displayed in the Web UI and is also used as its hostname when it announces its presence on your network.
