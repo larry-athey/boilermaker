@@ -22,7 +22,7 @@ Once you are connected, press your Enter key to refresh the screen and you will 
 
 ![Serial Configuration Menu](https://github.com/user-attachments/assets/d612be73-193b-4cfc-8d32-baa44cb02adb)
 
-_**IMPORTANT:** Since this project relies on ESP32 v2.14 to v2.17 board libraries, it only supports WPA2 WiFi networks. While it might connect to a WPA3 network at startup, it will repeatedly fall offline and attempt to reconnect every minute. Especially if your router uses a single SSID and band steering (turn that off, use separate SSIDs for each band). If your router cannot be switched to WPA2 mode, you will need a separate WiFi access point (not an additional router or WiFi extender) for the Boilermaker to connect to. TP-Link's budget EAP or WA series are best for this._
+_**IMPORTANT:** Since this project relies on ESP32 v2.14 to v2.17 board libraries, it only supports WPA2 WiFi networks. While it might connect to a WPA3 network at startup, it will repeatedly fall offline and attempt to reconnect every minute. Especially if your router uses a single SSID and band steering (turn that off, use separate SSIDs for each band). If your router cannot be switched to WPA2 mode, you will need a separate WiFi access point (not an additional router or WiFi extender) for the Boilermaker. TP-Link's budget EAP or WA series are best for this._
 
 The menu options are as follows:
 
