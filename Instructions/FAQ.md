@@ -12,6 +12,12 @@ A: Router configuration issues. Your router is likely set to WPA3 and/or has ban
 
 ---
 
+Q: Are ISP-provided WiFi routers acceptable for use with a Boilermaker?
+
+A: Unless the ISP gives you full administrative access to the router, the I say absolutely not. The ISP tech support is 90% useless in most cases because all they know is what their internal documentation tells them. They won't help you troubleshoot anything any further than what their employee knowledge base covers, because anybody can get hired for their job with zero experience. Get a decent router with decent tech support.
+
+---
+
 Q: Can you add charting and voice alerts to the Boilermaker like you have in your [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) controller?
 
 A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. I would recommend using an open source solution such as [Grafana](https://github.com/grafana/grafana) for this and set your own alarm functions within it to notify you audibly when specific criteria are met. There are plenty of YouTube tutorials covering the setup and usage of Grafana.
