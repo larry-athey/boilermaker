@@ -14,6 +14,6 @@ A: Router configuration issues. Your router is likely set to WPA3 and/or has ban
 
 Q: Can you add charting and voice alerts to the Boilermaker like you have in your [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) controller?
 
-A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. I would recommend using an open source solution like [Grafana](https://github.com/grafana/grafana) for this and set your own alarm functions within it to notify you audibly when specific criteria is met.
+A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. I would recommend using an open source solution such as [Grafana](https://github.com/grafana/grafana) for this and set your own alarm functions within it to notify you audibly when specific criteria is met.
 
 ---
