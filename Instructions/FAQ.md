@@ -20,6 +20,6 @@ A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. 
 
 Q: Can this be used to control a pellet fed grill/smoker, such as a Traeger?
 
-A: No, but I have [another project](https://github.com/larry-athey/climate-czar/tree/main/CZ_Pellet_Stove_Controller_v2) that would work for that. Although, the precision would leave much too be desired since you can't just "put out a fire" in one of those with an ESP32 to cool it down.
+A: No, but I have [another project](https://github.com/larry-athey/climate-czar/tree/main/CZ_Pellet_Stove_Controller_v2) that would work for that. Although, the precision would leave much too be desired since you can't just "put out a fire" in one of those with an ESP32 to cool it down. Electric smokers are easier to control, just kill the power if it's too hot.
 
 ---
