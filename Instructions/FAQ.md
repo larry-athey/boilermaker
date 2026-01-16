@@ -17,3 +17,9 @@ Q: Can you add charting and voice alerts to the Boilermaker like you have in you
 A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. I would recommend using an open source solution such as [Grafana](https://github.com/grafana/grafana) for this and set your own alarm functions within it to notify you audibly when specific criteria are met. There are plenty of YouTube tutorials covering the setup and usage of Grafana.
 
 ---
+
+Q: Can this be used to control a pellet fed grill/smoker, such as a Traeger?
+
+A: No, but I have [another project](https://github.com/larry-athey/climate-czar/tree/main/CZ_Pellet_Stove_Controller_v2) that would work for that. Although, the precision would leave much too be desired since you can't just "put out a fire" in one of those with an ESP32 to cool it down.
+
+---
