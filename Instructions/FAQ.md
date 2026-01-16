@@ -14,7 +14,7 @@ A: Router configuration issues. Your router is likely set to WPA3 and/or has ban
 
 Q: Are ISP-provided WiFi routers acceptable for use with a Boilermaker?
 
-A: Unless the ISP gives you full administrative access to the router, the I say absolutely not. The ISP tech support is 90% useless in most cases because all they know is what their internal documentation tells them. They won't help you troubleshoot anything any further than what their employee knowledge base covers, because anybody can get hired for their job with zero experience. Get a decent router with decent tech support.
+A: Unless the ISP gives you full administrative access to the router, then I say absolutely not. ISP tech support is 90% useless in most cases because all they know is what their internal documentation tells them. They won't help you troubleshoot anything any further than what their employee knowledge base covers, because anybody can get hired for their job with absolutely zero experience. Get a decent router with decent tech support and online resources.
 
 ---
 
