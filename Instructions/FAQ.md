@@ -8,7 +8,7 @@ A: Bluetooth has a limited range _(20 to 40 feet in open spaces)_ and I'm not in
 
 Q: What is the maximum wattage that the Boilermaker can handle?
 
-A: That all depends on the solid state relay that you use. The pre-assembled units that I sell on my website are shipped with an SSR-100DA on a massive aluminum heat sink _(as shown on the home page of this GitHub repo)_ and use a 50mm fan to constantly pull air through the heat sink during an active run. Standard 12-3 wire fits through the strain reliefs with the sheath and is capable of handling up to 20 amps, 10 guage _(30 amp)_ wire could also be used with the sheath pulled back. Watts is calculated as volts * amps.
+A: That all depends on the solid state relay that you use. The pre-assembled units that I sell on my website are shipped with an SSR-100DA on a massive aluminum heat sink _(as shown on the home page of this GitHub repo)_ and use a 50mm fan to constantly pull air through the heat sink during an active run. Standard 12-3 wire fits through the strain reliefs with the sheath and is capable of handling up to 20 amps, 10 guage _(30 amp)_ wire could be used, but with the sheath pulled back. Watts is calculated as volts * amps.
 
 ---
 
