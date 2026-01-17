@@ -2,7 +2,7 @@
 
 Q: Why didn't you make this a Bluetooth device with a companion mobile app?
 
-A: Bluetooth has a limited range _(20 to 40 feet in open spaces)_ and I'm not interested in paying all of the Apple developer fees just to put an app in their app store and keep it there. Google's Play Store isn't anywhere near as bad, but still requires the expense of a code signing signature. TCP/IP allows a person to monitor and control the Boilermaker anywhere on the network and the Web API wouldn't work without TCP/IP. Everybody already has a web browser on their phone or computer, so there's your app.
+A: Bluetooth has a limited range _(20 to 40 feet in open spaces)_ and I'm not interested in paying all of the Apple developer fees just to put an app in their app store and keep it there. Google's Play Store isn't anywhere near as bad, but it still requires the expense of a code signing signature. TCP/IP allows a person to monitor and control the Boilermaker anywhere on the network and the Web API wouldn't work without TCP/IP. Everybody already has a web browser on their phone or computer, so there's your app.
 
 ---
 
