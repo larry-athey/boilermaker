@@ -1,5 +1,11 @@
 # Frequently Asked Questions
 
+Q: What's the reason for having the option of a digital temperature sensor or thermocouple?
+
+A: Thermocouples aren't stable at low temperatures and the Boilermaker would be constantly chassing its tail at boiler temperatures. The digital temperature sensor is a much better choice for a boiler. If I limited the Boilermaker to just the digital temperature sensor, then it would only be usable up to 125C/257F. Adding the option of thermocouple allows the Boilermaker to run an oven or electric grill up to 260C/500F.
+
+---
+
 Q: Are there any plans to add volt/amp meter functionality to the Boilermaker's user interface?
 
 A: No, this honestly should be a meter on the outlet or junction box that you are tapped into because that's what you should be monitoring. Think about it, if you have a downstream cable heating up, that will eat current that your meter needs to run accurately. You want your meter upstream from that so that it can reliably warn you of any downstream problems. Those meters are dirt cheap, just connect it to your AC feed lines to the outlet or junction box and put the inductive donut around your hot wire.
