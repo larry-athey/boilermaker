@@ -44,7 +44,7 @@ A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. 
 
 Q: Why do you have to enter all temperature settings in celcius?
 
-A: This leans into the previous question, but it also comes down to the fact that the temperature sensors also run in celcius. I have very little code space remaining in the ESP32 and wasting it on a bunch of temperature translation code is wasteful. It's not just the web UI that would end up with code bloat, but also the web API as well. Most people always use the same temperatures anyway, it's not that hard to simply remember that 180F is 82.2C, 90F is 32.2C, you get the idea. The fact is, the majority of the world uses celcius.
+A: This leans into the previous question, but it also comes down to the fact that the temperature sensors also run in celcius. I have very little code space remaining in the ESP32 and wasting it on a bunch of temperature translation code is wasteful. It's not just the web UI that would end up with code bloat, but also the web API as well. Most people always use the same temperatures anyway, it's not that hard to simply remember that 180F is 82.2C, 90F is 32.2C, you get the idea. Also the fact is, the majority of the world uses celcius.
 
 ---
 
