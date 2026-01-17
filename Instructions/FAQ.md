@@ -2,7 +2,7 @@
 
 Q: What's the reason for having the option of a digital temperature sensor or thermocouple?
 
-A: Thermocouples aren't stable at low temperatures and the Boilermaker would be constantly chassing its tail at boiler temperatures with only a thermocouple. The digital temperature sensor is a much better choice for a boiler. If I limited the Boilermaker to only use the digital temperature sensor, then it would only be usable up to 125C/257F. Adding the option of thermocouple allows the Boilermaker to run an electric grill or oven up to 260C/500F.
+A: Thermocouples aren't stable at low temperatures and the Boilermaker would be constantly chassing its tail at boiler temperatures with only a thermocouple. The digital temperature sensor is a much better choice for a boiler. If I limited the Boilermaker to only use the digital temperature sensor, then it would only be usable up to 125C/257F. Adding the option of also using a thermocouple allows the Boilermaker to run an electric grill or oven up to 260C/500F.
 
 ---
 
