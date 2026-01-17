@@ -42,6 +42,12 @@ A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. 
 
 ---
 
+Q: Why do you have to enter all temperature settings in celcius?
+
+A: This leans into the previous question, but it also comes down to the fact that the temperature sensors also run in celcius. I have very little code space remaining in the ESP32 and wasting it on a bunch of temperature translation code is wasteful. It's not just the web UI that would end up with code bloat, but also the web API as well. Most people always use the same temperatures anyway, it's not that hard to simply remember that 180F is 82.2C.
+
+---
+
 Q: Can this be used to control a pellet fed grill/smoker, such as a Traeger?
 
 A: No, but I have [another project](https://github.com/larry-athey/climate-czar/tree/main/CZ_Pellet_Stove_Controller_v2) that would work for that. Although, the precision would leave much too be desired since you can't just "put out a fire" in one of those with an ESP32 to cool it down. Electric smokers are easier to control, just kill the power if it's too hot.
