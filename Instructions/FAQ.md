@@ -1,5 +1,11 @@
 # Frequently Asked Questions
 
+Q: What is the maximum wattage that the Boilermaker can handle?
+
+A: That all depends on the solid state relay that you use. The pre-assembled units that I sell on my website are shipped with an SSR-100DA on a massive aluminum heat sink _(as shown on the home page of this GitHub repo)_ and use a 50mm fan to constantly pull air through the heat sink during an active run. Standard 12-3 wire fits through the strain reliefs with the sheath and is capable of handling up to 20 amps. Watts is calculated as volts * amps.
+
+---
+
 Q: What's the reason for having the option of a digital temperature sensor or thermocouple?
 
 A: Thermocouples aren't stable at low temperatures and the Boilermaker would be constantly chasing its tail at boiler temperatures with only a thermocouple. The digital temperature sensor is a much better choice for a boiler. If I limited the Boilermaker to only use the digital temperature sensor, then it would only be usable up to 125C/257F. Adding the option of also using a thermocouple allows the Boilermaker to run an electric grill or oven up to 260C/500F.
