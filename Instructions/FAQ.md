@@ -54,7 +54,7 @@ A: No, but I have [another project](https://github.com/larry-athey/climate-czar/
 
 ---
 
-Q: Do you offer any custom builds for people who would rather have this a built-in feature in their existing setups?
+Q: Do you offer any custom builds for people who would rather have this as a built-in feature in their existing setups?
 
 A: No, but this project is 100% open source, anybody else is more than welcome to spin and remix things however they want to. I don't have anything in my home that gives me any kind of advantage over anybody else. Anybody can do everything that I'm doing and very easily one-up me because I'm half blind. I don't have the time or patience for custom work, I have a hard enough time keeping my own stuff up to par with my expectations.
 
