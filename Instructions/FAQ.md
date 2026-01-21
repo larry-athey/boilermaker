@@ -48,6 +48,12 @@ A: This leans into the previous question, but it also comes down to the fact tha
 
 ---
 
+Q: Why are the wires on the two temperature sensors so short?
+
+A: The longer the wire, the more resistance, the more chances for interference to wiggle its way into the system. If you need more distance, I recommend that you get your hands on some decent 3-conductor shielded microphone cable _(balanced, XLR)_ and use the shield as the ground connection. The heavier the gauge, the better.
+
+---
+
 Q: Can this be used to control a pellet fed grill/smoker, such as a Traeger?
 
 A: No, but I have [another project](https://github.com/larry-athey/climate-czar/tree/main/CZ_Pellet_Stove_Controller_v2) that would work for that. Although, the precision would leave much too be desired since you can't just "put out a fire" in one of those with an ESP32 to cool it down. Electric smokers are easier to control, just kill the power if it's too hot.
