@@ -56,7 +56,7 @@ A: The longer the wire, the more resistance, the more chances for interference t
 
 Q: Can I put the temperature sensor at the top of my distillation column rather than in the boiler?
 
-A: You can, but you'll likely only do that one time and put it right back in the boiler after that. There's too much lag with that much distance between the sensor and the heat source. There's already more than enough lag through water alone, putting the sensor even further away would have the power level going up and down like a yo-yo in both temperature managed modes. By the time the Boilermaker figures out what it's supposed to be doing, your distillation run will be over.
+A: You can, but you'll likely only do that one time and put it right back in the boiler after that. There's too much lag with that much distance between the sensor and the heat source, there's already more than enough lag through water alone. Putting the sensor even further away would have the power level going up and down like a yo-yo in both temperature managed modes. By the time the Boilermaker figures out what it's supposed to be doing, your distillation run will be over and done poorly.
 
 ---
 
