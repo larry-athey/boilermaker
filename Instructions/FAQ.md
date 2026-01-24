@@ -36,6 +36,12 @@ A: Unless the ISP gives you full administrative access to the router, then I say
 
 ---
 
+Q: I'm on fiber internet and my ISP provides their own required proprietary router with no admin access, what's my option here?
+
+A: Get an inexpensive WiFi access point _(not an additional router or WiFi extender)_ that plugs into one of the ethernet ports of your existing router. This will provide a separate WiFi network that's bridged into your existing network. Disable the 5 GHz network and set it to WPA2. After that, you should be golden.
+
+---
+
 Q: Can you add charting and voice alerts to the Boilermaker like you have in your [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) controller?
 
 A: The ESP32 that runs the Boilermaker doesn't have enough code space for this. I would recommend using an open source solution such as [Grafana](https://github.com/grafana/grafana) for this and set your own alarm functions within it to notify you audibly when specific criteria are met. There are plenty of YouTube tutorials covering the setup and usage of Grafana.
