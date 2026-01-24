@@ -38,7 +38,7 @@ A: Unless the ISP gives you full administrative access to the router, then I say
 
 Q: I'm on fiber internet and my ISP provides their own required proprietary router with no admin access, what's my option here?
 
-A: Get an inexpensive WiFi access point _(not an additional router or WiFi extender)_ that plugs into one of the ethernet ports of your existing router. This will provide a separate WiFi network that's bridged into your existing network. Disable the 5 GHz network and set it to WPA2. After that, you should be golden.
+A: Get an inexpensive WiFi access point _(not an additional router or WiFi extender)_ that plugs into one of the ethernet ports of your existing router. This will provide a separate WiFi network that's bridged into your existing network. Disable the 5 GHz network and set it to WPA2. After that, you should be golden. TP-Link's budget EAP or WA series access points are great options.
 
 ---
 
