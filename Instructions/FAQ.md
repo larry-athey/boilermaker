@@ -60,6 +60,12 @@ A: The longer the wire, the more resistance, the more chances for interference t
 
 ---
 
+Q: My solid state relay is working, but the on/off status LED isn't lighting up, why not?
+
+A: That's just one of those oddities with solid state relays and low trigger voltages. The ESP32 puts out 3.3 volts and the solid state relay accepts a 3 to 32 volt trigger. However, the LED in those doesn't always light up at low voltages _(some do, some don't)_. If yours isn't lighting up and you absolutely want one, just take any LED in series with a 220 ohm resistor and connect it to the trigger terminals of the SSR _(cathode side connects to the negative terminal)_.
+
+---
+
 Q: Can I put the temperature sensor at the top of my distillation column rather than in the boiler?
 
 A: You can, but you'll likely only do that one time and put it right back in the boiler after that. There's too much lag with that much distance between the sensor and the heat source, there's already more than enough lag through water alone. Putting the sensor even further away would have the power level going up and down like a yo-yo in both temperature managed modes. By the time the Boilermaker finally figures out what it's supposed to be doing, your distillation run will be over and done poorly.
