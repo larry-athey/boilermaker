@@ -60,7 +60,7 @@ A: The longer the wire, the more resistance, the more chances for interference t
 
 ---
 
-Q: My solid state relay is working, but the on/off status LED isn't lighting up, why not?
+Q: My solid state relay is working just fine, but the on/off status LED isn't lighting up, why not?
 
 A: That's just one of those oddities with solid state relays and low trigger voltages. The ESP32 puts out 3.3 volts and the solid state relay accepts a 3 to 32 volt trigger. However, the LED in those doesn't always light up at low voltages or they light up really dim _(some do, some don't)_. If yours isn't lighting up and you absolutely want one, just take any LED in series with a 220 ohm resistor and connect it to the trigger terminals of the SSR _(cathode side connects to the negative terminal)_.
 
