@@ -24,6 +24,12 @@ A: Thermocouples aren't stable at low temperatures and the Boilermaker would be 
 
 ---
 
+Q: Are these temperature sensors waterproof? As in, safe to insert into the liquid that I'm boiling?
+
+A: Definitely not! They're water-safe against splashes and such, but not inside of boiling water. I realize that some vendors advertise DS18B20 sensors as "waterproof" but that's only safe at room temperature or less. Boiling water will quickly soften the heat shrink tubing and the epoxy inside of the metal cap. Once water gets in there, that sensor is done for. You need to use a thermowell and be sure to fill it with thermal compound before inserting the sensor.
+
+---
+
 Q: Why would my Boilermaker randomly become unreachable over my WiFi until I restart it?
 
 A: Router configuration changes needed. Your router is likely set to WPA3 and/or has band steering enabled so it's trying to shove the Boilermaker over to the 5 GHz WiFi which it does not support. Switch to WPA2 and disable band steering by using a separate SSIDs for the 2.4 GHz and 5 GHz WiFi networks. Lastly, if you still have issues, look in your router's QoS section and add a reservation for your Boilermaker there. That basically puts a "DO NOT TOUCH" label on it so the router won't screw with it anymore.
