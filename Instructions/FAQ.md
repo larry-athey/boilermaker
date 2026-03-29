@@ -44,7 +44,7 @@ A: Unless the ISP gives you full administrative access to the router, then I say
 
 Q: All this WiFi and networking stuff is over my head, do you have a guide for this?
 
-A: Sorry, that's beyond the scope of what I'm doing here, but there are thousands of videos on YouTube that teach these topics. Honestly, I haven't seen too many cases where a person's WiFi is so flakey that they need any major help. The problematic cases that I've seen are usually caused by crappy outdated ISP provided routers or by somebody intentionally making thinks hard for themselves. If you have a decent modern router, things will generally just work by default using nothing more than a DHCP (dynamic IP) address.
+A: Sorry, that's beyond the scope of what I'm doing here, but there are thousands of videos on YouTube that teach these topics. Honestly, I haven't seen too many cases where a person's WiFi is so flakey that they need any major help. The problematic cases that I've seen are usually caused by crappy outdated ISP-provided routers or by somebody intentionally making thinks hard for themselves. If you have a decent modern router, things will generally just work by default using nothing more than a DHCP (dynamic IP) address.
 
 ---
 
