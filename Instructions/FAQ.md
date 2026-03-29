@@ -42,15 +42,15 @@ A: Unless the ISP gives you full administrative access to the router, then I say
 
 ---
 
-Q: All this WiFi and networking stuff is over my head, do you have a guide for this?
+Q: I'm on fiber internet and my ISP provides their own required proprietary router with no admin access, what's my option here?
 
-A: Sorry, that's beyond the scope of what I'm doing here, but there are thousands of videos on YouTube that teach these topics. Honestly, I haven't seen too many cases where a person's WiFi is so flakey that they need any major help. The problematic cases that I've seen are usually caused by crappy outdated ISP-provided routers or by somebody intentionally making things hard for themselves. If you have a decent modern router, things will generally just work by default using nothing more than a DHCP (dynamic IP) address.
+A: Get an inexpensive WiFi access point _(not an additional router or WiFi extender)_ that plugs into one of the ethernet ports of your existing router. This will provide a separate WiFi network that's bridged into your existing network. Disable the 5 GHz network and set it to WPA2. After that, you should be golden. TP-Link's budget EAP or WA series access points are great options. Again, do not try to use a router for this unless you know how to switch it into bridge or access point mode!
 
 ---
 
-Q: I'm on fiber internet and my ISP provides their own required proprietary router with no admin access, what's my option here?
+Q: All this WiFi and networking stuff is over my head, do you have a guide for this?
 
-A: Get an inexpensive WiFi access point _(not an additional router or WiFi extender)_ that plugs into one of the ethernet ports of your existing router. This will provide a separate WiFi network that's bridged into your existing network. Disable the 5 GHz network and set it to WPA2. After that, you should be golden. TP-Link's budget EAP or WA series access points are great options.
+A: Sorry, that's beyond the scope of what I'm doing here, but there are thousands of videos on YouTube that teach these topics. Honestly, I haven't seen too many cases where a person's WiFi is so flakey that they need any major help. The problematic cases that I've seen are usually caused by crappy outdated ISP-provided routers or by somebody intentionally making things hard for themselves. If you have a decent modern router, things will generally just work by default using nothing more than a DHCP (dynamic IP) address.
 
 ---
 
