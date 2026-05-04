@@ -2,6 +2,8 @@
 
 Advanced WiFi enabled ESP32 driven  power controller and temperature regulator for brewing and distillation boilers. Multiple units can be combined in a master/slave configuration.
 
+NEWSFLASH: A smaller simplified version called [name](https://github.com/larry-athey/airhead/tree/main/3D-Models/uBM) is now available for sale from my website.
+
 You may contact me directly at https://panhandleponics.com<br>
 Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandlePonics
 
