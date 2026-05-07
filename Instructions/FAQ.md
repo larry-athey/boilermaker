@@ -1,5 +1,11 @@
 # Frequently Asked Questions
 
+Q: Why does the PID controller behave differently depending on what's in my boiler?
+
+A: Because physics affects any temperature controller, whether it's PID or anything else. You can dial in your PID controller to reliably hold water at one temperature, but the moment you add grains to it, you've created insulating layers between the heating element and temperature sensor. PID controllers aren't a magic box, there is no AI running them. Learn what the P/I/D parameters actually do, start with P and no I or D, then add the I and D values as needed in small increments.
+
+---
+
 Q: Why didn't you make this a Bluetooth device with a companion mobile app?
 
 A: Bluetooth has a limited range _(20 to 40 feet in open spaces)_ and I'm not interested in paying all of the Apple developer fees just to put an app in their app store and keep it there. Google's Play Store isn't anywhere near as bad, but it still requires the expense of a code signing certificate. TCP/IP allows a person to monitor and control the Boilermaker anywhere on the network and the Web API wouldn't work without TCP/IP. Everybody already has a web browser on their phone or computer, so there's your app.
