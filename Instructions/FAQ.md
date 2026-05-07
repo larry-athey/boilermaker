@@ -2,7 +2,7 @@
 
 Q: Why does the PID controller behave differently depending on what's in my boiler?
 
-A: Because physics affects any temperature controller, whether it's PID or anything else. You can dial in your PID controller to reliably hold water at one temperature, but the moment you add grains to it, you've created insulating layers between the heating element and temperature sensor. PID controllers aren't a magic box, there is no AI running them. Learn what the P/I/D parameters actually do, start with P and no I or D, then add the I and D values as needed in small increments.
+A: Because physics affects any temperature controller, whether it's PID or anything else. You can dial in your PID controller to reliably hold water at one temperature, but the moment you add grains to it, you've created insulating layers between the heating element and temperature sensor. PID controllers aren't a magic box, there is no AI running them. Learn what the P/I/D parameters actually do, start with P and no I or D, then add the I and D values as needed in small increments. Keep good notes for what works with different things that you boil.
 
 ---
 
