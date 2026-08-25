@@ -207,6 +207,9 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
   byte x = 0;
   if (Server) Server.end();
   WiFi.mode(WIFI_STA);
+  WiFi.setSleep(false);
+  WiFi.setAutoReconnect(true);
+  WiFi.persistent(true);
   if (wifiMode == 1) {
     bool Passed = true;
     int segCount = 0;
@@ -917,8 +920,10 @@ void loop() {
     if (wifiCheckCounter >= 60) {
       bool PingTest = Ping.ping(wifiGateway.c_str(),2);
       if ((WiFi.status() != WL_CONNECTED) || (! PingTest)) { // Reconnect WiFi if we got dropped
-        WiFi.disconnect();
+        WiFi.disconnect(true);
+        delay(250);
         if ((wifiSSID != "none") && (wifiPassword != "")) {
+          WiFi.mode(WIFI_OFF);
           delay(500);
           ConnectWiFi();
         }
