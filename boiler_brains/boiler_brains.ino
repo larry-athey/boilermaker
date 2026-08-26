@@ -140,6 +140,7 @@ QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
                QuickPID::dMode::dOnMeas,
                QuickPID::iAwMode::iAwCondition,
                QuickPID::Action::direct);
+// v1.0.4 add-on to provide PID auto tuning
 sTune tuner(&TempC,&pidOutput,
             sTune::ZN_PID,
             sTune::reverseIP,
