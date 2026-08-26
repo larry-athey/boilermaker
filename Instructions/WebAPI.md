@@ -96,4 +96,4 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/toggle-run** - Primarily used by the WebUI to toggle the active run state of the Boilermaker.
 
-**/update-firmware** - Used to reboot the Boilermaker in firmware update mode, refer to the **/firmware/** directory of this GitHub repository for more information. This only works if there is currently not an active run.
+**/update-firmware** - Used to reboot the Boilermaker in firmware update mode, refer to the **/firmware/** directory of this GitHub repository for more information. This only works if there is currently _not_ an active run.
