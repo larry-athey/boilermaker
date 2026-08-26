@@ -1,6 +1,6 @@
 # Boilermaker
 
-Advanced WiFi enabled ESP32 driven  power controller and temperature regulator for brewing and distillation boilers. Multiple units can be combined in a master/slave configuration.
+Advanced WiFi enabled ESP32 driven power controller and temperature regulator for brewing and distillation boilers. Multiple units can be combined in a master/slave configuration.
 
 _**NEWSFLASH:** A smaller simplified version called [μBoilermaker (micro Boilermaker)](https://github.com/larry-athey/airhead/blob/main/Instructions/uBoilermaker.md) is now available for sale from my website. These are not WiFi-enabled and use the same guts as the [Airhead](https://github.com/larry-athey/airhead) running in a different operating mode._
 
@@ -9,6 +9,8 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 
 **Facebook Idiot:** _Why would you bother?_<br>
 **Me:** It's only a "bother" for somebody who couldn't do it on their best day. I'd rather have nicer things.
+
+_No, I don't use AI to design and build my projects, I actually still use my brain._
 
 ---
 
