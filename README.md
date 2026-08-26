@@ -1,6 +1,6 @@
 # Boilermaker
 
-Advanced WiFi enabled ESP32 driven  power controller and temperature regulator for brewing and distillation boilers. Multiple units can be combined in a master/slave configuration.
+Advanced WiFi enabled ESP32 driven power controller and temperature regulator for brewing and distillation boilers. Multiple units can be combined in a master/slave configuration.
 
 _**NEWSFLASH:** A smaller simplified version called [μBoilermaker (micro Boilermaker)](https://github.com/larry-athey/airhead/blob/main/Instructions/uBoilermaker.md) is now available for sale from my website. These are not WiFi-enabled and use the same guts as the [Airhead](https://github.com/larry-athey/airhead) running in a different operating mode._
 
@@ -9,6 +9,8 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 
 **Facebook Idiot:** _Why would you bother?_<br>
 **Me:** It's only a "bother" for somebody who couldn't do it on their best day. I'd rather have nicer things.
+
+_...No, I don't use AI to design and build my projects, I actually still know how to use my brain..._
 
 ---
 
@@ -39,7 +41,7 @@ The Boillermaker uses either a DS18B20 temperature sensor or a thermocouple and 
 
 The Boilermaker also features a complete [Web API](https://github.com/larry-athey/boilermaker/blob/main/Instructions/WebAPI.md) for configuration and control, this is how one master unit controls up to 4 slaves. Each of those slaves can also have up to 4 slaves _(look at it like an Amway pyramid scheme)_. This means that these controllers can be added to all kinds of systems out there that allow the use of external commands or API integration of third party devices and services.
 
-The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker in all three operating modes. It can actually run the Boilermaker the same way as an SCR controller or gas valve, but without the need for a stepper motor.
+The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker in all three temperature managed modes. It can also run the Boilermaker the same way as an SCR controller or gas valve, but without the need for a stepper motor.
 
 _**NOTE:** The Boilermaker is also handy for turning any cheap electric smoker into one that's a whole lot more reliable and accurate, see the [Usage Tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) for more information._
 

@@ -22,7 +22,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/ajax-progress** - Used by the WebUI to update the fifth data card on the screen.
 
-**/?data_0=** - Primarily used by the WebUI to set the Operation Mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Temperature Cruise, 2 sets it to Brewing/Fermentation, 3 sets it to Cruise Then Brew. If you have slaves configured, all slaves will be switched to Constant Power mode when a run starts and will follow all power adjustments made by the master. Changes to this will not be honored if there is an active run.
+**/?data_0=** - Primarily used by the WebUI to set the Operation Mode of the Boilermaker. Passing a value of 0 sets it to Constant Power, 1 sets it to Temperature Cruise, 2 sets it to Brewing/Fermentation, 3 sets it to Cruise Then Brew, 4 sets it to PID Auto Tune. If you have slaves configured, all slaves will be switched to Constant Power mode when a run starts and will follow all power adjustments made by the master. Changes to this will not be honored if there is an active run.
 
 **/?data_1=** - Primarily used by the WebUI to set the Target Temperature of the Boilermaker. The value passed here is the temperature in Celcius and must be a whole or floating point number between 0 and 260. If you are using this Boilermaker with the **RPi Smart Still** controller system, this value will be set lower boiler range temperature of your program when you start a run, and will be dynamically adjusted upward if you have the Progressive Temperature feature enabled.
 
@@ -95,3 +95,5 @@ Not passing any API call or making an invalid API call will return the entire ho
 **/stop-run** - Used to stop an active run.
 
 **/toggle-run** - Primarily used by the WebUI to toggle the active run state of the Boilermaker.
+
+**/update-firmware** - Used to reboot the Boilermaker in firmware update mode, refer to the **/firmware/** directory of this GitHub repository for more information. This only works if there is currently _not_ an active run.
