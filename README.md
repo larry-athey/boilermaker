@@ -10,7 +10,7 @@ Subscribe to the official YouTube channel at https://www.youtube.com/@PanhandleP
 **Facebook Idiot:** _Why would you bother?_<br>
 **Me:** It's only a "bother" for somebody who couldn't do it on their best day. I'd rather have nicer things.
 
-_No, I don't use AI to design and build my projects, I actually still use my brain._
+_No, I don't use AI to design and build my projects, I actually still know how to use my brain._
 
 ---
 
