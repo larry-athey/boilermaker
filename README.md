@@ -39,7 +39,7 @@ The Boillermaker uses either a DS18B20 temperature sensor or a thermocouple and 
 
 The Boilermaker also features a complete [Web API](https://github.com/larry-athey/boilermaker/blob/main/Instructions/WebAPI.md) for configuration and control, this is how one master unit controls up to 4 slaves. Each of those slaves can also have up to 4 slaves _(look at it like an Amway pyramid scheme)_. This means that these controllers can be added to all kinds of systems out there that allow the use of external commands or API integration of third party devices and services.
 
-The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker in all three temperature managed modes. It can actually run the Boilermaker the same way as an SCR controller or gas valve, but without the need for a stepper motor.
+The [RPi Smart Still](https://github.com/larry-athey/rpi-smart-still) system fully supports the Boilermaker in all three temperature managed modes. It can also run the Boilermaker the same way as an SCR controller or gas valve, but without the need for a stepper motor.
 
 _**NOTE:** The Boilermaker is also handy for turning any cheap electric smoker into one that's a whole lot more reliable and accurate, see the [Usage Tips](https://github.com/larry-athey/boilermaker/blob/main/Instructions/Usage-Tips.md) for more information._
 
