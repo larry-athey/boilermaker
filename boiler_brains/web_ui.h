@@ -346,7 +346,7 @@ inline String SettingsData() {
     Content += InfoLine("Target&nbsp;Temp",Temp);
   }
 
-  if (OpMode != 2) Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
+  if ((OpMode != 2) && (OpMode != 4)) Content += InfoLine("Startup&nbsp;Power",CreateLink(String(StartupPercent) + "%","Startup Power Level","2"));
 
   if (OpMode == 0) {
     Content += InfoLine("Fallback&nbsp;Power",String(FallBackPercent) + "%");
@@ -363,7 +363,7 @@ inline String SettingsData() {
     Content += InfoLine("Change&nbsp;Wait",CreateLink(String(ChangeWait) + " secs","Change Wait Time (seconds)","6"));
     Content += InfoLine("Rest&nbsp;Period",CreateLink(String(RestPeriod) + " secs","Rest Period (seconds)","7"));
   } else {
-    if (! ActiveRun) {
+    if ((! ActiveRun) && (OpMode != 4)) {
       Content += InfoLine("Proportional&nbsp;Gain",CreateLink(String(Kp,1),"Proportional Gain","8"));
       Content += InfoLine("Integral&nbsp;Gain",CreateLink(String(Ki,3),"Integral Gain","9"));
       Content += InfoLine("Derivative&nbsp;Gain",CreateLink(String(Kd,1),"Derivative Gain","10"));
@@ -393,7 +393,7 @@ inline String TimerData() {
   } else {
     Temp = "No";
   }
-  if (! ActiveRun) {
+  if ((! ActiveRun) && (OpMode != 4)) {
     Content += InfoLine("Timer&nbsp;Enabled",CreateLink(Temp,"Countdown Timer","16"));
     Content += InfoLine("Run&nbsp;Time",CreateLink(String(CountdownMinutes) + " minutes","Run Time","17"));
   } else {
@@ -413,7 +413,7 @@ inline String ProgressData() {
     } else {
       Temp = "No";
     }
-    if (! ActiveRun) {
+    if ((! ActiveRun) && (OpMode != 4)) {
       Content += InfoLine("Progressive&nbsp;Run",CreateLink(Temp,"Progressive Temperature","13"));
       Content += InfoLine("Progress&nbsp;Range",CreateLink("+ " + String(float(ProgressRange),1) + "C / " + String(float(ProgressRange * 1.8),1) + "F","Progress Temp Range","14"));
       Content += InfoLine("Progress&nbsp;Time",CreateLink(String(ProgressHours) + " hour(s)","Progress Time","15"));
