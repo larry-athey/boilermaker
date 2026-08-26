@@ -8,7 +8,7 @@ To put the Airhead into firmware update mode, open the following URL with your w
 
 The Boilermaker will start up a WiFi access point with the SSID **"Boilermaker-Updater"** and the password to connect is **"12345678"**.
 
-Start your web browser and go to **http://192.168.4.1**
+Now open this URL: **http://192.168.4.1**
 
 If you are unable to connect, check to make sure that your device pulled an IP address from the Airhead. If it does not pull one, you will need to manually configure a static IP address on your device. Here are settings that will work for you if you encounter this problem.
 
