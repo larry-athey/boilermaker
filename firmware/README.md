@@ -4,7 +4,7 @@ As of the Boilermaker v1.0.4 source code, end users can now update their firmwar
 
 To put the Boilermaker into firmware update mode, open the following URL with your web browser.
 
-**http://boilermaker-ip/update-firmware** (where boilermaker-ip is the IP address of your Boilermaker)
+**http://boilermaker-ip/update-firmware** (where "boilermaker-ip" is the IP address of your Boilermaker)
 
 The Boilermaker will start up a WiFi access point with the SSID **"Boilermaker-Updater"** and the password to connect is **"12345678"**.
 
