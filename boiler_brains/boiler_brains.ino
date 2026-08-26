@@ -43,11 +43,13 @@
 #include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
+#include "ota_update.h"          // Over-The-Air firmware updating library
 #include "Preferences.h"         // ESP32 Flash memory read/write library
 #include "OneWire.h"             // OneWire Network communications library
 #include "DallasTemperature.h"   // Dallas Semiconductor DS18B20 temperature sensor library
 #include "max6675.h"             // Adafruit MAX-6675 amplifier library for Type-K thermocouples
 #include "QuickPID.h"            // PID calculation library from https://github.com/Dlloydev/QuickPID
+#include "sTune.h"               // QuickPID autotune library from https://github.com/Dlloydev/sTune
 //------------------------------------------------------------------------------------------------
 #define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor) [The PCB has this on GPIO 2, so the onboard WiFi activity LED no longer works]
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using a zero-crossing SSR)
@@ -77,6 +79,8 @@ bool UpToTemp = false;           // True if the run startup has reached operatin
 bool PWMenabled = false;         // True if the low speed PWM is enabled
 bool TimerEnabled = false;       // True if the countdown timer is enabled;
 bool TimerStarted = false;       // True if the countdown timer has started;
+bool FWupdate = false;           // True if the system should start up in OTA firmware update mode
+bool UpdateMode = false;         // True if the Boilermaker is running in firmware update mode
 long Countdown = 0;              // Seconds left on the countdown timer
 long LoopCounter = 0;            // Timekeeper for the loop to eliminate the need to delay it
 long StartTime = 0;              // Start time of the current heating run
@@ -95,6 +99,7 @@ byte SlavesPinging = 0;          // Shows how many configured slaves are actuall
 byte AdjustRate = 1;             // How much power % change to make when temperature is out of range
 byte FallBackPercent = 50;       // Power % to fall back to when TargetTemp has been reached
 byte StartupPercent = 50;        // Power % to start at or target power in OpMode 0
+byte TuningStartup = 0;          // Used as a delay timer for the PID auto tuning to make sure the UI is fully updated
 byte PowerLevel = 0;             // Current power level 0-255
 byte OpMode = 1;                 // Operation mode, 0 = Constant Power, 1 = Temperature Cruise, 2 = Brewing/Fermentation
 byte wifiCheckCounter = 0;       // Used to check the WiFi connection once per minute
@@ -113,7 +118,7 @@ String DeviceName;               // Network host name and device name to be disp
 String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
 String TimeLeft = "00:00:00";    // Countdown time remaining
-String Version = "1.0.2";        // Current release version of the project
+String Version = "1.0.3";        // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
 bool ProgressEnabled = false;    // True if progressive temperature is enabled
@@ -135,6 +140,10 @@ QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
                QuickPID::dMode::dOnMeas,
                QuickPID::iAwMode::iAwCondition,
                QuickPID::Action::direct);
+sTune tuner(&TempC,&pidOutput,
+            sTune::ZN_PID,
+            sTune::reverseIP,
+            sTune::printSUMMARY);
 //------------------------------------------------------------------------------------------------
 #include "slave_sync.h"          // Library for configuring and synchronizing slave units
 #include "serial_config.h"       // Library for configuring WiFi connection and slave unit IP addresses
@@ -170,7 +179,7 @@ void setup() {
   if (wifiSSID == "none") {
     SetMemory();
   } else {
-    if ((wifiSSID != "none") && (wifiPassword != "")) ConnectWiFi();
+    if ((wifiSSID != "none") && (wifiPassword != "") && (! FWupdate)) ConnectWiFi();
   }
 
   #ifndef SCR_OUT
@@ -197,9 +206,66 @@ void setup() {
   digitalWrite(FAN_OUT,LOW);
   LoopCounter = millis();
   LastAdjustment = LoopCounter;
-  if (Serial) {
-    ShowConfig();
-    ConfigMenu();
+
+  // FWupdate is only true if the API call was made to activate the OTA firmware updater
+  if (FWupdate) {
+    FWupdate = false;
+    SetMemory();
+    Server.end();
+    UpdateMode = true;
+
+    Serial.println("Starting Airhead Firmware Updater (AP mode)...");
+
+    // Start WiFi Access Point
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(ap_ssid,ap_password);
+    IPAddress myIP = WiFi.softAPIP();
+    Serial.print("AP IP address: ");
+    Serial.println(myIP);
+
+    // Start Bonjour/ZeroConf
+    if (MDNS.begin("esp32")) {
+      Serial.println("mDNS started - http://esp32.local");
+    }
+
+    // Set the server home page, sent upon browser connection
+    server.on("/",HTTP_GET,[]() {
+      server.send(200,"text/html",serverIndex);
+    });
+
+    // Set the OTA firmware update handler
+    server.on("/update",HTTP_POST,[]() {
+      server.sendHeader("Connection","close");
+      server.send(200,"text/plain",(Update.hasError()) ? "FAIL" : "OK");
+      ESP.restart();
+    },[]() {
+      HTTPUpload& upload = server.upload();
+      if (upload.status == UPLOAD_FILE_START) {
+        Serial.printf("Update: %s\n",upload.filename.c_str());
+        if (!Update.begin(UPDATE_SIZE_UNKNOWN)) {
+          Update.printError(Serial);
+        }
+      } else if (upload.status == UPLOAD_FILE_WRITE) {
+        if (Update.write(upload.buf,upload.currentSize) != upload.currentSize) {
+          Update.printError(Serial);
+        }
+      } else if (upload.status == UPLOAD_FILE_END) {
+        if (Update.end(true)) {
+          Serial.printf("Update Success: %u bytes\n",upload.totalSize);
+        } else {
+          Update.printError(Serial);
+        }
+      }
+    });
+
+    server.begin();
+    Serial.println("HTTP server ready. Connect to the AP and go to 192.168.4.1");
+
+  } else {
+    if (Serial) {
+      ShowConfig();
+      ConfigMenu();
+    }
   }
 }
 //------------------------------------------------------------------------------------------------
@@ -309,6 +375,7 @@ void GetMemory() { // Get the configuration settings from flash memory on startu
   sampleTime       = preferences.getFloat("pid_sampletime",10.0);
   TimerEnabled     = preferences.getBool("timer_enabled",false);
   CountdownMinutes = preferences.getUInt("timer_minutes",90);
+  FWupdate         = preferences.getBool("fw_update",false);
   #ifndef SCR_OUT
   SSR_PWM          = preferences.getFloat("ssr_pwm",2.5);
   #endif
@@ -348,6 +415,7 @@ void SetMemory() { // Update flash memory with the current configuration setting
   preferences.putFloat("pid_sampletime",sampleTime);
   preferences.putBool("timer_enabled",TimerEnabled);
   preferences.putUInt("timer_minutes",CountdownMinutes);
+  preferences.putBool("fw_update",FWupdate);
   #ifndef SCR_OUT
   preferences.putFloat("ssr_pwm",SSR_PWM);
   #endif
@@ -407,14 +475,20 @@ void RunState(byte State) { // Toggle the active heating run state
     SavedTarget = TargetTemp;
     ProgressStarted = false;
     ProgressFactor = float(ProgressRange) / float(ProgressHours * 4);
+    TuningStartup = 0;
     pTimer = 0;
     digitalWrite(FAN_OUT,HIGH);
     UpdateAllSlaves("/?data_0=0");
     UpdateAllSlaves("/start-run");
     myPID.Reset();
     myPID.SetTunings(Kp,Ki,Kd);
+    if (OpMode == 2) {
+      myPID.SetMode(myPID.Control::automatic);
+    } else {
+      myPID.SetMode(myPID.Control::manual);
+    }
     myPID.SetSampleTimeUs(sampleTime * 1000000);
-    if (OpMode != 2) PowerAdjust(StartupPercent);
+    if ((OpMode != 2) && (OpMode != 4)) PowerAdjust(StartupPercent);
   } else {
     Runtime = "00:00:00";
     ActiveRun = false;
@@ -451,7 +525,7 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
       Header.remove(0,9);
       OpMode = Header.toInt();
       if (OpMode < 0) OpMode = 0;
-      if (OpMode > 3) OpMode = 3;
+      if (OpMode > 4) OpMode = 4;
       SetMemory();
       return jsonSuccess;
     }
@@ -692,6 +766,14 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
     return String(millis() / 1000);
   } else if (Header == "/get-wifistats") { // Get current WiFi channel and signal level
     return "WiFi Channel: " + String(WiFi.channel()) + "\n" + "WiFi Signal: " + String(WiFi.RSSI());
+  } else if (Header == "/update-firmware") { // Set firmware update mode flag and reboot
+    if (! ActiveRun) {
+      FWupdate = true;
+      SetMemory();
+      return "Restarting in OTA firmware update mode...";
+    } else {
+      return "Cannot enable firmware updater during an active run.";
+    }
   } else if (Header.indexOf("/?power=") == 0) { // Slave mode power jump
     if ((ActiveRun) && (OpMode == 0)) {
       Header.remove(0,8);
@@ -815,7 +897,96 @@ void HandleSerialInput() { // Handle user configuration via the serial console
   ConfigMenu();
 }
 //------------------------------------------------------------------------------------------------
+void performAutotune(byte Mode) { // Autotune the PID controller
+  float outputStep,Kpp,Kii,Kdd;
+  char rTime[10];
+  myPID.SetMode(myPID.Control::manual);
+  pidOutput = 0.0f;
+  
+  Serial.printf("\n=== Autotune starting for mode %d ===\n",Mode);
+  Serial.println("Ensure the boiler is not empty");
+
+  // Preheat the boiler
+  Serial.println("Preheating boiler to 66C/150F at 90% power...");
+  PowerAdjust(90);
+  while (TempC < 66) { 
+    TempUpdate();
+    delay(1000);
+  }
+
+  // Fall back to 0% power and rest 15 seconds before autotuning
+  PowerAdjust(0);
+  delay(15000);
+
+  if (Mode == 1) {
+    tuner.SetTuningMethod(sTune::NoOvershoot_PID); // Mash
+    outputStep = 35.0f;
+  } else {
+    tuner.SetTuningMethod(sTune::ZN_PID); // Wash or Water
+    outputStep = 25.0f;
+  }
+
+  tuner.Configure(220.0f,100.0f,0.0f,outputStep,600,30,150);
+  DT.setResolution(10);
+  LoopCounter = millis();
+  StartTime = LoopCounter;
+
+  while (true) {
+    unsigned long CurrentTime = millis();
+    TempUpdate();
+
+    uint8_t status = tuner.Run();
+
+    PowerAdjust(round(pidOutput));
+
+    if (CurrentTime - LoopCounter >= 1000) {
+      unsigned long allSeconds = (CurrentTime - StartTime) / 1000;
+      int runHours = allSeconds / 3600;
+      int secsRemaining = allSeconds % 3600;
+      int runMinutes = secsRemaining / 60;
+      int runSeconds = secsRemaining % 60;
+      sprintf(rTime,"%02u:%02u:%02u",runHours,runMinutes,runSeconds);
+      Serial.println("PID Tunning Progress " + String(rTime));
+      LoopCounter = CurrentTime;
+    }
+
+    if (status == tuner.tunings) { // Test finished
+      Kpp = tuner.GetKp();
+      Kii = tuner.GetKi();
+      Kdd = tuner.GetKd();
+
+      Serial.println("Autotune complete!");
+      Serial.printf("New Kp = %.4f\n",Kpp);
+      Serial.printf("New Ki = %.4f\n",Kii);
+      Serial.printf("New Kd = %.4f\n",Kdd);
+      break;
+    }
+
+    delay(200);
+  }
+
+  DT.setResolution(12);
+  PowerAdjust(0);
+
+  // Update myPID with the new gain values
+  if (Kpp < 0.1) Kpp = 0.1;
+  if (Kii < 0.001) Kii = 0.001;
+  if (Kdd < 0.0) Kdd = 0.0;
+  Kp = Kpp;
+  Ki = Kii;
+  Kd = Kdd;
+  myPID.SetTunings(Kp,Ki,Kd);
+  SetMemory();
+  RunState(0);
+}
+//-----------------------------------------------------------------------------------------------
 void loop() {
+  if (UpdateMode) { // Firmware update mode is running
+    server.handleClient();
+    delay(1);
+    return;
+  }
+
   int CurrentPercent = round(0.392156863 * PowerLevel);
   unsigned long CurrentTime = millis();
   Uptime = formatMillis(CurrentTime);
@@ -838,7 +1009,7 @@ void loop() {
           if (Header.indexOf("GET ") == 0) {
             String Content = HandleAPI(Header);
             Client.println(Content);
-            if (Content == "Rebooting...") { // Need to wait to reboot until after the response is sent
+            if ((Content == "Rebooting...") || (FWupdate)) { // Need to wait to reboot until after the response is sent
               Client.stop();
               delay(1000);
               ESP.restart();
@@ -854,6 +1025,7 @@ void loop() {
   if ((Serial) && (Serial.available())) HandleSerialInput();
   if (CurrentTime - LoopCounter >= 1000) {
     TempUpdate();
+    if (OpMode ==  4) TuningStartup ++;
     // Countdown timer, commonly used in brewing, not so much in distillation
     if (TimerStarted) {
       Countdown --;
@@ -883,10 +1055,11 @@ void loop() {
             UpToTemp = true;
             FallBackTime = millis();
             CurrentPercent = FallBackPercent;
-            if (OpMode == 3) {
-              PowerAdjust(0);
+            if (OpMode == 3) { // Transition to the PID controller
+              myPID.SetOutputSum(float(CurrentPercent));
+              myPID.SetMode(myPID.Control::automatic);
               OpMode = 2;
-            } else {
+            } else { // Perform power level fallback
               PowerAdjust(CurrentPercent);
             }
           } else { // Progressively increase power until target temperature has been reached
@@ -913,6 +1086,8 @@ void loop() {
         }
       } else if (OpMode == 2) { // OpMode 2 is brewing/fermentation temperature mode (PID controller)
         if (myPID.Compute()) PowerAdjust(round(pidOutput));
+      } else if (OpMode == 4) { // OpMode 4 is PID auto tuning mode
+        if (TuningStartup >= 15) performAutotune(0); // This is 100% blocking other than serial output, no web UI updates or API functions will work while this is running
       } else { // OpMode 0 is constant power, no temperature management
 
       }

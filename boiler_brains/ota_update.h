@@ -1,0 +1,80 @@
+//------------------------------------------------------------------------------------------------
+// Boilermaker SCR/SSR Brain | (CopyLeft) 2024-Present | Larry Athey (https://panhandleponics.com)
+//
+// Inline functions used for modular unit organization
+//------------------------------------------------------------------------------------------------
+#include "WebServer.h"           // Basic web server library
+#include "ESPmDNS.h"             // Bonjour/ZeroConf support library
+#include "Update.h"              // ESP32 live firmware update library
+//------------------------------------------------------------------------------------------------
+WebServer server(80);
+//------------------------------------------------------------------------------------------------
+const char* ap_ssid       = "Boilermaker-Update";
+const char* ap_password   = "12345678";
+//------------------------------------------------------------------------------------------------
+// Upload page with inline vanilla JS (no jQuery, no external CDN)
+const char serverIndex[] PROGMEM = R"rawliteral(
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boilermaker Update</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { background:#3498db; font-family:sans-serif; text-align:center; padding:20px; }
+    form { background:#fff; max-width:360px; margin:40px auto; padding:30px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+    #file-input { display:block; width:92%; padding:12px; margin:15px 0; border:2px dashed #3498db; border-radius:6px; cursor:pointer; background:#f9f9f9; }
+    input[type=submit] { background:#3498db; color:white; border:none; padding:14px; font-size:16px; cursor:pointer; width:100%; border-radius:4px; }
+    #prgbar { background:#f1f1f1; border-radius:10px; height:12px; margin:20px 0; overflow:hidden; }
+    #bar { background:#3498db; width:0%; height:100%; transition:width 0.3s; }
+    #prg { font-size:14px; margin:10px 0; }
+  </style>
+</head>
+<body>
+  <form id="upload_form" method="POST" enctype="multipart/form-data">
+    <h1>Boilermaker Update</h1>
+    <label id="file-input" for="file">Choose firmware .bin file...</label>
+    <input type="file" name="update" id="file" style="display:none" required>
+    <input type="submit" value="Upload & Update Firmware">
+    <div id="prg">Progress: 0%</div>
+    <div id="prgbar"><div id="bar"></div></div>
+  </form>
+
+  <script>
+    const fileInput = document.getElementById('file');
+    const fileLabel = document.getElementById('file-input');
+    const form = document.getElementById('upload_form');
+    const prg = document.getElementById('prg');
+    const bar = document.getElementById('bar');
+
+    fileInput.addEventListener('change', () => {
+      fileLabel.textContent = fileInput.files[0] ? fileInput.files[0].name : 'Choose firmware .bin file...';
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('POST', '/update', true);
+
+      xhr.upload.addEventListener('progress', (evt) => {
+        if (evt.lengthComputable) {
+          const percent = Math.round((evt.loaded / evt.total) * 100);
+          prg.textContent = `Progress: ${percent}%`;
+          bar.style.width = percent + '%';
+        }
+      });
+
+      xhr.onload = () => {
+        prg.textContent = (xhr.status === 200) ? 'Update successful! Rebooting...' : 'Update failed!';
+        if (xhr.status === 200) setTimeout(() => location.reload(), 3000);
+      };
+
+      xhr.onerror = () => { prg.textContent = 'Upload error!'; };
+      xhr.send(data);
+    });
+  </script>
+</body>
+</html>
+)rawliteral";
+//------------------------------------------------------------------------------------------------

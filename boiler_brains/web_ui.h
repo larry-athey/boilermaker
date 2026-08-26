@@ -125,33 +125,44 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
   Content += "<form id=\"modalForm\" onsubmit=\"return false;\">";
   Content +=   "<label for=\"data_" + String(WhichOne) + "\" class=\"form-label\">" + Label + "</label>";
   if (WhichOne == 0) {
-    String S0,S1,S2,S3;
+    String S0,S1,S2,S3,S4;
     if (OpMode == 0) {
       S0 = "selected";
       S1 = "";
       S2 = "";
       S3 = "";
+      S4 = "";
     } else if (OpMode == 1) {
       S0 = "";
       S1 = "selected";
       S2 = "";
       S3 = "";
+      S4 = "";
     } else if (OpMode == 2) {
       S0 = "";
       S1 = "";
       S2 = "selected";
       S3 = "";
-    } else {
+      S4 = "";
+    } else if (OpMode == 3) {
       S0 = "";
       S1 = "";
       S2 = "";
       S3 = "selected";
+      S4 = "";
+    } else {
+      S0 = "";
+      S1 = "";
+      S2 = "";
+      S3 = "";
+      S4 = "selected";
     }
     Content += "<select style=\"width: 100%;\" size=\"1\" class=\"form-control form-select fw-bolder\" id=\"data_0\" name=\"data_0\">";
     Content += "<option " + S0 + " value=\"0\">Constant Power</option>";
     Content += "<option " + S1 + " value=\"1\">Temperature Cruise</option>";
     Content += "<option " + S2 + " value=\"2\">Brewing/Fermentation</option>";
     Content += "<option " + S3 + " value=\"3\">Cruise Then Brew</option>";
+    Content += "<option " + S4 + " value=\"4\">PID Auto Tune</option>";
     Content += "</select>";
   } else if ((WhichOne == 13) || (WhichOne == 16)) {
     String S0,S1;
@@ -316,8 +327,10 @@ inline String SettingsData() {
     Temp = "Temperature Cruise";
   } else if (OpMode == 2) {
     Temp = "Brewing/Fermentation";
-  } else {
+  } else if (OpMode == 3) {
     Temp = "Cruise Then Brew";
+  } else {
+    Temp = "PID Auto Tune";
   }
 
   if (! ActiveRun) {
@@ -327,7 +340,7 @@ inline String SettingsData() {
   }
 
   Temp = String(TargetTemp,1) + "C / " + String(TargetTemp * 9 / 5 + 32,1) + "F";
-  if (OpMode > 0) {
+  if ((OpMode != 0) && (OpMode != 4)) {
     Content += InfoLine("Target&nbsp;Temp",CreateLink(Temp,"Target Temperature","1"));
   } else {
     Content += InfoLine("Target&nbsp;Temp",Temp);
