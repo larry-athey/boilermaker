@@ -904,14 +904,17 @@ void performAutotune(byte Mode) { // Autotune the PID controller
   myPID.SetMode(myPID.Control::manual);
   pidOutput = 0.0f;
   
-  Serial.printf("\n=== Autotune starting for mode %d ===\n",Mode);
-  Serial.println("Ensure the boiler is not empty");
+  if (Serial) {
+    Serial.printf("\n=== Autotune starting for mode %d ===\n",Mode);
+    Serial.println("Ensure the boiler is not empty");
+  }
 
   // Preheat the boiler
-  Serial.println("Preheating boiler to 66C/150F at 90% power...");
+  if (Serial) Serial.println("Preheating boiler to 66C/150F at 90% power...");
   PowerAdjust(90);
   while (TempC < 66) { 
     TempUpdate();
+    if (Serial) Serial.printf("Boiler temperature (C): ",TempC);
     delay(1000);
   }
 
@@ -946,8 +949,10 @@ void performAutotune(byte Mode) { // Autotune the PID controller
       int secsRemaining = allSeconds % 3600;
       int runMinutes = secsRemaining / 60;
       int runSeconds = secsRemaining % 60;
-      sprintf(rTime,"%02u:%02u:%02u",runHours,runMinutes,runSeconds);
-      Serial.println("PID Tunning Progress " + String(rTime));
+      if (Serial) {
+        sprintf(rTime,"%02u:%02u:%02u",runHours,runMinutes,runSeconds);
+        Serial.println("PID Tunning Progress " + String(rTime));
+      }
       LoopCounter = CurrentTime;
     }
 
@@ -956,10 +961,12 @@ void performAutotune(byte Mode) { // Autotune the PID controller
       Kii = tuner.GetKi();
       Kdd = tuner.GetKd();
 
-      Serial.println("Autotune complete!");
-      Serial.printf("New Kp = %.4f\n",Kpp);
-      Serial.printf("New Ki = %.4f\n",Kii);
-      Serial.printf("New Kd = %.4f\n",Kdd);
+      if (Serial) {
+        Serial.println("Autotune complete!");
+        Serial.printf("New Kp = %.4f\n",Kpp);
+        Serial.printf("New Ki = %.4f\n",Kii);
+        Serial.printf("New Kd = %.4f\n",Kdd);
+      }
       break;
     }
 
