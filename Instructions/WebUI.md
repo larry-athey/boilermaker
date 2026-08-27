@@ -36,7 +36,7 @@ The second WebUI card displays live data from the Boilermaker. This data in the 
 
 The third WebUI card displays all of the user configurable settings. These values are also updated on a random time basis since the Boilermaker has a complete HTTP API which allows it to be remotely configured by another device on the network. Tapping/clicking on any of the values shown in light blue will make a popup form appear so you can edit these as you choose. Keep in mind that the ESP32 is only a 240 MHz computer, its web server is a bit laggy. Sometimes it takes a couple seconds for the form to display.
 
-**Current Mode:** This will either say "Constant Power", "Temperature Cruise", "Brewing/Fermentation", or "Cruise Then Brew".
+**Current Mode:** This will either say "Constant Power", "Temperature Cruise", "Brewing/Fermentation", "Cruise Then Brew", or "PID Auto Tune".
 1. **Constant Power** will run the unit like any other SCR power controller, but runs your heating element(s) more effectively.
 2. **Temperature Cruise** will honor a target temperature and manage the power in order to maintain that temperature using high thermal velocity. This is the same temperature management method used in the [Airhead](https://github.com/larry-athey/airhead) upgrade for Air Stills. The technical definition of this mode would be a PI controller, but with more configurability.
 3. **Brewing/Fermentation** is a strict, yet adjustable, PID controller that is geared by default for slow and steady temperature management, not distillation due to its reduced thermal velocity.
