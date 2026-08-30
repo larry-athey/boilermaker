@@ -131,8 +131,8 @@ int pTimer = 0;                  // 15 minute (900 second) timer placeholder
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide PID control in OpMode 2 (Brewing/Fermentation)
 float pidOutput = 0.0;           // PID Computed PWM percentage (0-100)
-float Kp = 2.0;                  // PID Proportional gain (0.1 to 10.0)
-float Ki = 0.003;                // PID Integral gain (0.001 to 0.5)
+float Kp = 0.1;                  // PID Proportional gain (0.1 to 10.0)
+float Ki = 0.029;                // PID Integral gain (0.001 to 0.5)
 float Kd = 0.1;                  // PID Derivative gain (0.0 to 2.0)
 float sampleTime = 10.0;         // PID Sample time (5 to 30 seconds)
 QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
@@ -980,10 +980,6 @@ void performAutotune(byte Mode) { // Autotune the PID controller
 
   if (valid) {
     // Update myPID with the new gain values
-    if (Kpp < 0.1f) Kpp = 0.1f;
-    if (Kii < 0.001f) Kii = 0.001f;
-    if (Kdd < 0.1f) Kdd = 0.1f;
-
     Kp = Kpp;
     Ki = Kii;
     Kd = Kdd;
@@ -991,7 +987,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     SetMemory();
   } else {
     // Keep the defaults (or previous good values you already have stored)
-    Serial.println("PID auto tune failed - keeping defaults");
+    Serial.println("PID auto tune failed - keeping existing settings");
   }
   Serial.printf("Ku=%.3f  td=%.1f  Tau=%.1f  → Kp=%.3f Ki=%.3f Kd=%.3f  valid=%d\n",tuner.GetProcessGain(), tuner.GetDeadTime(), tuner.GetTau(),Kp, Ki, Kd, valid);
   RunState(0);
