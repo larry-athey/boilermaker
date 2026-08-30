@@ -118,7 +118,7 @@ String DeviceName;               // Network host name and device name to be disp
 String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
 String TimeLeft = "00:00:00";    // Countdown time remaining
-String Version = "1.0.3";        // Current release version of the project
+String Version = "1.0.3a";       // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
 bool ProgressEnabled = false;    // True if progressive temperature is enabled
@@ -899,7 +899,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 }
 //------------------------------------------------------------------------------------------------
 void performAutotune(byte Mode) { // Autotune the PID controller
-  float outputStep,Kpp,Kii,Kdd;
+  float outputStep = 0,Kpp = 0,Kii = 0,Kdd = 0;
   char rTime[10];
   myPID.SetMode(myPID.Control::manual);
   pidOutput = 0.0f;
@@ -957,9 +957,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     }
 
     if (status == tuner.tunings) { // Test finished
-      Kpp = tuner.GetKp();
-      Kii = tuner.GetKi();
-      Kdd = tuner.GetKd();
+      tuner.GetAutoTunings(&Kpp,&Kii,&Kdd);
 
       if (Serial) {
         Serial.println("Autotune complete!");
@@ -967,6 +965,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
         Serial.printf("New Ki = %.4f\n",Kii);
         Serial.printf("New Kd = %.4f\n",Kdd);
       }
+
       break;
     }
 
@@ -976,15 +975,25 @@ void performAutotune(byte Mode) { // Autotune the PID controller
   DT.setResolution(12);
   PowerAdjust(0);
 
-  // Update myPID with the new gain values
-  if (Kpp < 0.1) Kpp = 0.1;
-  if (Kii < 0.001) Kii = 0.001;
-  if (Kdd < 0.0) Kdd = 0.0;
-  Kp = Kpp;
-  Ki = Kii;
-  Kd = Kdd;
-  myPID.SetTunings(Kp,Ki,Kd);
-  SetMemory();
+  // Reject NaN / Inf / zero / negative tuning values
+  bool valid = isfinite(Kpp) && isfinite(Kii) && isfinite(Kdd) && (Kpp > 0.0f) && (Kii >= 0.0f) && (Kdd >= 0.0f);
+
+  if (valid) {
+    // Update myPID with the new gain values
+    if (Kpp < 0.1f) Kpp = 0.1f;
+    if (Kii < 0.001f) Kii = 0.001f;
+    if (Kdd < 0.1f) Kdd = 0.1f;
+
+    Kp = Kpp;
+    Ki = Kii;
+    Kd = Kdd;
+    myPID.SetTunings(Kp,Ki,Kd);
+    SetMemory();
+  } else {
+    // Keep the defaults (or previous good values you already have stored)
+    Serial.println("PID auto tune failed - keeping defaults");
+  }
+  Serial.printf("Ku=%.3f  td=%.1f  Tau=%.1f  → Kp=%.3f Ki=%.3f Kd=%.3f  valid=%d\n",tuner.GetProcessGain(), tuner.GetDeadTime(), tuner.GetTau(),Kp, Ki, Kd, valid);
   RunState(0);
 }
 //-----------------------------------------------------------------------------------------------
