@@ -899,7 +899,8 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 }
 //------------------------------------------------------------------------------------------------
 void performAutotune(byte Mode) { // Autotune the PID controller
-  float outputStep = 0.0f,Kpp = 0.0f,Kii = 0.0f,Kdd = 0.0f
+  float outputStep = 0.0f,Kpp = 0.0f,Kii = 0.0f,Kdd = 0.0f;
+  char rTime[10];
   myPID.SetMode(myPID.Control::manual);
   pidOutput = 0.0f;
   
@@ -1099,7 +1100,7 @@ void loop() {
       } else if (OpMode == 2) { // OpMode 2 is brewing/fermentation temperature mode (PID controller)
         if (myPID.Compute()) PowerAdjust(round(pidOutput));
       } else if (OpMode == 4) { // OpMode 4 is PID auto tuning mode
-        if (TuningStartup >= 15) performAutotune(0); // This is 100% blocking other than serial output, no web UI updates or API functions will work while this is running
+        if (TuningStartup >= 15) performAutotune(1); // This is 100% blocking other than serial output, no web UI updates or API functions will work while this is running
       } else { // OpMode 0 is constant power, no temperature management
 
       }
