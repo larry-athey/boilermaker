@@ -899,8 +899,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 }
 //------------------------------------------------------------------------------------------------
 void performAutotune(byte Mode) { // Autotune the PID controller
-  float outputStep = 0,Kpp = 0,Kii = 0,Kdd = 0;
-  char rTime[10];
+  float outputStep = 0.0f,Kpp = 0.0f,Kii = 0.0f,Kdd = 0.0f
   myPID.SetMode(myPID.Control::manual);
   pidOutput = 0.0f;
   
