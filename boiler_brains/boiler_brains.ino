@@ -900,7 +900,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 }
 //------------------------------------------------------------------------------------------------
 void performAutotune(byte Mode) { // Autotune the PID controller
-  float outputStep = 0.0f,Kpp = 0.0f,Kii = 0.0f,Kdd = 0.0f;
+  float outputStep,Kpp = 0.0f,Kii = 0.0f,Kdd = 0.0f;
   char rTime[10];
   myPID.SetMode(myPID.Control::manual);
   pidOutput = 0.0f;
@@ -925,13 +925,13 @@ void performAutotune(byte Mode) { // Autotune the PID controller
 
   if (Mode == 1) {
     tuner.SetTuningMethod(sTune::NoOvershoot_PID); // Mash
-    outputStep = 35.0f;
+    outputStep = 45.0f;
   } else {
     tuner.SetTuningMethod(sTune::ZN_PID); // Wash or Water
-    outputStep = 25.0f;
+    outputStep = 55.0f;
   }
 
-  tuner.Configure(220.0f,100.0f,0.0f,outputStep,600,30,150);
+  tuner.Configure(30.0f,100.0f,0.0f,outputStep,1200,30,600);
   DT.setResolution(10);
   LoopCounter = millis();
   StartTime = LoopCounter;
