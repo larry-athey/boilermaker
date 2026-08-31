@@ -931,6 +931,8 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     tuner.Configure(40.0f, 100.0f, 0.0f, 55.0f, 1200, 30, 300);
   }
 
+  tuner.SetEmergencyStop(110.0f);
+
   DT.setResolution(10);
   LoopCounter = millis();
   StartTime = LoopCounter;
@@ -941,7 +943,11 @@ void performAutotune(byte Mode) { // Autotune the PID controller
 
     uint8_t status = tuner.Run();
 
-    PowerAdjust(round(pidOutput));
+    static float lastOut = -1;
+    if (round(pidOutput) != lastOut) {
+      lastOut = round(pidOutput);
+      PowerAdjust(lastOut); // Don't hammer the slaves every 200 ms
+    }
 
     if (CurrentTime - LoopCounter >= 1000) {
       unsigned long allSeconds = (CurrentTime - StartTime) / 1000;
@@ -971,6 +977,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     }
 
     delay(200);
+    yield();
   }
 
   DT.setResolution(12);
