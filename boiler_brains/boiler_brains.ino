@@ -141,10 +141,10 @@ QuickPID myPID(&TempC,&pidOutput,&TargetTemp,Kp,Ki,Kd,
                QuickPID::dMode::dOnMeas,
                QuickPID::iAwMode::iAwCondition,
                QuickPID::Action::direct);
-// v1.0.4 add-on to provide PID auto tuning
+// v1.0.3 add-on to provide PID auto tuning
 sTune tuner(&TempC,&pidOutput,
             sTune::ZN_PID,
-            sTune::reverseIP,
+            sTune::directIP,
             sTune::printSUMMARY);
 //------------------------------------------------------------------------------------------------
 #include "slave_sync.h"          // Library for configuring and synchronizing slave units
@@ -915,7 +915,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
   PowerAdjust(90);
   while (TempC < 66) { 
     TempUpdate();
-    if (Serial) Serial.printf("Boiler temperature (C): ",TempC);
+    if (Serial) Serial.printf("Boiler temperature (C): %.2f\n",TempC);
     delay(1000);
   }
 
@@ -1110,7 +1110,7 @@ void loop() {
       } else if (OpMode == 2) { // OpMode 2 is brewing/fermentation temperature mode (PID controller)
         if (myPID.Compute()) PowerAdjust(round(pidOutput));
       } else if (OpMode == 4) { // OpMode 4 is PID auto tuning mode
-        if (TuningStartup >= 15) performAutotune(1); // This is 100% blocking other than serial output, no web UI updates or API functions will work while this is running
+        if (TuningStartup >= 15) performAutotune(0); // This is 100% blocking other than serial output, no web UI updates or API functions will work while this is running
       } else { // OpMode 0 is constant power, no temperature management
 
       }
