@@ -51,7 +51,7 @@
 #include "QuickPID.h"            // PID calculation library from https://github.com/Dlloydev/QuickPID
 #include "sTune.h"               // QuickPID autotune library from https://github.com/Dlloydev/sTune
 //------------------------------------------------------------------------------------------------
-#define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor) [The PCB has this on GPIO 2, so the onboard WiFi activity LED no longer works]
+#define FAN_OUT 2               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor) [The PCB has this on GPIO 2, so the onboard WiFi activity LED no longer works]
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using a zero-crossing SSR)
 #define ONE_WIRE 13              // 1-Wire network pin for the DS18B20 temperature sensor
 #define thermoMISO 19            // MAX-6675 SPI data bus
