@@ -8,7 +8,7 @@ A: Because physics affects any temperature controller, whether it's PID or anyth
 
 Q: Why does the PID auto tuning fail or produce wild settings on my 120 volt, 1500 watt, 10 gallon boiler?
 
-A: It all has to do with heating element efficiency and boiler volume. A 10 gallon boiler with a 120 volt, 1500 watt heating element is an extremely inefficient configuration. The more liquid volume you have, the more heating/cooling lag there is. With a small 1500 watt heating element fighting with 10 gallons, the heat it produces will move so slowly through the water that the auto tuning procedure will only collect partially useful results by the time it terminates. You're better off starting at zero on all three gain settings and manually tuning them up.
+A: It all has to do with heating element efficiency and boiler volume. A 10 gallon boiler with a 120 volt, 1500 watt heating element is an extremely inefficient configuration. The more liquid volume you have, the more heating/cooling lag there is. With a small 1500 watt heating element fighting with 10 gallons, the heat it produces will move so slowly through the water that the auto tuning procedure will only collect partially useful results by the time it terminates. You're better off starting at zero on all three gain settings and manually tuning them up. Otherwise, preheat the boiler to your actual intended operating temperature and then run the auto tune procedure.
 
 ---
 
