@@ -38,7 +38,7 @@ Not passing any API call or making an invalid API call will return the entire ho
 
 **/?data_7=** - Primarily used by the WebUI to set the Rest Period of the Boilermaker. The value passed here must be a whole number between 1 and 1000 (seconds). Adjusting this value during an active Constant Temp run will only work if the Boilermaker hasn't yet reached the target temperature.
 
-**/?data_8=** - Primarily used by the web UI to set the PID proportional gain value. The value passed here is a floating point number between 0.1 and 10.0 and will not be honored if there is an active run.
+**/?data_8=** - Primarily used by the web UI to set the PID proportional gain value. The value passed here is a floating point number between 0.1 and 15.0 and will not be honored if there is an active run.
 
 **/?data_9=** - Primarily used by the web UI to set the PID integral gain value. The value passed here is a floating point number between 0.001 and 0.5 and will not be honored if there is an active run.
 
