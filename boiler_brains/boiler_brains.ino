@@ -931,7 +931,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     outputStep = 55.0f;
   }
 
-  tuner.Configure(30.0f,100.0f,0.0f,outputStep,1200,30,600);
+  tuner.Configure(66.0f,100.0f,0.0f,outputStep,1200,30,600);
   DT.setResolution(10);
   LoopCounter = millis();
   StartTime = LoopCounter;
@@ -988,7 +988,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     SetMemory();
   } else {
     // Keep the defaults (or previous good values you already have stored)
-    Serial.println("PID auto tune failed - keeping existing settings");
+    if (Serial) Serial.println("PID auto tune failed - keeping existing settings");
   }
 
   char buf[192];
@@ -999,7 +999,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
           tuner.GetTau(),
           Kp,Ki,Kd,valid);
   TuningData = buf;
-  Serial.println(buf);
+  if (Serial) Serial.println(buf);
 
   RunState(0);
 }
