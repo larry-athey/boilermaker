@@ -6,6 +6,12 @@ A: Because physics affects any temperature controller, whether it's PID or anyth
 
 ---
 
+Q: Why does the PID auto tuning fail or produce wild settings?
+
+A: It all has to do with heating element efficiency and boiler volume. A 10 gallon boiler with a 120 volt, 1500 watt heating element is an extremely inefficient configuration. The more liquid volume you have, the more heating/cooling lag there is. With a small 1500 watt heating element fighting with 10 gallons, the heat it produces will move so slowly through the water that the auto tuning procedure will only collect partially useful results by the time it terminates. You're better off starting at zero on all three gain settings and manually tuning it up in cases like this.
+
+---
+
 Q: Why didn't you make this a Bluetooth device with a companion mobile app?
 
 A: Bluetooth has a limited range _(20 to 40 feet in open spaces)_ and I'm not interested in paying all of the Apple developer fees just to put an app in their app store and keep it there. Google's Play Store isn't anywhere near as bad, but it still requires the expense of a code signing certificate. TCP/IP allows a person to monitor and control the Boilermaker anywhere on the network and the Web API wouldn't work without TCP/IP. Everybody already has a web browser on their phone or computer, so there's your app.
