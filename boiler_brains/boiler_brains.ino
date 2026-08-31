@@ -1000,11 +1000,11 @@ void performAutotune(byte Mode) { // Autotune the PID controller
 
   char buf[192];
   snprintf(buf,sizeof(buf),
-           "Ku=%.3f Dt=%.1f Tau=%.1f → Kpp=%.3f Kii=%.3f Kdd=%.3f (valid=%d)",
+           "Ku=%.3f Dt=%.1f Tau=%.1f → Kp=%.3f Ki=%.3f Kd=%.3f (valid=%d)",
            tuner.GetProcessGain(),
            tuner.GetDeadTime(),
            tuner.GetTau(),
-           Kp,Ki,Kd,valid);
+           Kpp,Kii,Kdd,valid);
   TuningData = buf;
   if (Serial) Serial.println(buf);
 
