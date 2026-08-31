@@ -984,7 +984,7 @@ void performAutotune(byte Mode) { // Autotune the PID controller
   PowerAdjust(0);
 
   // Reject NaN / Inf / zero / negative tuning values
-  bool valid = isfinite(Kpp) && isfinite(Kii) && isfinite(Kdd) && (Kpp > 0.0f) && (Kii >= 0.0f) && (Kdd >= 0.0f);
+  bool valid = isfinite(Kpp) && isfinite(Kii) && isfinite(Kdd) && (Kpp > 0.0f) && (Kpp <= 15.0f) && (Kii >= 0.0f) && (Kii <= 0.5f) && (Kdd >= 0.0f) && (Kdd <= 2.0f);
 
   if (valid) {
     // Update myPID with the new gain values

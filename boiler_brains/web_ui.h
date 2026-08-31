@@ -94,7 +94,7 @@ inline String get_Form(byte WhichOne) { // Dynamically creates the form for the 
     Step = "1"; Min = "1"; Max = "1000"; Value = String(RestPeriod);
   } else if (WhichOne == 8) {
     Label = "0.1 to 10";
-    Step = ".1"; Min = ".1"; Max = "10"; Value = String(Kp,1);
+    Step = ".1"; Min = ".1"; Max = "15"; Value = String(Kp,1);
   } else if (WhichOne == 9) {
     Label = "0.001 to 0.5";
     Step = ".001"; Min = ".001"; Max = "0.5"; Value = String(Ki,3);
