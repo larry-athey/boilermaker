@@ -10,7 +10,7 @@ The Boilermaker will start up a WiFi access point with the SSID **"Boilermaker-U
 
 Now open this URL: **http://192.168.4.1**
 
-<img width="1190" height="511" alt="image" src="https://github.com/user-attachments/assets/3fdbedfb-eb5d-4bf7-99f6-26fa449a9b8b"><br>
+<img width="1024" alt="image" src="https://github.com/user-attachments/assets/3fdbedfb-eb5d-4bf7-99f6-26fa449a9b8b"><br>
 
 If you are unable to connect, check to make sure that your device pulled an IP address from the Boilermaker. If it does not pull one, you will need to manually configure a static IP address on your device. Here are settings that will work for you if you encounter this problem.
 
