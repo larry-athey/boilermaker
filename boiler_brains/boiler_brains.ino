@@ -926,12 +926,13 @@ void performAutotune(byte Mode) { // Autotune the PID controller
   if (Mode == 1) {
     tuner.SetTuningMethod(sTune::NoOvershoot_PID); // Mash
     outputStep = 45.0f;
+    tuner.Configure(30.0f, 100.0f, 0.0f, outputStep, 1200, 30, 300);
   } else {
     tuner.SetTuningMethod(sTune::ZN_PID); // Wash or Water
     outputStep = 55.0f;
+    tuner.Configure(40.0f, 100.0f, 0.0f, outputStep, 1200, 30, 300);
   }
 
-  tuner.Configure(66.0f,100.0f,0.0f,outputStep,1200,30,600);
   DT.setResolution(10);
   LoopCounter = millis();
   StartTime = LoopCounter;
