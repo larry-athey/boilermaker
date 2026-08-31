@@ -951,7 +951,8 @@ void performAutotune(byte Mode) { // Autotune the PID controller
       int runSeconds = secsRemaining % 60;
       if (Serial) {
         sprintf(rTime,"%02u:%02u:%02u",runHours,runMinutes,runSeconds);
-        Serial.println("PID Tunning Progress " + String(rTime));
+        Serial.println("PID Tuning Progress " + String(rTime));
+        Serial.printf("status=%u  pidOutput=%.1f  TempC=%.2f\n",status,pidOutput,TempC);
       }
       LoopCounter = CurrentTime;
     }
