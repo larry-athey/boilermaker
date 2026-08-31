@@ -375,10 +375,14 @@ inline String SettingsData() {
       Content += InfoLine("Proportional&nbsp;Gain",String(Kp,1));
       Content += InfoLine("Integral&nbsp;Gain",String(Ki,3));
       Content += InfoLine("Derivative&nbsp;Gain",String(Kd,1));
-      Content += InfoLine("Sample&nbsp;Time",String(sampleTime,1) + " secs");
-      #ifndef SCR_OUT
-      Content += InfoLine("PWM&nbsp;Duty&nbsp;Time",String(SSR_PWM,1) + " secs");
-      #endif
+      if (OpMode == 4) {
+        Content += InfoLine("Tuning&nbsp;Data",TuningData);
+      } else {
+        Content += InfoLine("Sample&nbsp;Time",String(sampleTime,1) + " secs");
+        #ifndef SCR_OUT
+        Content += InfoLine("PWM&nbsp;Duty&nbsp;Time",String(SSR_PWM,1) + " secs");
+        #endif
+      }
     }
   }
 

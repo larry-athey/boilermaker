@@ -118,6 +118,7 @@ String DeviceName;               // Network host name and device name to be disp
 String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
 String TimeLeft = "00:00:00";    // Countdown time remaining
+String TuningData = "n/a";       // PID auto tuning result data
 String Version = "1.0.3a";       // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
@@ -989,7 +990,17 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     // Keep the defaults (or previous good values you already have stored)
     Serial.println("PID auto tune failed - keeping existing settings");
   }
-  Serial.printf("Ku=%.3f  td=%.1f  Tau=%.1f  → Kp=%.3f Ki=%.3f Kd=%.3f  valid=%d\n",tuner.GetProcessGain(), tuner.GetDeadTime(), tuner.GetTau(),Kp, Ki, Kd, valid);
+
+  char buf[192];
+  snprintf(buf,sizeof(buf),
+         "Ku=%.3f td=%.1f Tau=%.1f → Kp=%.3f Ki=%.3f Kd=%.3f - valid=%d",
+         tuner.GetProcessGain(),
+         tuner.GetDeadTime(),
+         tuner.GetTau(),
+         Kp, Ki, Kd, valid);
+  TuningData = buf;
+  Serial.println(buf);
+
   RunState(0);
 }
 //-----------------------------------------------------------------------------------------------
