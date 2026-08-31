@@ -900,7 +900,7 @@ void HandleSerialInput() { // Handle user configuration via the serial console
 }
 //------------------------------------------------------------------------------------------------
 void performAutotune(byte Mode) { // Autotune the PID controller
-  float outputStep,Kpp = 0.0f,Kii = 0.0f,Kdd = 0.0f;
+  float Kpp = 0.0f,Kii = 0.0f,Kdd = 0.0f;
   char rTime[10];
   myPID.SetMode(myPID.Control::manual);
   pidOutput = 0.0f;
@@ -925,12 +925,10 @@ void performAutotune(byte Mode) { // Autotune the PID controller
 
   if (Mode == 1) {
     tuner.SetTuningMethod(sTune::NoOvershoot_PID); // Mash
-    outputStep = 45.0f;
-    tuner.Configure(30.0f, 100.0f, 0.0f, outputStep, 1200, 30, 300);
+    tuner.Configure(30.0f, 100.0f, 0.0f, 45.0f, 1200, 30, 300);
   } else {
     tuner.SetTuningMethod(sTune::ZN_PID); // Wash or Water
-    outputStep = 55.0f;
-    tuner.Configure(40.0f, 100.0f, 0.0f, outputStep, 1200, 30, 300);
+    tuner.Configure(40.0f, 100.0f, 0.0f, 55.0f, 1200, 30, 300);
   }
 
   DT.setResolution(10);
@@ -994,11 +992,11 @@ void performAutotune(byte Mode) { // Autotune the PID controller
 
   char buf[192];
   snprintf(buf,sizeof(buf),
-          "Ku=%.3f Dt=%.1f Tau=%.1f → Kp=%.3f Ki=%.3f Kd=%.3f - valid=%d",
-          tuner.GetProcessGain(),
-          tuner.GetDeadTime(),
-          tuner.GetTau(),
-          Kp,Ki,Kd,valid);
+           "Ku=%.3f Dt=%.1f Tau=%.1f → Kp=%.3f Ki=%.3f Kd=%.3f - valid=%d",
+           tuner.GetProcessGain(),
+           tuner.GetDeadTime(),
+           tuner.GetTau(),
+           Kp,Ki,Kd,valid);
   TuningData = buf;
   if (Serial) Serial.println(buf);
 
