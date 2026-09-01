@@ -34,3 +34,5 @@ Once the auto tuning procedure completes, you will see the **Tuning Data** line 
 **Ku=0.102 Dt=160.2 Tau=263.0 → Kp=0.647 Ki=0.003 Kd=0.012 (valid=1)**
 
 The main element that you need to be concerned with is the last one, **valid=1** means that it completed without error. If you see **valid=0** then the tuning failed and your P/I/D settings will not be updated. If any of the first three elements are zero or if the Kp/Ki/Kd elements are outside of the valid ranges allowed by the web UI, it will be flagged as a failure.
+
+If you have an inefficient boiler setup, then you will likely see a lot of failures. This would include under-sized heating elements for the amount of water volume, or a boiler that loses heat too easily. If the Boilermaker is sending power to your heating element and the temperature sensor sees too little change in a given time frame, this will cause the values outlined in the above.
