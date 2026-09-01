@@ -1,4 +1,4 @@
-# PID Usage and Tuning
+# PID Usage and Auto Tuning
 
 _This document is only intended for the Boilermaker, not any other controller with PID support, and is not a complete PID tutorial._
 
