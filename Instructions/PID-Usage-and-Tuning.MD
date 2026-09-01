@@ -23,4 +23,6 @@ In the Boilermaker's **Temperature Cruise** mode (PI mode), the **Change Wait** 
 
 ### PID Auto Tuning
 
-The first thing you need to do here is be **absolutely** aware of the fact that auto tuning is only meant to be used as an initial point to begin fine tuning, this is not a magic bullet that saves you from having to learn how PID controllers work. This procedure is not a fast process and requires your boiler to be completely filled to its full line. This procedure also preheats the boiler to 66C/150F before the tuning begins, so don't run this if you're in a hurry. Lastly, once you start it, you only have 15 seconds to stop it and the web UI will become completely unresponsive until the procedure completes.
+The first thing you need to do here is be **absolutely** aware of the fact that auto tuning is only meant to be used as an initial point to begin fine tuning, this is not a magic bullet that saves you from having to learn how PID controllers work.
+
+This procedure is not a fast process and requires your boiler to be completely filled to its full line. This procedure also preheats the boiler to 66C/150F before the tuning begins, so don't run this if you're in a hurry. Lastly, once you start it, you only have 15 seconds to stop it and the web UI will become completely unresponsive until the procedure completes.
