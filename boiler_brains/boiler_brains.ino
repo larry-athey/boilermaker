@@ -119,7 +119,7 @@ String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
 String TimeLeft = "00:00:00";    // Countdown time remaining
 String TuningData = "n/a";       // PID auto tuning result data
-String Version = "1.0.3a";       // Current release version of the project
+String Version = "1.0.3b";       // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
 bool ProgressEnabled = false;    // True if progressive temperature is enabled
