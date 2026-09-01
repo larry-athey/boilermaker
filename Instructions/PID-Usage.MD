@@ -10,7 +10,7 @@ PID is a control method that tries to reach and hold your exact target temperatu
 - **I (Integral)** — Corrects small long-term errors (like slowly drifting a bit low).
 - **D (Derivative)** — Looks at how fast the temperature is changing and helps prevent overshooting.
 
-In the Temperature Cruise mode (PI mode), the **Change Wait** and **Adjustment Rate** are equal to the **P** parameter and the **Deviation Rate** is equal to the **I** parameter.
+In the Boilermaker's **Temperature Cruise** mode (PI mode), the **Change Wait** and **Adjustment Rate** are equal to the **P** parameter and the **Deviation Rate** is equal to the **I** parameter.
 
 **Realistic expectations:**
 
