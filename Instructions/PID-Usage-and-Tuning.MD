@@ -27,8 +27,8 @@ The first thing you need to do here is be **absolutely** aware of the fact that 
 
 This procedure is not a fast process and requires your boiler to be completely filled to its full line. This procedure also preheats the boiler to 66C/150F before the tuning begins, so don't run this if you're in a hurry. Lastly, once you start it, you only have 15 seconds to stop it because the web UI will become completely unresponsive until the procedure completes.
 
+You may want to preheat your boiler yourself so you aren't sitting there for an hour or more wondering how far along things are. It also doesn't hurt to preheat the boiler to the temperature that you actually intend to run at. All that matters is that there's ample space between that temperature and the boiling point of water at your altitude.
+
 Once the auto tuning procedure completes, you will see the **Tuning Data** line display a string of text line this.
 
 **Ku=0.102 Dt=160.2 Tau=263.0 → Kp=0.647 Ki=0.003 Kd=0.012 (valid=1)**
-
-You may want to preheat your boiler yourself so you aren't sitting there for an hour or more wondering how far along things are. It also doesn't hurt to preheat the boiler to the temperature that you actually intend to run at. All that matters is that there's ample space between that temperature and the boiling point of water at your altitude.
