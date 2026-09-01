@@ -36,7 +36,7 @@ Once the PID auto tuning procedure completes, you will see the **Tuning Data** l
 - Ku — process gain (how strongly temperature responds to a change in heater power).
 - Dt — dead time in seconds (lag between applying power and the first noticeable temperature change).
 - Tau — time constant in seconds (how long the temperature takes to cover most of its eventual change after the dead time).
-- Kp / Ki / Kd — the proportional, integral, and derivative gains calculated from Ku, Dt, and Tau using the selected tuning rule (Ziegler–Nichols or No-Overshoot, depending on mode).
+- Kp / Ki / Kd — the proportional, integral, and derivative gains calculated from Ku, Dt, and Tau using the selected tuning rule.
 
 The main element that you need to be concerned with is the last one, **valid=1** means that it completed without error. If you see **valid=0** then the tuning failed and your P/I/D settings will not be updated. If any of the first three elements are zero or if the Kp/Ki/Kd elements are outside of the valid ranges allowed by the web UI, it will be flagged as a failure.
 
