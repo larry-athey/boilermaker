@@ -18,3 +18,7 @@ In the Boilermaker's **Temperature Cruise** mode (PI mode), the **Change Wait** 
 - It is **not** as thermally aggressive as the normal Boilermaker's PI mode. Once at temperature it will pulse the heater more gently, so you will see significantly slower vapor production in distillation.
 - The temperature control becomes more stable the longer it runs because the PID is training itself on the current load.
 - Autotune results are a good starting point, but every boiler/setup is different. Feel free to tweak the numbers ±20–50% and test.
+
+### PID Auto Tuning
+
+The first thing you need to do here is be **absolutely** aware of the fact that auto tuning is only meant to be used as your starting point, this is not a magic bullet that saves you from having to learn how PID controllers work.
