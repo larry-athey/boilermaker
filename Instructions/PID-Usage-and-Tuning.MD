@@ -1,6 +1,6 @@
 # PID Usage and Tuning
 
-Many people think that a PID controller is the be-all and end-all to temperature and power controllers. This is actually anything but the truth. However, PID controllers have their place and shine in some areas, but pale in others. The only time that a PID controller is useful in distillation is if you are running at a full boil, but you damn well better have a dephlegmator in your column or you're gonna get a lot of heads and tails, and some really watered down distillate.
+Many people think that a PID controller is the be-all and end-all to temperature and power controllers. This is actually anything but the truth. However, PID controllers have their place and shine in some areas, but pale in others. The only time that a PID controller is of any use in distillation is if you are running at a full boil, but you damn well better have a dephlegmator in your column or you're gonna get a lot of heads and tails, and some really watered down distillate.
 
 **What is PID? (simple version)**
 
