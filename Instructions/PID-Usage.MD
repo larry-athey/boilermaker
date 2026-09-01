@@ -1,5 +1,6 @@
 # PID Usage and Tuning
 
+Many people think that a PID controller is the be-all and end-all to temperature and power controllers. This is actually anything but the truth. However, PID controllers have their place and shine in some areas, but pale in others.
 
 **What is PID? (simple version)**
 
