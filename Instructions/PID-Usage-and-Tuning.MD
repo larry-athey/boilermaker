@@ -1,5 +1,7 @@
 # PID Usage and Tuning
 
+_This document is only intended for the Boilermaker, not any other controller with PID support._
+
 Many people think that a PID controller is the be-all and end-all to temperature and power controllers. This is actually anything but the truth. However, PID controllers have their place and shine in some areas, but pale in others. The only time that a PID controller is of any use in distillation is if you are running at a full boil, but you damn well better have a dephlegmator in your column or you're gonna get a lot of heads and tails, and some really watered down distillate.
 
 If you own an Air Still (or clone) with the Airhead upgrade installed, do a test run in standard Airhead mode (PI mode). Then re-run the distillate again (dump it back in the still) with the unit running in μBoilermaker mode (PID mode) using the same time and temperature settings. You'll be lucky if you get a full shot glass of distillate.
