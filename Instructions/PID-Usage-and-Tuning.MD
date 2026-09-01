@@ -26,3 +26,5 @@ In the Boilermaker's **Temperature Cruise** mode (PI mode), the **Change Wait** 
 The first thing you need to do here is be **absolutely** aware of the fact that auto tuning is only meant to be used as an initial point to begin fine tuning, this is not a magic bullet that saves you from having to learn how PID controllers work.
 
 This procedure is not a fast process and requires your boiler to be completely filled to its full line. This procedure also preheats the boiler to 66C/150F before the tuning begins, so don't run this if you're in a hurry. Lastly, once you start it, you only have 15 seconds to stop it because the web UI will become completely unresponsive until the procedure completes.
+
+You may want to preheat your boiler yourself so you aren't sitting there for an hour or more wondering how far along things are. It also doesn't hurt to preheat the boiler to the actual temperature that you actually intend to run at. All that matters is that there's some space between that temperature and the boiling point of water at your altitude.
