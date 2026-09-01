@@ -29,6 +29,6 @@ This procedure is not a fast process and requires your boiler to be completely f
 
 You may want to preheat your boiler yourself so you aren't sitting there for an hour or more wondering how far along things are. It also doesn't hurt to preheat the boiler to the temperature that you actually intend to run at. All that matters is that there's ample space between that temperature and the boiling point of water at your altitude.
 
-Once the auto tuning procedure completes, you will see the **Tuning Data** line display a string of text line this.
+Once the auto tuning procedure completes, you will see the **Tuning Data** line display a string of text like this.
 
 **Ku=0.102 Dt=160.2 Tau=263.0 → Kp=0.647 Ki=0.003 Kd=0.012 (valid=1)**
