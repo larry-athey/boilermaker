@@ -2,6 +2,7 @@
 
 
 **What is PID? (simple version)**
+
 PID is a control method that tries to reach and hold your exact target temperature smoothly:
 
 - **P (Proportional)** — How strongly it reacts to being off-target.
