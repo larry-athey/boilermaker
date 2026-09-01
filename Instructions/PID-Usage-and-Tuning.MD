@@ -33,6 +33,11 @@ Once the PID auto tuning procedure completes, you will see the **Tuning Data** l
 
 **Ku=0.102 Dt=160.2 Tau=163.0 → Kp=0.647 Ki=0.003 Kd=0.012 (valid=1)**
 
+- Ku — process gain (how strongly temperature responds to a change in heater power).
+- Dt — dead time in seconds (lag between applying power and the first noticeable temperature change).
+- Tau — time constant in seconds (how long the temperature takes to cover most of its eventual change after the dead time).
+- Kp / Ki / Kd — the proportional, integral, and derivative gains calculated from Ku, Dt, and Tau using the selected tuning rule (Ziegler–Nichols or No-Overshoot, depending on mode).
+
 The main element that you need to be concerned with is the last one, **valid=1** means that it completed without error. If you see **valid=0** then the tuning failed and your P/I/D settings will not be updated. If any of the first three elements are zero or if the Kp/Ki/Kd elements are outside of the valid ranges allowed by the web UI, it will be flagged as a failure.
 
 If you have an inefficient boiler setup, then you will likely see a lot of failures. This would include under-sized heating elements for the amount of water volume, or a boiler that loses heat too easily. If the Boilermaker is sending power to your heating element and the temperature sensor sees too little change in a given time frame, this will cause the PID auto tuning to fail.
