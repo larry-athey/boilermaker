@@ -944,9 +944,9 @@ void performAutotune(byte Mode) { // Autotune the PID controller
     uint8_t status = tuner.Run();
 
     static float lastOut = -1;
-    if (round(pidOutput) != lastOut) {
+    if (round(pidOutput) != lastOut) { // Safety net in case slaves are in use, only call PowerAdjust() when a change in power is actually needed, not every 200ms
       lastOut = round(pidOutput);
-      PowerAdjust(lastOut); // Don't hammer the slaves every 200 ms
+      PowerAdjust(lastOut);
     }
 
     if (CurrentTime - LoopCounter >= 1000) {
