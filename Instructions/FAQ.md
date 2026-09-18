@@ -104,6 +104,6 @@ A: No, but I have [another project](https://github.com/larry-athey/climate-czar/
 
 Q: Do you offer any custom builds for people who would rather have this as a built-in feature in their existing setups?
 
-A: No, but this project is 100% open source, anybody else is more than welcome to spin and remix things however they want to. I don't have anything in my home that gives me any kind of advantage over anybody else. Anybody can do everything that I'm doing and very easily one-up me because I'm half blind. However, I sell assembled and tested Boilermaker PCB modules on https://panhandleponics.com if you want to make things a little easier on yourself.
+A: No, but this project is 100% open source, anybody else is more than welcome to spin and remix things however they want to. I don't have anything in my home that gives me any kind of advantage over anybody else. Anybody can do everything that I'm doing and very easily one-up me because I'm half blind. I do sell assembled and tested Boilermaker PCB modules on https://panhandleponics.com if you want to make things a little easier on yourself.
 
 ---
