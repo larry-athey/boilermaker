@@ -119,7 +119,7 @@ String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
 String TimeLeft = "00:00:00";    // Countdown time remaining
 String TuningData = "n/a";       // PID auto tuning result data
-String Version = "1.0.3b";       // Current release version of the project
+String Version = "1.0.3c";       // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
 bool ProgressEnabled = false;    // True if progressive temperature is enabled
@@ -791,8 +791,8 @@ String HandleAPI(String Header) { // Handle HTTP API calls (this ain't gonna be 
   } else if (Header.indexOf("/?set-correctionfactor=") == 0) { // Set new CorrectionFactor value
     Header.remove(0,23);
     CorrectionFactor = Header.toFloat();
-    if (CorrectionFactor < -5) CorrectionFactor = -5.0;
-    if (CorrectionFactor > 5) CorrectionFactor = 5.0;
+    if (CorrectionFactor < -15) CorrectionFactor = -15.0;
+    if (CorrectionFactor > 15) CorrectionFactor = 15.0;
     SetMemory();
     return jsonSuccess;
   } else if (Header.indexOf("/?set-sensortype=") == 0) { // Set temperature sensor type
@@ -891,8 +891,8 @@ void HandleSerialInput() { // Handle user configuration via the serial console
     if ((slaveIP4 == "0.0.0.0") || (! isValidIP(slaveIP4))) slaveIP4 = "";
   } else if (Option == "9" ) {
     get_CorrectionFactor();
-    if (CorrectionFactor < -5) CorrectionFactor = -5.0;
-    if (CorrectionFactor > 5) CorrectionFactor = 5.0;
+    if (CorrectionFactor < -15) CorrectionFactor = -15.0;
+    if (CorrectionFactor > 15) CorrectionFactor = 15.0;
   }
   SetMemory();
   ShowConfig();

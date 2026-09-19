@@ -144,7 +144,7 @@ inline void get_SlaveIP4() { // Get the IP address for slave unit 4
 }
 //------------------------------------------------------------------------------------------------
 inline void get_CorrectionFactor() { // Get the correction factor for the temperature sensor
-  Serial.print("Enter Correction Factor (-5.0 to 5.0): ");
+  Serial.print("Enter Correction Factor (-15.0 to 15.0): ");
   CorrectionFactor = ReadInput().toFloat();
 }
 //------------------------------------------------------------------------------------------------
