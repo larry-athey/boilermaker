@@ -8,6 +8,6 @@ Changes since the version 1.02 release
 
 - PID auto tuning. This was added because no matter how you explain PID to somebody, it's still a rat-maze of if-then-else logic and most people aren't programmers. This requires your boiler to be full of water and the Boilermaker will first raise it to 66C/150F before the tuning begins, which takes 10 to 20 minutes after that point. Your web UI and API will become 100% unresponsive during this procedure and you only have 15 seconds to cancel it if you accidentally start it. The only output during this procedure is via serial connection.
 
-- Correction factor increased to match that of the Airhead/μBoilermaker (-15C to +15C). This increased range caters to people with boilers where the temperature sensor can only be mounted externally rather than inside of a thermowell.
+- Correction factor range increased to match that of the Airhead/μBoilermaker (-15C to +15C). This increased range caters to people with boilers where the temperature sensor can only be mounted externally rather than inside of a thermowell.
 
 - Over the air firmware updating. This was added so people can update the firmware without the need to install the full development environment. The Boilermaker becomes its own WiFi access point that you connect to and then simply upload the latest **boilermaker-firmware.bin** file with your web browser. Refer to the **/firmware/** directory of this GitHub repository for more information.
