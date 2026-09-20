@@ -14,7 +14,7 @@ Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/
 
 _**NOTE:** You can also connect to the Boilermaker with your mobile phone [according to Grok](https://x.com/i/grok/share/BJil4zNbj3p3dYd8i8HHYdEaw) but I haven't tried this yet. You can also simply use the serial terminal in the Arduino IDE by pressing CTRL+Shift+M._
 
-Windows users will also need to download and install the [CP210x driver](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads) so the Boilermaker will appear as a serial port that your terminal program can connect to. Linux users need not bother with this since the driver is already part of the kernel source tree.
+Windows users will also need to download and install the [CP210x driver](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads) so the Boilermaker will appear as a serial port that your terminal program can connect to. Linux and Mac OS users need not bother with this since the driver is already part of the kernel tree.
 
 Once your Boilermaker is connected to your computer with a USB data cable _(not just a charging cable)_, it will appear as a serial port and your terminal program will see it. The communications parameters are 9600 baud, 8N1. This is an old standard and shouldn't require any special configuration steps on your part.
 
