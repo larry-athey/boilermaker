@@ -10,7 +10,7 @@ Unlike other WiFi enabled ESP32 powered devices, the Boilermaker does not defaul
 
 [Here's how to use PuTTY under Windows to connect to the Boilermaker.](https://x.com/i/grok/share/i61lGPHt1tv3cxOr8ogD5S6SR)
 
-Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/) program, which is also available for Linux desktop systems, including Raspberry Pi systems. Linux users can also install any of the many command line terminal programs with their package manager, such as minicom. Mac OS also contains a command line terminal simply called "screen". Seriously, serial terminal programs are as old as mainframe servers, this is far from anything new.
+Mac OS users should install the free [CoolTerm](https://freeware.the-meiers.org/) program, which is also available for Linux desktop systems, including Raspberry Pi systems. Linux users can also install any of the many command line terminal programs with their package manager, such as minicom or picocom. Mac OS also contains a command line terminal simply called "screen". Seriously, serial terminal programs are as old as mainframe servers, this is far from anything new.
 
 _**NOTE:** You can also connect to the Boilermaker with your mobile phone [according to Grok](https://x.com/i/grok/share/BJil4zNbj3p3dYd8i8HHYdEaw) but I haven't tried this yet. You can also simply use the serial terminal in the Arduino IDE by pressing CTRL+Shift+M._
 
