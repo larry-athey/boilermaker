@@ -7,10 +7,10 @@
 //
 // https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 //
-// The project is based on the 38 pin ESP32 WROOM-DA (Dual Antenna) or similar. If yours doesn't
-// have an onboard LED attached to GPIO 2, you can compile for the WROOM-DA and solder a 220 ohm
-// resistor and LED in series between GPIO 2 and any ground pin. This provides a visual indicator
-// of a functional WiFi connection and network activity.
+// The project is based on the 38 pin ESP32 WROOM-32 using the v2.0.17 board library. The board
+// selection I use is the "uPesy ESP32 Wroom DevKit" but you can use any other compatible board.
+// This has been tested successfully with the WROOM-DA dual antenna board if you have the extra
+// cash laying around and want to use the more expensive board.
 //
 // Derived from the boiler management routines in my Airhead upgrade for Air Stills (and clones).
 // WiFi enabled with a built-in web interface that you can access from your phone's web browser to
