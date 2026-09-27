@@ -40,7 +40,8 @@
 //       their own settings. Also, each slave can have its own 4 slaves as well that will follow
 //       what this controller tells it to do. Think of it like an Amway pyramid scheme. LOL!!!
 //------------------------------------------------------------------------------------------------
-#include "WiFi.h"                // ESP32-WROOM-DA will allow the blue on-board LED to react to WiFi traffic
+#include "WiFi.h"                // ESP32 high-level WiFi connectivity library
+#include "esp_wifi.h"            // ESP32 low-level WiFi connectivity library
 #include "HTTPClient.h"          // HTTP client library used for communicating with slave units
 #include "ESP32Ping.h"           // ICMP (ping) library from https://github.com/marian-craciunescu/ESP32Ping
 #include "ota_update.h"          // Over-The-Air firmware updating library
@@ -51,7 +52,7 @@
 #include "QuickPID.h"            // PID calculation library from https://github.com/Dlloydev/QuickPID
 #include "sTune.h"               // QuickPID autotune library from https://github.com/Dlloydev/sTune
 //------------------------------------------------------------------------------------------------
-#define FAN_OUT 16               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor) [The PCB has this on GPIO 2, so the onboard WiFi activity LED no longer works]
+#define FAN_OUT 2               // Cooling fan on/off pin (to 1K resistor, to base of 2N3904 transistor) [The PCB has this on GPIO 2, so the onboard WiFi activity LED no longer works]
 //#define SCR_OUT 17             // PWM output to an SCR board (comment out if using a zero-crossing SSR)
 #define ONE_WIRE 13              // 1-Wire network pin for the DS18B20 temperature sensor
 #define thermoMISO 19            // MAX-6675 SPI data bus
@@ -119,7 +120,7 @@ String Uptime = "00:00:00";      // Current system uptime
 String Runtime = "00:00:00";     // Current heating runtime
 String TimeLeft = "00:00:00";    // Countdown time remaining
 String TuningData = "n/a";       // PID auto tuning result data
-String Version = "1.0.3c";       // Current release version of the project
+String Version = "1.0.3d";       // Current release version of the project
 //------------------------------------------------------------------------------------------------
 // v1.0.2 add-on to provide Airhead style progressive temperature control
 bool ProgressEnabled = false;    // True if progressive temperature is enabled
@@ -220,7 +221,11 @@ void setup() {
 
     // Start WiFi Access Point
     WiFi.mode(WIFI_AP);
-    WiFi.softAP(ap_ssid,ap_password);
+    uint8_t protocol = WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N;
+    esp_wifi_set_protocol(WIFI_IF_AP,protocol);
+    esp_wifi_set_bandwidth(WIFI_IF_AP,WIFI_BW_HT20);
+    esp_wifi_set_max_tx_power(84);
+    WiFi.softAP(ap_ssid,ap_password,6);
     IPAddress myIP = WiFi.softAPIP();
     Serial.print("AP IP address: ");
     Serial.println(myIP);
@@ -278,6 +283,11 @@ void ConnectWiFi() { // Connect to WiFi network, must be WPA2-PSK, not WPA3
   WiFi.setSleep(false);
   WiFi.setAutoReconnect(true);
   WiFi.persistent(true);
+
+  uint8_t protocol = WIFI_PROTOCOL_11B | WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N;
+  esp_wifi_set_protocol(WIFI_IF_STA,protocol);
+  esp_wifi_set_bandwidth(WIFI_IF_STA,WIFI_BW_HT20);
+  esp_wifi_set_max_tx_power(84);
   if (wifiMode == 1) {
     bool Passed = true;
     int segCount = 0;
